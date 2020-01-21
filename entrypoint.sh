@@ -11,7 +11,7 @@ REPO=github.com/micro/services
 echo "Downloading $SOURCE"
 
 # clone the repo
-git clone --no-checkout https://$REPO
+#git clone --no-checkout https://$REPO
 
 # cd into source
 cd services
