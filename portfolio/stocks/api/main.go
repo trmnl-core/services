@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 
-	auth "github.com/kytra-app/helpers/authentication"
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/helpers/photos"
-	"github.com/kytra-app/stocks-api/handler"
-	proto "github.com/kytra-app/stocks-api/proto"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/helpers/photos"
+	"github.com/micro/services/portfolio/stocks-api/handler"
+	proto "github.com/micro/services/portfolio/stocks-api/proto"
 )
 
 func main() {

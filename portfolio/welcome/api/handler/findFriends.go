@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 
-	users "github.com/kytra-app/users-srv/proto"
-	proto "github.com/kytra-app/welcome-api/proto"
+	users "github.com/micro/services/portfolio/users/proto"
+	proto "github.com/micro/services/portfolio/welcome-api/proto"
 )
 
 // FindFriends looks up users by phone number

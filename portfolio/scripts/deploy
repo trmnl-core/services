@@ -1,6 +1,6 @@
 #!/bin/bash
 echo ""
-version=$(~/go/src/github.com/kytra-app/scripts/get-version)
+version=$(~/go/src/github.com/micro/services/portfolio/scripts/get-version)
 service=$(basename "$PWD")
 printf "Deploying ${service} v${version}... "
 kubectl apply -f ./deployment/service.yaml | grep "IGNORETHIS"

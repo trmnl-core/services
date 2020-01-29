@@ -3,9 +3,9 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/stocks-srv/proto"
-	"github.com/kytra-app/stocks-srv/storage"
 	"github.com/micro/go-micro/errors"
+	proto "github.com/micro/services/portfolio/stocks/proto"
+	"github.com/micro/services/portfolio/stocks/storage"
 )
 
 // New returns an instance of Handler

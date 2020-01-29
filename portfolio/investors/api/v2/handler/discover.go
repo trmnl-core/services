@@ -3,9 +3,9 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/investors-api/proto"
-	allocation "github.com/kytra-app/portfolio-allocation-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	proto "github.com/micro/services/portfolio/investors-api/proto"
+	allocation "github.com/micro/services/portfolio/portfolio-allocation/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Discover retries a list of investors the user may wish to follow

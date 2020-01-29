@@ -3,15 +3,15 @@ package consumer
 import (
 	"context"
 
-	comments "github.com/kytra-app/comments-srv/proto"
-	followers "github.com/kytra-app/followers-srv/proto"
-	"github.com/kytra-app/helpers/microgorm"
-	"github.com/kytra-app/helpers/textenhancer"
-	"github.com/kytra-app/notifications-srv/storage"
-	posts "github.com/kytra-app/posts-srv/proto"
-	push "github.com/kytra-app/push-notifications-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
+	comments "github.com/micro/services/portfolio/comments/proto"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	"github.com/micro/services/portfolio/helpers/microgorm"
+	"github.com/micro/services/portfolio/helpers/textenhancer"
+	"github.com/micro/services/portfolio/notifications/storage"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	push "github.com/micro/services/portfolio/push-notifications/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // New returns an instance of Consumer
@@ -19,11 +19,11 @@ func New(client client.Client, db storage.Service) Consumer {
 	return Consumer{
 		db:           db,
 		textenhancer: textenhancer.Service{},
-		usersSrv:     users.NewUsersService("kytra-srv-v1-users:8080", client),
-		postsSrv:     posts.NewPostsService("kytra-srv-v1-posts:8080", client),
-		followersSrv: followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
-		commentsSrv:  comments.NewCommentsService("kytra-srv-v1-comments:8080", client),
-		pushSrv:      push.NewPushNotificationsService("kytra-srv-v1-push-notifications:8080", client),
+		usersSrv:     users.NewUsersService("kytra-v1-users:8080", client),
+		postsSrv:     posts.NewPostsService("kytra-v1-posts:8080", client),
+		followersSrv: followers.NewFollowersService("kytra-v1-followers:8080", client),
+		commentsSrv:  comments.NewCommentsService("kytra-v1-comments:8080", client),
+		pushSrv:      push.NewPushNotificationsService("kytra-v1-push-notifications:8080", client),
 	}
 }
 

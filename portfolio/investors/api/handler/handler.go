@@ -5,17 +5,17 @@ import (
 	"strings"
 	"time"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/helpers/photos"
-	proto "github.com/kytra-app/investors-api/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/helpers/photos"
+	proto "github.com/micro/services/portfolio/investors-api/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -35,12 +35,12 @@ func New(auth auth.Authenticator, pics photos.Service, client client.Client) Han
 	return Handler{
 		auth:       auth,
 		photos:     pics,
-		stocks:     stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		portfolios: portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
-		trades:     trades.NewTradesService("kytra-srv-v1-trades:8080", client),
-		users:      users.NewUsersService("kytra-srv-v1-users:8080", client),
-		followers:  followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
-		quotes:     quotes.NewStockQuoteService("kytra-srv-v1-stock-quote:8080", client),
+		stocks:     stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		portfolios: portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
+		trades:     trades.NewTradesService("kytra-v1-trades:8080", client),
+		users:      users.NewUsersService("kytra-v1-users:8080", client),
+		followers:  followers.NewFollowersService("kytra-v1-followers:8080", client),
+		quotes:     quotes.NewStockQuoteService("kytra-v1-stock-quote:8080", client),
 	}
 }
 

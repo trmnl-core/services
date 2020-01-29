@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/bullbear-srv/handler"
-	proto "github.com/kytra-app/bullbear-srv/proto"
-	"github.com/kytra-app/bullbear-srv/storage/postgres"
-	_ "github.com/micro/go-plugins/registry/kubernetes"
 	"github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/bullbear/handler"
+	proto "github.com/micro/services/portfolio/bullbear/proto"
+	"github.com/micro/services/portfolio/bullbear/storage/postgres"
 	"github.com/pkg/errors"
 )
 
@@ -25,7 +25,7 @@ func main() {
 	defer storageService.Close()
 
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-bullbear"),
+		micro.Name("kytra-v1-bullbear"),
 		micro.Version("latest"),
 	)
 	service.Init()

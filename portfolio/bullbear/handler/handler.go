@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/bullbear-srv/proto"
-	"github.com/kytra-app/bullbear-srv/storage"
+	proto "github.com/micro/services/portfolio/bullbear/proto"
+	"github.com/micro/services/portfolio/bullbear/storage"
 )
 
 // New returns an instance of Handler

@@ -1,4 +1,4 @@
-module github.com/kytra-app/insights-srv
+module github.com/micro/services/portfolio/insights
 
 go 1.12
 
@@ -7,15 +7,15 @@ require (
 	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible
 	github.com/golang/protobuf v1.3.2
 	github.com/jinzhu/gorm v1.9.11
-	github.com/kytra-app/followers-srv v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/helpers/microgorm v1.0.0
-	github.com/kytra-app/helpers/microtime v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/portfolio-valuation-srv v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/portfolios-srv v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/stock-earnings-srv v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/stocks-srv v1.0.0
-	github.com/kytra-app/trades-srv v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/users-srv v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/followers v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/helpers/microgorm v1.0.0
+	github.com/micro/services/portfolio/helpers/microtime v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/portfolio-valuation v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/portfolios v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/stock-earnings v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/stocks v1.0.0
+	github.com/micro/services/portfolio/trades v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/users v0.0.0-00010101000000-000000000000
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/go-plugins v1.5.1
 	github.com/micro/micro v1.16.0
@@ -25,30 +25,30 @@ require (
 	go.etcd.io/etcd v3.3.13+incompatible
 )
 
-replace github.com/kytra-app/helpers/passwordhasher => ../helpers/passwordhasher
+replace github.com/micro/services/portfolio/helpers/passwordhasher => ../helpers/passwordhasher
 
-replace github.com/kytra-app/helpers/microgorm => ../helpers/microgorm
+replace github.com/micro/services/portfolio/helpers/microgorm => ../helpers/microgorm
 
-replace github.com/kytra-app/helpers/microtime => ../helpers/microtime
+replace github.com/micro/services/portfolio/helpers/microtime => ../helpers/microtime
 
-replace github.com/kytra-app/helpers/iex-cloud => ../helpers/iex-cloud
+replace github.com/micro/services/portfolio/helpers/iex-cloud => ../helpers/iex-cloud
 
-replace github.com/kytra-app/stock-quote-srv => ../stock-quote-srv
+replace github.com/micro/services/portfolio/stock-quote => ../stock-quote
 
-replace github.com/kytra-app/portfolio-valuation-srv => ../portfolio-valuation-srv
+replace github.com/micro/services/portfolio/portfolio-valuation => ../portfolio-valuation
 
-replace github.com/kytra-app/portfolios-srv => ../portfolios-srv
+replace github.com/micro/services/portfolio/portfolios => ../portfolios
 
-replace github.com/kytra-app/trades-srv => ../trades-srv
+replace github.com/micro/services/portfolio/trades => ../trades
 
-replace github.com/kytra-app/ledger-srv => ../ledger-srv
+replace github.com/micro/services/portfolio/ledger => ../ledger
 
-replace github.com/kytra-app/followers-srv => ../followers-srv
+replace github.com/micro/services/portfolio/followers => ../followers
 
-replace github.com/kytra-app/users-srv => ../users-srv
+replace github.com/micro/services/portfolio/users => ../users
 
-replace github.com/kytra-app/stock-earnings-srv => ../stock-earnings-srv
+replace github.com/micro/services/portfolio/stock-earnings => ../stock-earnings
 
-replace github.com/kytra-app/stocks-srv => ../stocks-srv
+replace github.com/micro/services/portfolio/stocks => ../stocks
 
 replace github.com/hashicorp/consul => github.com/hashicorp/consul v1.5.1

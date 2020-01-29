@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/news
+module github.com/micro/services/portfolio/helpers/news
 
 go 1.12
 

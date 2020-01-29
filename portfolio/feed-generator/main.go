@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/kytra-app/feed-generator-srv/handler"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/config/cmd"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/feed-generator/handler"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 
 	// Setup the service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-feed-generator"),
+		micro.Name("kytra-v1-feed-generator"),
 		micro.Version("latest"),
 	)
 	service.Init()
@@ -32,9 +32,9 @@ func main() {
 
 	// Create a Handler and subscribe to events
 	h := handler.New(service.Client())
-	broker.Subscribe("kytra-srv-v1-posts-post-created", h.HandleNewPost, broker.Queue("feed-generator-post-created"))
-	broker.Subscribe("kytra-srv-v1-followers-new-follow", h.HandleFollow, broker.Queue("feed-generator-new-follow"))
-	broker.Subscribe("kytra-srv-v1-followers-new-unfollow", h.HandleUnfollow, broker.Queue("feed-generator-new-unfollow"))
+	broker.Subscribe("kytra-v1-posts-post-created", h.HandleNewPost, broker.Queue("feed-generator-post-created"))
+	broker.Subscribe("kytra-v1-followers-new-follow", h.HandleFollow, broker.Queue("feed-generator-new-follow"))
+	broker.Subscribe("kytra-v1-followers-new-unfollow", h.HandleUnfollow, broker.Queue("feed-generator-new-unfollow"))
 
 	// Run the service
 	if err := service.Run(); err != nil {

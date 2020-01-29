@@ -8,15 +8,15 @@ import (
 	"strings"
 	"time"
 
-	proto "github.com/kytra-app/daily-summary-api/proto"
-	reactlink "github.com/kytra-app/helpers/reactlink"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	earnings "github.com/kytra-app/stock-earnings-srv/proto"
-	news "github.com/kytra-app/stock-news-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv-v2/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	proto "github.com/micro/services/portfolio/daily-summary-api/proto"
+	reactlink "github.com/micro/services/portfolio/helpers/reactlink"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	earnings "github.com/micro/services/portfolio/stock-earnings/proto"
+	news "github.com/micro/services/portfolio/stock-news/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote-v2/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Morning returns the morning summary for today

@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kytra-app/helpers/photos"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/helpers/photos"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 // BaseURL for the IEX API
@@ -33,12 +33,12 @@ type Stock struct {
 
 func main() {
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-stock-importer"),
+		micro.Name("kytra-v1-stock-importer"),
 		micro.Version("latest"),
 	)
 	service.Init()
 
-	stocksSrv := stocks.NewStocksService("kytra-srv-v1-stocks:8080", service.Client())
+	stocksSrv := stocks.NewStocksService("kytra-v1-stocks:8080", service.Client())
 
 	// importStocks(stocksSrv)
 	// importPhotos(stocksSrv)

@@ -6,15 +6,15 @@ import (
 	"log"
 	"os"
 
-	"github.com/kytra-app/notifications-srv/api"
-	"github.com/kytra-app/notifications-srv/consumer"
-	proto "github.com/kytra-app/notifications-srv/proto"
-	"github.com/kytra-app/notifications-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/config/cmd"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/notifications/api"
+	"github.com/micro/services/portfolio/notifications/consumer"
+	proto "github.com/micro/services/portfolio/notifications/proto"
+	"github.com/micro/services/portfolio/notifications/storage/postgres"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 
 	// Setup the service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-notifications"),
+		micro.Name("kytra-v1-notifications"),
 		micro.Version("latest"),
 	)
 	service.Init()
@@ -49,9 +49,9 @@ func main() {
 
 	// Create a Handler and subscribe to events
 	c := consumer.New(service.Client(), db)
-	broker.Subscribe("kytra-srv-v1-posts-post-created", c.ConsumeNewPost, broker.Queue("notifications-srv-post-created"))
-	broker.Subscribe("kytra-srv-v1-followers-new-follow", c.ConsumeNewFollow, broker.Queue("notifications-srv-new-follow"))
-	broker.Subscribe("kytra-srv-v1-comments-comment-created", c.ConsumeNewComment, broker.Queue("notifications-srv-comment-created"))
+	broker.Subscribe("kytra-v1-posts-post-created", c.ConsumeNewPost, broker.Queue("notifications-post-created"))
+	broker.Subscribe("kytra-v1-followers-new-follow", c.ConsumeNewFollow, broker.Queue("notifications-new-follow"))
+	broker.Subscribe("kytra-v1-comments-comment-created", c.ConsumeNewComment, broker.Queue("notifications-comment-created"))
 
 	// Run the service
 	proto.RegisterNotificationsHandler(service.Server(), api.New(service.Client(), db))

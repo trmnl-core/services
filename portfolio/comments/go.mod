@@ -1,4 +1,4 @@
-module github.com/kytra-app/comments-srv
+module github.com/micro/services/portfolio/comments
 
 go 1.12
 

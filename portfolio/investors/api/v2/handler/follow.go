@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	proto "github.com/kytra-app/investors-api/proto"
 	"github.com/micro/go-micro/errors"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	proto "github.com/micro/services/portfolio/investors-api/proto"
 )
 
 // Follow creates a follower relationship between the requested user and the authenticated uses

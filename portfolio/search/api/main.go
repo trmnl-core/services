@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	auth "github.com/kytra-app/helpers/authentication"
-	photos "github.com/kytra-app/helpers/photos"
-	"github.com/kytra-app/search-api/handler"
-	proto "github.com/kytra-app/search-api/proto"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	photos "github.com/micro/services/portfolio/helpers/photos"
+	"github.com/micro/services/portfolio/search-api/handler"
+	proto "github.com/micro/services/portfolio/search-api/proto"
 )
 
 func main() {
@@ -30,7 +30,6 @@ func main() {
 		fmt.Printf("Could not initiate auth package: %v\n", err)
 		os.Exit(2)
 	}
-
 
 	handler := handler.New(service.Client(), auth, pics)
 	proto.RegisterSearchHandler(service.Server(), handler)

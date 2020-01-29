@@ -5,14 +5,14 @@ import (
 	"os"
 	"time"
 
-	news "github.com/kytra-app/helpers/news"
-	"github.com/kytra-app/stock-news-srv/handler"
-	proto "github.com/kytra-app/stock-news-srv/proto"
-	"github.com/kytra-app/stock-news-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-plugins/broker/rabbitmq"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	news "github.com/micro/services/portfolio/helpers/news"
+	"github.com/micro/services/portfolio/stock-news/handler"
+	proto "github.com/micro/services/portfolio/stock-news/proto"
+	"github.com/micro/services/portfolio/stock-news/storage/postgres"
 	"github.com/pkg/errors"
 	"github.com/robfig/cron/v3"
 )
@@ -20,7 +20,7 @@ import (
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-stock-news"),
+		micro.Name("kytra-v1-stock-news"),
 		micro.Version("latest"),
 	)
 	service.Init()

@@ -3,10 +3,10 @@ package handler
 import (
 	"context"
 
-	"github.com/kytra-app/helpers/microgorm"
-	proto "github.com/kytra-app/portfolios-srv/proto"
-	"github.com/kytra-app/portfolios-srv/storage"
 	"github.com/micro/go-micro/errors"
+	"github.com/micro/services/portfolio/helpers/microgorm"
+	proto "github.com/micro/services/portfolio/portfolios/proto"
+	"github.com/micro/services/portfolio/portfolios/storage"
 )
 
 // New returns an instance of Handler

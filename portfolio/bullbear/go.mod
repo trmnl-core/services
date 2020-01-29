@@ -1,4 +1,4 @@
-module github.com/kytra-app/bullbear-srv
+module github.com/micro/services/portfolio/bullbear
 
 go 1.12
 

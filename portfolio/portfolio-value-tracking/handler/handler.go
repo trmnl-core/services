@@ -6,13 +6,13 @@ import (
 	"log"
 	"time"
 
-	"github.com/kytra-app/helpers/microtime"
-	valuation "github.com/kytra-app/portfolio-valuation-srv/proto"
-	proto "github.com/kytra-app/portfolio-value-tracking-srv/proto"
-	"github.com/kytra-app/portfolio-value-tracking-srv/storage"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	valuation "github.com/micro/services/portfolio/portfolio-valuation/proto"
+	proto "github.com/micro/services/portfolio/portfolio-value-tracking/proto"
+	"github.com/micro/services/portfolio/portfolio-value-tracking/storage"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -26,8 +26,8 @@ type Handler struct {
 func New(storage storage.Service, client client.Client) *Handler {
 	return &Handler{
 		db:         storage,
-		portfolios: portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
-		valuation:  valuation.NewPortfolioValuationService("kytra-srv-v1-portfolio-valuation:8080", client),
+		portfolios: portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
+		valuation:  valuation.NewPortfolioValuationService("kytra-v1-portfolio-valuation:8080", client),
 	}
 }
 

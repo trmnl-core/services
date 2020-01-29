@@ -6,11 +6,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/kytra-app/helpers/unique"
-	insights "github.com/kytra-app/insights-srv/proto"
-	storage "github.com/kytra-app/stock-quote-srv/storage"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
+	"github.com/micro/services/portfolio/helpers/unique"
+	insights "github.com/micro/services/portfolio/insights/proto"
+	storage "github.com/micro/services/portfolio/stock-quote/storage"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
 )
 
 // FetchLivePrices retrieves the intraday prices from IEX for assets

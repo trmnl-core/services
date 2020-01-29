@@ -6,7 +6,7 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/kytra-app/helpers/mailer"
+	"github.com/micro/services/portfolio/helpers/mailer"
 )
 
 func main() {

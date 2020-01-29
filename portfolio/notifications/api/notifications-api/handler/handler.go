@@ -4,12 +4,12 @@ import (
 	"context"
 	"time"
 
-	auth "github.com/kytra-app/helpers/authentication"
-	proto "github.com/kytra-app/notifications-api/proto"
-	notifications "github.com/kytra-app/notifications-srv/proto"
-	push "github.com/kytra-app/push-notifications-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	proto "github.com/micro/services/portfolio/notifications-api/proto"
+	notifications "github.com/micro/services/portfolio/notifications/proto"
+	push "github.com/micro/services/portfolio/push-notifications/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -23,8 +23,8 @@ type Handler struct {
 func New(client client.Client, auth auth.Authenticator) Handler {
 	return Handler{
 		auth:          auth,
-		push:          push.NewPushNotificationsService("kytra-srv-v1-push-notifications:8080", client),
-		notifications: notifications.NewNotificationsService("kytra-srv-v1-notifications:8080", client),
+		push:          push.NewPushNotificationsService("kytra-v1-push-notifications:8080", client),
+		notifications: notifications.NewNotificationsService("kytra-v1-notifications:8080", client),
 	}
 }
 

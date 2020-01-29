@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/ledger-srv/handler"
-	proto "github.com/kytra-app/ledger-srv/proto"
-	"github.com/kytra-app/ledger-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/ledger/handler"
+	proto "github.com/micro/services/portfolio/ledger/proto"
+	"github.com/micro/services/portfolio/ledger/storage/postgres"
 	"github.com/pkg/errors"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-ledger"),
+		micro.Name("kytra-v1-ledger"),
 		micro.Version("latest"),
 	)
 	service.Init()

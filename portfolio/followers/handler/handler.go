@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 
-	proto "github.com/kytra-app/followers-srv/proto"
-	"github.com/kytra-app/followers-srv/storage"
-	"github.com/kytra-app/helpers/microtime"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/errors"
+	proto "github.com/micro/services/portfolio/followers/proto"
+	"github.com/micro/services/portfolio/followers/storage"
+	"github.com/micro/services/portfolio/helpers/microtime"
 )
 
 // New returns an instance of Handler
@@ -125,7 +125,7 @@ func (h *Handler) Follow(ctx context.Context, req *proto.Request, rsp *proto.Res
 	if err != nil {
 		return err
 	}
-	return h.broker.Publish("kytra-srv-v1-followers-new-follow", &broker.Message{Body: bytes})
+	return h.broker.Publish("kytra-v1-followers-new-follow", &broker.Message{Body: bytes})
 }
 
 // Unfollow deletes the relationship between a follower and a followee
@@ -141,5 +141,5 @@ func (h *Handler) Unfollow(ctx context.Context, req *proto.Request, rsp *proto.R
 	if err != nil {
 		return err
 	}
-	return h.broker.Publish("kytra-srv-v1-followers-new-unfollow", &broker.Message{Body: bytes})
+	return h.broker.Publish("kytra-v1-followers-new-unfollow", &broker.Message{Body: bytes})
 }

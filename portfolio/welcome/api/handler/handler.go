@@ -1,15 +1,15 @@
 package handler
 
 import (
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/helpers/photos"
-	"github.com/kytra-app/helpers/sms"
-	ledger "github.com/kytra-app/ledger-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	smsVer "github.com/kytra-app/sms-verification-srv/proto"
-	user "github.com/kytra-app/users-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
-	proto "github.com/kytra-app/welcome-api/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/helpers/photos"
+	"github.com/micro/services/portfolio/helpers/sms"
+	ledger "github.com/micro/services/portfolio/ledger/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	smsVer "github.com/micro/services/portfolio/sms-verification/proto"
+	user "github.com/micro/services/portfolio/users/proto"
+	users "github.com/micro/services/portfolio/users/proto"
+	proto "github.com/micro/services/portfolio/welcome-api/proto"
 
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
@@ -32,10 +32,10 @@ func New(auth auth.Authenticator, pics photos.Service, sms sms.Service, client c
 		auth:       auth,
 		photos:     pics,
 		sms:        sms,
-		user:       user.NewUsersService("kytra-srv-v1-users:8080", client),
-		ledger:     ledger.NewLedgerService("kytra-srv-v1-ledger:8080", client),
-		smsVer:     smsVer.NewSMSVerificationService("kytra-srv-v1-sms-verification:8080", client),
-		portfolios: portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
+		user:       user.NewUsersService("kytra-v1-users:8080", client),
+		ledger:     ledger.NewLedgerService("kytra-v1-ledger:8080", client),
+		smsVer:     smsVer.NewSMSVerificationService("kytra-v1-sms-verification:8080", client),
+		portfolios: portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
 	}
 }
 

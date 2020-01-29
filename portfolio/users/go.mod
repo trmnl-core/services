@@ -1,4 +1,4 @@
-module github.com/kytra-app/users-srv
+module github.com/micro/services/portfolio/users
 
 go 1.12
 
@@ -15,8 +15,8 @@ require (
 	github.com/golang/protobuf v1.3.2
 	github.com/gregjones/httpcache v0.0.0-20190203031600-7a902570cb17 // indirect
 	github.com/jinzhu/gorm v1.9.10
-	github.com/kytra-app/helpers/microgorm v1.0.0
-	github.com/kytra-app/helpers/passwordhasher v1.1.1
+	github.com/micro/services/portfolio/helpers/microgorm v1.0.0
+	github.com/micro/services/portfolio/helpers/passwordhasher v1.1.1
 	github.com/lucas-clemente/quic-go v0.11.2 // indirect
 	github.com/micro/go-api v0.6.0 // indirect
 	github.com/micro/go-micro v1.8.1
@@ -46,8 +46,8 @@ require (
 	sourcegraph.com/sqs/pbtypes v1.0.0 // indirect
 )
 
-replace github.com/kytra-app/helpers/passwordhasher => ../helpers/passwordhasher
+replace github.com/micro/services/portfolio/helpers/passwordhasher => ../helpers/passwordhasher
 
 replace github.com/hashicorp/consul => github.com/hashicorp/consul v1.5.1
 
-replace github.com/kytra-app/helpers/microgorm => ../helpers/microgorm
+replace github.com/micro/services/portfolio/helpers/microgorm => ../helpers/microgorm

@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/kytra-app/helpers/microgorm"
-	"github.com/kytra-app/push-notifications-srv/storage"
+	"github.com/micro/services/portfolio/helpers/microgorm"
+	"github.com/micro/services/portfolio/push-notifications/storage"
 
 	// The PG driver
 	_ "github.com/jinzhu/gorm/dialects/postgres"

@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/authentication
+module github.com/micro/services/portfolio/helpers/authentication
 
 go 1.12
 

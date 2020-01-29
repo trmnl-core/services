@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/kytra-app/insights-srv/storage"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/broker"
+	"github.com/micro/services/portfolio/insights/storage"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
-// Mover is the JSON object published by the stock-movers-srv
+// Mover is the JSON object published by the stock-movers
 type Mover struct {
 	StockUUID  string  `json:"stock_uuid"`
 	Percentage float32 `json:"percentage"`

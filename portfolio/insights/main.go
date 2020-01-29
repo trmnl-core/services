@@ -10,11 +10,11 @@ import (
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
 
-	"github.com/kytra-app/insights-srv/api"
-	"github.com/kytra-app/insights-srv/consumer"
-	proto "github.com/kytra-app/insights-srv/proto"
-	"github.com/kytra-app/insights-srv/storage/postgres"
 	"github.com/micro/go-micro"
+	"github.com/micro/services/portfolio/insights/api"
+	"github.com/micro/services/portfolio/insights/consumer"
+	proto "github.com/micro/services/portfolio/insights/proto"
+	"github.com/micro/services/portfolio/insights/storage/postgres"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 
 	// Create the service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-insights"),
+		micro.Name("kytra-v1-insights"),
 		micro.Version("latest"),
 	)
 	service.Init()

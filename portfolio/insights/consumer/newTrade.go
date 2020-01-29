@@ -6,17 +6,17 @@ import (
 	"fmt"
 	"math"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	"github.com/kytra-app/insights-srv/storage"
-	valuation "github.com/kytra-app/portfolio-valuation-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/broker"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	"github.com/micro/services/portfolio/insights/storage"
+	valuation "github.com/micro/services/portfolio/portfolio-valuation/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
-// Trade is the JSON object published by the trades-srv
+// Trade is the JSON object published by the trades
 type Trade struct {
 	TypeInt       trades.TradeType `json:"type"`
 	PortfolioUUID string           `json:"portfolio_uuid"`

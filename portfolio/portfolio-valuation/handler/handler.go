@@ -3,23 +3,23 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/portfolio-valuation-srv/proto"
+	proto "github.com/micro/services/portfolio/portfolio-valuation/proto"
 
-	ledger "github.com/kytra-app/ledger-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	ledger "github.com/micro/services/portfolio/ledger/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
 )
 
 // New returns an instance of Handler
 func New(client client.Client) *Handler {
 	return &Handler{
-		stocks: stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		trades: trades.NewTradesService("kytra-srv-v1-trades:8080", client),
-		ledger: ledger.NewLedgerService("kytra-srv-v1-ledger:8080", client),
-		quotes: quotes.NewStockQuoteService("kytra-srv-v1-stock-quote:8080", client),
+		stocks: stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		trades: trades.NewTradesService("kytra-v1-trades:8080", client),
+		ledger: ledger.NewLedgerService("kytra-v1-ledger:8080", client),
+		quotes: quotes.NewStockQuoteService("kytra-v1-stock-quote:8080", client),
 	}
 }
 

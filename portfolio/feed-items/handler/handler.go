@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/feeditems-srv/proto"
-	"github.com/kytra-app/feeditems-srv/storage"
+	proto "github.com/micro/services/portfolio/feeditems/proto"
+	"github.com/micro/services/portfolio/feeditems/storage"
 )
 
 // New returns an instance of Handler

@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/kytra-app/helpers/microgorm"
-	"github.com/kytra-app/trades-srv/helpers"
-	"github.com/kytra-app/trades-srv/storage"
 	"github.com/micro/go-micro/errors"
+	"github.com/micro/services/portfolio/helpers/microgorm"
+	"github.com/micro/services/portfolio/trades/helpers"
+	"github.com/micro/services/portfolio/trades/storage"
 
 	// The PG driver
 	_ "github.com/jinzhu/gorm/dialects/postgres"

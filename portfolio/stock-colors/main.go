@@ -12,19 +12,19 @@ import (
 	_ "image/png"
 
 	"github.com/generaltso/vibrant"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 func main() {
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-stock-colors"),
+		micro.Name("kytra-v1-stock-colors"),
 		micro.Version("latest"),
 	)
 	service.Init()
 
-	stocksSrv := stocks.NewStocksService("kytra-srv-v1-stocks:8080", service.Client())
+	stocksSrv := stocks.NewStocksService("kytra-v1-stocks:8080", service.Client())
 
 	sRsp, err := stocksSrv.All(context.Background(), &stocks.AllRequest{})
 	if err != nil {

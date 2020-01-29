@@ -9,11 +9,11 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/kytra-app/helpers/mailer"
-	"github.com/kytra-app/helpers/unique"
-	notifications "github.com/kytra-app/notifications-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
+	"github.com/micro/services/portfolio/helpers/mailer"
+	"github.com/micro/services/portfolio/helpers/unique"
+	notifications "github.com/micro/services/portfolio/notifications/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Handler is responsible for sending emails
@@ -34,8 +34,8 @@ func New(client client.Client, mailer mailer.Service) (Handler, error) {
 	return Handler{
 		mailer:        mailer,
 		template:      template,
-		users:         users.NewUsersService("kytra-srv-v1-users:8080", client),
-		notifications: notifications.NewNotificationsService("kytra-srv-v1-notifications:8080", client),
+		users:         users.NewUsersService("kytra-v1-users:8080", client),
+		notifications: notifications.NewNotificationsService("kytra-v1-notifications:8080", client),
 	}, nil
 }
 

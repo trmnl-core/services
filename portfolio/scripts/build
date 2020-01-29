@@ -1,8 +1,8 @@
 #!/bin/bash
 echo ""
-~/go/src/github.com/kytra-app/scripts/set-version
+~/go/src/github.com/micro/services/portfolio/scripts/set-version
 
-version=$(~/go/src/github.com/kytra-app/scripts/get-version)
+version=$(~/go/src/github.com/micro/services/portfolio/scripts/get-version)
 service=$(basename "$PWD")
 
 imageName=eu.gcr.io/kytra-app/$service:$version
@@ -29,5 +29,5 @@ read shouldDeploy
 
 if [ $shouldDeploy = 'y' ]
 then
-  ~/go/src/github.com/kytra-app/scripts/deploy
+  ~/go/src/github.com/micro/services/portfolio/scripts/deploy
 fi

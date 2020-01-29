@@ -5,19 +5,19 @@ import (
 	"os"
 	"time"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/stock-earnings-srv/handler"
-	proto "github.com/kytra-app/stock-earnings-srv/proto"
-	"github.com/kytra-app/stock-earnings-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/stock-earnings/handler"
+	proto "github.com/micro/services/portfolio/stock-earnings/proto"
+	"github.com/micro/services/portfolio/stock-earnings/storage/postgres"
 	"github.com/robfig/cron/v3"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-stock-earnings"),
+		micro.Name("kytra-v1-stock-earnings"),
 		micro.Version("latest"),
 	)
 	service.Init()

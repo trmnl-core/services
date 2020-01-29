@@ -1,8 +1,7 @@
 package helpers
 
-
 import (
-	"github.com/kytra-app/trades-srv/storage"
+	"github.com/micro/services/portfolio/trades/storage"
 )
 
 // SumQuantity determines the size of a position, given a slice of trades

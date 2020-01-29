@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/portfolios-srv/handler"
-	proto "github.com/kytra-app/portfolios-srv/proto"
-	"github.com/kytra-app/portfolios-srv/storage/postgres"
-	_ "github.com/micro/go-plugins/registry/kubernetes"
 	"github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/portfolios/handler"
+	proto "github.com/micro/services/portfolio/portfolios/proto"
+	"github.com/micro/services/portfolio/portfolios/storage/postgres"
 	"github.com/pkg/errors"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-portfolios"),
+		micro.Name("kytra-v1-portfolios"),
 		micro.Version("latest"),
 	)
 	service.Init()

@@ -4,8 +4,8 @@ import (
 	"sort"
 	"strings"
 
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Service is an implentation of Scorer

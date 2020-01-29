@@ -10,8 +10,8 @@ import (
 	"github.com/micro/go-micro/errors"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
 
-	proto "github.com/kytra-app/posts-srv/proto"
-	"github.com/kytra-app/posts-srv/storage"
+	proto "github.com/micro/services/portfolio/posts/proto"
+	"github.com/micro/services/portfolio/posts/storage"
 )
 
 // New returns an instance of Handler
@@ -39,7 +39,7 @@ func (h *Handler) Create(ctx context.Context, req *proto.Post, rsp *proto.Respon
 	if err != nil {
 		return err
 	}
-	brokerErr := h.broker.Publish("kytra-srv-v1-posts-post-created", &broker.Message{Body: bytes})
+	brokerErr := h.broker.Publish("kytra-v1-posts-post-created", &broker.Message{Body: bytes})
 	if brokerErr != nil {
 		fmt.Printf("Error Sending Msg to broker: %v\n", err)
 	} else {

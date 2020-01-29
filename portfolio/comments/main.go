@@ -7,11 +7,11 @@ import (
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-plugins/broker/rabbitmq"
 
-	"github.com/kytra-app/comments-srv/handler"
-	proto "github.com/kytra-app/comments-srv/proto"
-	"github.com/kytra-app/comments-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/comments/handler"
+	proto "github.com/micro/services/portfolio/comments/proto"
+	"github.com/micro/services/portfolio/comments/storage/postgres"
 	"github.com/pkg/errors"
 )
 
@@ -37,7 +37,7 @@ func main() {
 	}
 
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-comments"),
+		micro.Name("kytra-v1-comments"),
 		micro.Version("latest"),
 	)
 	service.Init()

@@ -5,11 +5,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/kytra-app/portfolio-value-tracking-srv/handler"
-	proto "github.com/kytra-app/portfolio-value-tracking-srv/proto"
-	"github.com/kytra-app/portfolio-value-tracking-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/portfolio-value-tracking/handler"
+	proto "github.com/micro/services/portfolio/portfolio-value-tracking/proto"
+	"github.com/micro/services/portfolio/portfolio-value-tracking/storage/postgres"
 	"github.com/pkg/errors"
 	"github.com/robfig/cron/v3"
 )
@@ -17,7 +17,7 @@ import (
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-portfolio-value-tracking"),
+		micro.Name("kytra-v1-portfolio-value-tracking"),
 		micro.Version("latest"),
 	)
 	service.Init()

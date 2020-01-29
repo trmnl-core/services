@@ -3,16 +3,16 @@ package main
 import (
 	"fmt"
 
-	"github.com/kytra-app/portfolio-allocation-srv/handler"
-	proto "github.com/kytra-app/portfolio-allocation-srv/proto"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/portfolio-allocation/handler"
+	proto "github.com/micro/services/portfolio/portfolio-allocation/proto"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-portfolio-allocation"),
+		micro.Name("kytra-v1-portfolio-allocation"),
 		micro.Version("latest"),
 	)
 	service.Init()

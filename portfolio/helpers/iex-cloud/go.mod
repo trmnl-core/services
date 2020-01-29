@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/iex-cloud
+module github.com/micro/services/portfolio/helpers/iex-cloud
 
 go 1.12
 

@@ -3,7 +3,7 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/welcome-api/proto"
+	proto "github.com/micro/services/portfolio/welcome-api/proto"
 )
 
 // RequestDownloadLink send the Google Play Store & Apple App Store links to the user

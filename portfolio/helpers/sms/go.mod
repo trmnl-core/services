@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/sms
+module github.com/micro/services/portfolio/helpers/sms
 
 go 1.12
 

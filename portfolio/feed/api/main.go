@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/feed-api/handler"
-	proto "github.com/kytra-app/feed-api/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/helpers/photos"
-	_ "github.com/micro/go-plugins/registry/kubernetes"
 	"github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/feed-api/handler"
+	proto "github.com/micro/services/portfolio/feed-api/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/helpers/photos"
 )
 
 func main() {

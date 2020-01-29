@@ -6,15 +6,15 @@ import (
 	"math"
 	"time"
 
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/helpers/microtime"
-	proto "github.com/kytra-app/home-cards-api/proto"
-	valuation "github.com/kytra-app/portfolio-value-tracking-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	quote "github.com/kytra-app/stock-quote-srv-v2/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	proto "github.com/micro/services/portfolio/home-cards-api/proto"
+	valuation "github.com/micro/services/portfolio/portfolio-value-tracking/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	quote "github.com/micro/services/portfolio/stock-quote-v2/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -30,10 +30,10 @@ type Handler struct {
 func New(auth auth.Authenticator, client client.Client) Handler {
 	return Handler{
 		auth:       auth,
-		quote:      quote.NewStockQuoteService("kytra-srv-v2-stock-quote:8080", client),
-		trades:     trades.NewTradesService("kytra-srv-v1-trades:8080", client),
-		portfolios: portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
-		valuation:  valuation.NewPortfolioValueTrackingService("kytra-srv-v1-portfolio-value-tracking:8080", client),
+		quote:      quote.NewStockQuoteService("kytra-v2-stock-quote:8080", client),
+		trades:     trades.NewTradesService("kytra-v1-trades:8080", client),
+		portfolios: portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
+		valuation:  valuation.NewPortfolioValueTrackingService("kytra-v1-portfolio-value-tracking:8080", client),
 	}
 }
 

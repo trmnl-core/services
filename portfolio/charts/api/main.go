@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/charts-api/handler"
-	proto "github.com/kytra-app/charts-api/proto"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/charts-api/handler"
+	proto "github.com/micro/services/portfolio/charts-api/proto"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
 )
 
 func main() {

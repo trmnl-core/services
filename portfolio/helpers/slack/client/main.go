@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/helpers/slack"
+	"github.com/micro/services/portfolio/helpers/slack"
 )
 
 var token string

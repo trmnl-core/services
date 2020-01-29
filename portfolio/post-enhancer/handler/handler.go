@@ -3,17 +3,17 @@ package handler
 import (
 	"context"
 
-	auth "github.com/kytra-app/helpers/authentication"
-	unique "github.com/kytra-app/helpers/unique"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	unique "github.com/micro/services/portfolio/helpers/unique"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 
-	bullbear "github.com/kytra-app/bullbear-srv/proto"
-	comments "github.com/kytra-app/comments-srv/proto"
-	followers "github.com/kytra-app/followers-srv/proto"
-	proto "github.com/kytra-app/post-enhancer-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
+	bullbear "github.com/micro/services/portfolio/bullbear/proto"
+	comments "github.com/micro/services/portfolio/comments/proto"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	proto "github.com/micro/services/portfolio/post-enhancer/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -42,12 +42,12 @@ type feedData struct {
 func New(auth auth.Authenticator, client client.Client) Handler {
 	return Handler{
 		auth:      auth,
-		users:     users.NewUsersService("kytra-srv-v1-users:8080", client),
-		posts:     posts.NewPostsService("kytra-srv-v1-posts:8080", client),
-		stocks:    stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		bullbear:  bullbear.NewBullBearService("kytra-srv-v1-bullbear:8080", client),
-		comments:  comments.NewCommentsService("kytra-srv-v1-comments:8080", client),
-		followers: followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
+		users:     users.NewUsersService("kytra-v1-users:8080", client),
+		posts:     posts.NewPostsService("kytra-v1-posts:8080", client),
+		stocks:    stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		bullbear:  bullbear.NewBullBearService("kytra-v1-bullbear:8080", client),
+		comments:  comments.NewCommentsService("kytra-v1-comments:8080", client),
+		followers: followers.NewFollowersService("kytra-v1-followers:8080", client),
 	}
 }
 

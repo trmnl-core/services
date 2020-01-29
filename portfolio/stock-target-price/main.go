@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/stock-target-price-srv/handler"
-	proto "github.com/kytra-app/stock-target-price-srv/proto"
-	"github.com/kytra-app/stock-target-price-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/config/cmd"
 	"github.com/micro/go-plugins/broker/rabbitmq"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/stock-target-price/handler"
+	proto "github.com/micro/services/portfolio/stock-target-price/proto"
+	"github.com/micro/services/portfolio/stock-target-price/storage/postgres"
 	"github.com/pkg/errors"
 )
 
@@ -21,7 +21,7 @@ func main() {
 
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-stock-target-price"),
+		micro.Name("kytra-v1-stock-target-price"),
 		micro.Version("latest"),
 	)
 	service.Init()
@@ -60,7 +60,7 @@ func main() {
 
 	// Consume messages
 	sub, err := brkr.Subscribe(
-		"kytra-srv-v1-insights-insight-created",
+		"kytra-v1-insights-insight-created",
 		hander.HandleNewInsight,
 		broker.Queue("stock-target-price-insight-created"),
 	)

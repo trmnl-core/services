@@ -4,17 +4,17 @@ import (
 	"context"
 	"time"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	"github.com/kytra-app/helpers/microtime"
-	proto "github.com/kytra-app/insights-srv/proto"
-	"github.com/kytra-app/insights-srv/storage"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	proto "github.com/micro/services/portfolio/insights/proto"
+	"github.com/micro/services/portfolio/insights/storage"
 )
 
 // New returns an instance of Handler
 func New(storage storage.Service, client client.Client) *Handler {
-	followersSrv := followers.NewFollowersService("kytra-srv-v1-followers:8080", client)
+	followersSrv := followers.NewFollowersService("kytra-v1-followers:8080", client)
 	return &Handler{storage, followersSrv}
 }
 

@@ -5,15 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 
-	comments "github.com/kytra-app/comments-srv/proto"
-	notifiableEvent "github.com/kytra-app/notifications-srv/helpers/notifiableevent"
-	"github.com/kytra-app/notifications-srv/storage"
-	posts "github.com/kytra-app/posts-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/broker"
+	comments "github.com/micro/services/portfolio/comments/proto"
+	notifiableEvent "github.com/micro/services/portfolio/notifications/helpers/notifiableevent"
+	"github.com/micro/services/portfolio/notifications/storage"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
-// Comment is the JSON object published by the comments-srv
+// Comment is the JSON object published by the comments
 type Comment struct {
 	UUID     string `json:"uuid"`
 	UserUUID string `json:"user_uuid"`

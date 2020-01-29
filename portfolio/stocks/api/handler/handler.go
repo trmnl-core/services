@@ -5,14 +5,14 @@ import (
 	"math/rand"
 	"time"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/helpers/photos"
-	summary "github.com/kytra-app/insights-summary-srv/proto"
-	proto "github.com/kytra-app/stocks-api/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/client"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/helpers/photos"
+	summary "github.com/micro/services/portfolio/insights-summary/proto"
+	proto "github.com/micro/services/portfolio/stocks-api/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 var popularStockUUIDs = []string{"SIRI", "AAPL", "AMD", "CSCO", "INTC", "LYFT", "MSFT", "MU", "NVDA", "ZNGA"}
@@ -33,9 +33,9 @@ func New(auth auth.Authenticator, iex iex.Service, pics photos.Service, client c
 		auth:      auth,
 		iex:       iex,
 		photos:    pics,
-		stocks:    stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		summary:   summary.NewInsightsSummaryService("kytra-srv-v1-insights-summary:8080", client),
-		followers: followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
+		stocks:    stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		summary:   summary.NewInsightsSummaryService("kytra-v1-insights-summary:8080", client),
+		followers: followers.NewFollowersService("kytra-v1-followers:8080", client),
 	}
 }
 

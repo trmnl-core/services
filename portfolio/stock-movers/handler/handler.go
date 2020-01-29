@@ -11,14 +11,14 @@ import (
 	// "fmt"
 	// "time"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	proto "github.com/kytra-app/stock-movers-srv/proto"
-	"github.com/kytra-app/stock-movers-srv/storage"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/client"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	proto "github.com/micro/services/portfolio/stock-movers/proto"
+	"github.com/micro/services/portfolio/stock-movers/storage"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
 )
 
 const percentageChangeRequired = 5.0
@@ -29,8 +29,8 @@ func New(iex iex.Service, db storage.Service, client client.Client, broker broke
 		db:     db,
 		iex:    iex,
 		broker: broker,
-		stocks: stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		trades: trades.NewTradesService("kytra-srv-v1-trades:8080", client),
+		stocks: stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		trades: trades.NewTradesService("kytra-v1-trades:8080", client),
 	}
 }
 
@@ -129,7 +129,7 @@ func (h *Handler) FetchMovements() {
 			fmt.Println(err)
 			continue
 		}
-		err = h.broker.Publish("kytra-srv-v1-stock-movers-mover-created", &broker.Message{Body: bytes})
+		err = h.broker.Publish("kytra-v1-stock-movers-mover-created", &broker.Message{Body: bytes})
 		if err != nil {
 			fmt.Println(err)
 			continue

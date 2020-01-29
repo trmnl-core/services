@@ -4,18 +4,18 @@ import (
 	"context"
 	"time"
 
-	proto "github.com/kytra-app/posts-api/proto"
+	proto "github.com/micro/services/portfolio/posts-api/proto"
 
-	bullbear "github.com/kytra-app/bullbear-srv/proto"
-	comments "github.com/kytra-app/comments-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	posts "github.com/kytra-app/posts-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/errors"
+	bullbear "github.com/micro/services/portfolio/bullbear/proto"
+	comments "github.com/micro/services/portfolio/comments/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
-// Create inserts a new post into the posts-srv
+// Create inserts a new post into the posts
 func (h Handler) Create(ctx context.Context, req *proto.Post, rsp *proto.Response) error {
 	u, err := h.auth.UserFromContext(ctx)
 	if err != nil {
@@ -71,7 +71,7 @@ func (h Handler) SetOpinion(ctx context.Context, req *proto.Post, rsp *proto.Res
 	return err
 }
 
-// Get retrieves a post from the posts-srv
+// Get retrieves a post from the posts
 func (h Handler) Get(ctx context.Context, req *proto.Post, rsp *proto.Response) error {
 	if len(req.Uuid) == 0 {
 		rsp.Error = &proto.Error{Code: 400, Message: "Bad Request: Missing UUID"}
@@ -91,7 +91,7 @@ func (h Handler) Get(ctx context.Context, req *proto.Post, rsp *proto.Response) 
 	return err
 }
 
-// Delete destroys a post in the posts-srv
+// Delete destroys a post in the posts
 func (h Handler) Delete(ctx context.Context, req *proto.Post, rsp *proto.Response) error {
 	u, err := h.auth.UserFromContext(ctx)
 	if err != nil {
@@ -119,7 +119,7 @@ func (h Handler) Delete(ctx context.Context, req *proto.Post, rsp *proto.Respons
 	return nil
 }
 
-// Update amends a post in the posts-srv
+// Update amends a post in the posts
 func (h Handler) Update(ctx context.Context, req *proto.Post, rsp *proto.Response) error {
 	u, err := h.auth.UserFromContext(ctx)
 	if err != nil {

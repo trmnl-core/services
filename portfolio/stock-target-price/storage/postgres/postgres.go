@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/kytra-app/helpers/microgorm"
-	"github.com/kytra-app/stock-target-price-srv/storage"
+	"github.com/micro/services/portfolio/helpers/microgorm"
+	"github.com/micro/services/portfolio/stock-target-price/storage"
 
 	// The PG driver
 	_ "github.com/jinzhu/gorm/dialects/postgres"

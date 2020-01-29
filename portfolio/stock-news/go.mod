@@ -1,4 +1,4 @@
-module github.com/kytra-app/stock-news-srv
+module github.com/micro/services/portfolio/stock-news
 
 go 1.12
 
@@ -21,13 +21,13 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.9.5 // indirect
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/jinzhu/gorm v1.9.11
-	github.com/kytra-app/helpers/microgorm v1.0.0
-	github.com/kytra-app/helpers/microtime v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/helpers/news v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/insights-srv v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/stock-movers-srv v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/stocks-srv v1.0.0
-	github.com/kytra-app/trades-srv v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/helpers/microgorm v1.0.0
+	github.com/micro/services/portfolio/helpers/microtime v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/helpers/news v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/insights v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/stock-movers v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/stocks v1.0.0
+	github.com/micro/services/portfolio/trades v0.0.0-00010101000000-000000000000
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/go-plugins v1.5.1
 	github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f // indirect
@@ -45,34 +45,34 @@ require (
 	pack.ag/amqp v0.12.0 // indirect
 )
 
-replace github.com/kytra-app/helpers/news => ../helpers/news
+replace github.com/micro/services/portfolio/helpers/news => ../helpers/news
 
-replace github.com/kytra-app/helpers/microgorm => ../helpers/microgorm
+replace github.com/micro/services/portfolio/helpers/microgorm => ../helpers/microgorm
 
-replace github.com/kytra-app/helpers/microtime => ../helpers/microtime
+replace github.com/micro/services/portfolio/helpers/microtime => ../helpers/microtime
 
-replace github.com/kytra-app/helpers/iex-cloud => ../helpers/iex-cloud
+replace github.com/micro/services/portfolio/helpers/iex-cloud => ../helpers/iex-cloud
 
-replace github.com/kytra-app/helpers/passwordhasher => ../helpers/passwordhasher
+replace github.com/micro/services/portfolio/helpers/passwordhasher => ../helpers/passwordhasher
 
-replace github.com/kytra-app/stocks-srv => ../stocks-srv
+replace github.com/micro/services/portfolio/stocks => ../stocks
 
-replace github.com/kytra-app/trades-srv => ../trades-srv
+replace github.com/micro/services/portfolio/trades => ../trades
 
-replace github.com/kytra-app/portfolios-srv => ../portfolios-srv
+replace github.com/micro/services/portfolio/portfolios => ../portfolios
 
-replace github.com/kytra-app/portfolio-valuation-srv => ../portfolio-valuation-srv
+replace github.com/micro/services/portfolio/portfolio-valuation => ../portfolio-valuation
 
-replace github.com/kytra-app/followers-srv => ../followers-srv
+replace github.com/micro/services/portfolio/followers => ../followers
 
-replace github.com/kytra-app/users-srv => ../users-srv
+replace github.com/micro/services/portfolio/users => ../users
 
-replace github.com/kytra-app/stock-earnings-srv => ../stock-earnings-srv
+replace github.com/micro/services/portfolio/stock-earnings => ../stock-earnings
 
-replace github.com/kytra-app/stock-quote-srv => ../stock-quote-srv
+replace github.com/micro/services/portfolio/stock-quote => ../stock-quote
 
-replace github.com/kytra-app/stock-movers-srv => ../stock-movers-srv
+replace github.com/micro/services/portfolio/stock-movers => ../stock-movers
 
-replace github.com/kytra-app/ledger-srv => ../ledger-srv
+replace github.com/micro/services/portfolio/ledger => ../ledger
 
-replace github.com/kytra-app/insights-srv => ../insights-srv
+replace github.com/micro/services/portfolio/insights => ../insights

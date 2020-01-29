@@ -6,17 +6,17 @@ import (
 	"fmt"
 	"time"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/trades-srv/helpers"
-	proto "github.com/kytra-app/trades-srv/proto"
-	"github.com/kytra-app/trades-srv/storage"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/trades/helpers"
+	proto "github.com/micro/services/portfolio/trades/proto"
+	"github.com/micro/services/portfolio/trades/storage"
 
-	"github.com/kytra-app/helpers/microtime"
-	ledger "github.com/kytra-app/ledger-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	ledger "github.com/micro/services/portfolio/ledger/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 // New returns an instance of Handler
@@ -25,8 +25,8 @@ func New(iex iex.Service, storage storage.Service, broker broker.Broker, client 
 		iex:    iex,
 		db:     storage,
 		broker: broker,
-		stocks: stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		ledger: ledger.NewLedgerService("kytra-srv-v1-ledger:8080", client),
+		stocks: stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		ledger: ledger.NewLedgerService("kytra-v1-ledger:8080", client),
 	}
 }
 
@@ -111,7 +111,7 @@ func (h *Handler) CreateTrade(ctx context.Context, req *proto.Trade, rsp *proto.
 	if err != nil {
 		return err
 	}
-	brokerErr := h.broker.Publish("kytra-srv-v1-trades-trade-created", &broker.Message{Body: bytes})
+	brokerErr := h.broker.Publish("kytra-v1-trades-trade-created", &broker.Message{Body: bytes})
 	if brokerErr != nil {
 		fmt.Printf("Error Sending Msg to broker: %v\n", err)
 	} else {

@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	proto "github.com/kytra-app/notifications-srv/proto"
-	"github.com/kytra-app/notifications-srv/storage"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	proto "github.com/micro/services/portfolio/notifications/proto"
+	"github.com/micro/services/portfolio/notifications/storage"
 )
 
 // New returns an instance of Handler

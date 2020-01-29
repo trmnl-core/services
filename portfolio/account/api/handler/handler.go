@@ -4,14 +4,14 @@ import (
 	"context"
 	"time"
 
-	proto "github.com/kytra-app/account-api/proto"
-	followers "github.com/kytra-app/followers-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/helpers/photos"
-	posts "github.com/kytra-app/posts-srv/proto"
-	user "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	proto "github.com/micro/services/portfolio/account-api/proto"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/helpers/photos"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	user "github.com/micro/services/portfolio/users/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -28,9 +28,9 @@ func New(auth auth.Authenticator, pics photos.Service, client client.Client) Han
 	return Handler{
 		auth:      auth,
 		photos:    pics,
-		user:      user.NewUsersService("kytra-srv-v1-users:8080", client),
-		posts:     posts.NewPostsService("kytra-srv-v1-posts:8080", client),
-		followers: followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
+		user:      user.NewUsersService("kytra-v1-users:8080", client),
+		posts:     posts.NewPostsService("kytra-v1-posts:8080", client),
+		followers: followers.NewFollowersService("kytra-v1-followers:8080", client),
 	}
 }
 

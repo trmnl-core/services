@@ -3,12 +3,12 @@ package handler
 import (
 	"context"
 
-	ledger "github.com/kytra-app/ledger-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	smsVer "github.com/kytra-app/sms-verification-srv/proto"
-	user "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/errors"
-	proto "github.com/kytra-app/welcome-api/proto"
+	ledger "github.com/micro/services/portfolio/ledger/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	smsVer "github.com/micro/services/portfolio/sms-verification/proto"
+	user "github.com/micro/services/portfolio/users/proto"
+	proto "github.com/micro/services/portfolio/welcome-api/proto"
 )
 
 // CreateProfile creates a user object

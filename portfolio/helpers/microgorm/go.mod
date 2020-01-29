@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/microgorm
+module github.com/micro/services/portfolio/helpers/microgorm
 
 go 1.12
 

@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/photos
+module github.com/micro/services/portfolio/helpers/photos
 
 go 1.12
 

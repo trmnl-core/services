@@ -1,16 +1,16 @@
 package handler
 
 import (
-	bullbear "github.com/kytra-app/bullbear-srv/proto"
-	comments "github.com/kytra-app/comments-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	photos "github.com/kytra-app/helpers/photos"
-	"github.com/kytra-app/helpers/textenhancer"
-	post "github.com/kytra-app/posts-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/client"
+	bullbear "github.com/micro/services/portfolio/bullbear/proto"
+	comments "github.com/micro/services/portfolio/comments/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	photos "github.com/micro/services/portfolio/helpers/photos"
+	"github.com/micro/services/portfolio/helpers/textenhancer"
+	post "github.com/micro/services/portfolio/posts/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -31,10 +31,10 @@ func New(auth auth.Authenticator, pics photos.Service, client client.Client) Han
 		auth:         auth,
 		photos:       pics,
 		textenhancer: textenhancer.Service{},
-		users:        users.NewUsersService("kytra-srv-v1-users:8080", client),
-		stocks:       stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		posts:        posts.NewPostsService("kytra-srv-v1-posts:8080", client),
-		bullBear:     bullbear.NewBullBearService("kytra-srv-v1-bullbear:8080", client),
-		comments:     comments.NewCommentsService("kytra-srv-v1-comments:8080", client),
+		users:        users.NewUsersService("kytra-v1-users:8080", client),
+		stocks:       stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		posts:        posts.NewPostsService("kytra-v1-posts:8080", client),
+		bullBear:     bullbear.NewBullBearService("kytra-v1-bullbear:8080", client),
+		comments:     comments.NewCommentsService("kytra-v1-comments:8080", client),
 	}
 }

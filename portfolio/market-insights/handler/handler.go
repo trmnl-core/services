@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/market-insights-srv/proto"
-	"github.com/kytra-app/market-insights-srv/storage"
+	proto "github.com/micro/services/portfolio/market-insights/proto"
+	"github.com/micro/services/portfolio/market-insights/storage"
 	// "github.com/micro/go-micro/errors"
 )
 

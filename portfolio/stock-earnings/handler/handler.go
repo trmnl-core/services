@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"time"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/helpers/microtime"
-	proto "github.com/kytra-app/stock-earnings-srv/proto"
-	"github.com/kytra-app/stock-earnings-srv/storage"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/client"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	proto "github.com/micro/services/portfolio/stock-earnings/proto"
+	"github.com/micro/services/portfolio/stock-earnings/storage"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 const percentageChangeRequired = 2.0
@@ -21,7 +21,7 @@ func New(iex iex.Service, db storage.Service, client client.Client) *Handler {
 	return &Handler{
 		db:     db,
 		iex:    iex,
-		stocks: stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
+		stocks: stocks.NewStocksService("kytra-v1-stocks:8080", client),
 	}
 }
 

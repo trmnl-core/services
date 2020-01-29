@@ -5,14 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	notifiableEvent "github.com/kytra-app/notifications-srv/helpers/notifiableevent"
-	"github.com/kytra-app/notifications-srv/storage"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/broker"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	notifiableEvent "github.com/micro/services/portfolio/notifications/helpers/notifiableevent"
+	"github.com/micro/services/portfolio/notifications/storage"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
-// Post is the JSON object published by the posts-srv
+// Post is the JSON object published by the posts
 type Post struct {
 	UUID     string `json:"uuid"`
 	UserUUID string `json:"user_uuid"`

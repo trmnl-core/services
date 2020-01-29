@@ -6,16 +6,16 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kytra-app/helpers/microtime"
-	news "github.com/kytra-app/helpers/news"
-	insights "github.com/kytra-app/insights-srv/proto"
-	proto "github.com/kytra-app/stock-news-srv/proto"
-	"github.com/kytra-app/stock-news-srv/storage"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	news "github.com/micro/services/portfolio/helpers/news"
+	insights "github.com/micro/services/portfolio/insights/proto"
+	proto "github.com/micro/services/portfolio/stock-news/proto"
+	"github.com/micro/services/portfolio/stock-news/storage"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 var approvedSources = []string{"Reuters"}
@@ -26,8 +26,8 @@ func New(news news.Service, db storage.Service, client client.Client, broker bro
 		db:       db,
 		news:     news,
 		broker:   broker,
-		stocks:   stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		insights: insights.NewInsightsService("kytra-srv-v1-insights:8080", client),
+		stocks:   stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		insights: insights.NewInsightsService("kytra-v1-insights:8080", client),
 	}
 }
 
@@ -227,7 +227,7 @@ func (h *Handler) createArticle(article news.Article, stockUUID string) error {
 	if err != nil {
 		return err
 	}
-	err = h.broker.Publish("kytra-srv-v1-stock-news-article-created", &broker.Message{Body: bytes})
+	err = h.broker.Publish("kytra-v1-stock-news-article-created", &broker.Message{Body: bytes})
 	if err != nil {
 		return err
 	}

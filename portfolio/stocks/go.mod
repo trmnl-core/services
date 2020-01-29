@@ -1,4 +1,4 @@
-module github.com/kytra-app/stocks-srv
+module github.com/micro/services/portfolio/stocks
 
 go 1.12
 

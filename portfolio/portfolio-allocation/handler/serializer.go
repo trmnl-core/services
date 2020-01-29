@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/kytra-app/helpers/unique"
-	proto "github.com/kytra-app/portfolio-allocation-srv/proto"
-	valuation "github.com/kytra-app/portfolio-value-tracking-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv-v2/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
+	"github.com/micro/services/portfolio/helpers/unique"
+	proto "github.com/micro/services/portfolio/portfolio-allocation/proto"
+	valuation "github.com/micro/services/portfolio/portfolio-value-tracking/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote-v2/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
 )
 
 func (h Handler) serializePortfolios(ctx context.Context, data []*portfolios.Portfolio) ([]*proto.Portfolio, error) {

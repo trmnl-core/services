@@ -3,18 +3,18 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/ledger-srv/proto"
-	"github.com/kytra-app/ledger-srv/storage"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	"github.com/kytra-app/helpers/microtime"
 	"github.com/micro/go-micro/client"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	proto "github.com/micro/services/portfolio/ledger/proto"
+	"github.com/micro/services/portfolio/ledger/storage"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
 )
 
 // New returns an instance of Handler
 func New(storage storage.Service, client client.Client) *Handler {
 	return &Handler{
 		db:         storage,
-		portfolios: portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
+		portfolios: portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
 	}
 }
 

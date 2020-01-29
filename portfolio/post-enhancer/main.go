@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"os"
 
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/post-enhancer-srv/handler"
-	proto "github.com/kytra-app/post-enhancer-srv/proto"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/post-enhancer/handler"
+	proto "github.com/micro/services/portfolio/post-enhancer/proto"
 
 	"github.com/micro/go-micro"
 )
 
 func main() {
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-post-enhancer"),
+		micro.Name("kytra-v1-post-enhancer"),
 		micro.Version("latest"),
 	)
 	service.Init()

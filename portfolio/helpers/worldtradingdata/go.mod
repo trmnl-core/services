@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/worldtradingdata
+module github.com/micro/services/portfolio/helpers/worldtradingdata
 
 go 1.12
 

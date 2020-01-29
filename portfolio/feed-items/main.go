@@ -7,11 +7,11 @@ import (
 	"github.com/micro/go-micro/broker"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
 
-	"github.com/kytra-app/feeditems-srv/handler"
-	proto "github.com/kytra-app/feeditems-srv/proto"
-	"github.com/kytra-app/feeditems-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/feeditems/handler"
+	proto "github.com/micro/services/portfolio/feeditems/proto"
+	"github.com/micro/services/portfolio/feeditems/storage/postgres"
 	"github.com/pkg/errors"
 )
 
@@ -38,7 +38,7 @@ func main() {
 
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-feed-items"),
+		micro.Name("kytra-v1-feed-items"),
 		micro.Version("latest"),
 	)
 	service.Init()

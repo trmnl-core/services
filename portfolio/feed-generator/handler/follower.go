@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	feeditems "github.com/kytra-app/feed-items-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/broker"
+	feeditems "github.com/micro/services/portfolio/feed-items/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Resource is a stock or user, in the follower domain

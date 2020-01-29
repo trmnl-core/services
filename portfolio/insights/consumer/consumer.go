@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"time"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	"github.com/kytra-app/insights-srv/storage"
-	valuation "github.com/kytra-app/portfolio-valuation-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	earnings "github.com/kytra-app/stock-earnings-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/client"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	"github.com/micro/services/portfolio/insights/storage"
+	valuation "github.com/micro/services/portfolio/portfolio-valuation/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	earnings "github.com/micro/services/portfolio/stock-earnings/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 	cron "github.com/robfig/cron/v3"
 )
 
@@ -22,13 +22,13 @@ import (
 func New(db storage.Service, client client.Client) Handler {
 	return Handler{
 		db:         db,
-		followers:  followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
-		users:      users.NewUsersService("kytra-srv-v1-users:8080", client),
-		stocks:     stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		trades:     trades.NewTradesService("kytra-srv-v1-trades:8080", client),
-		portfolios: portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
-		earnings:   earnings.NewStockEarningsService("kytra-srv-v1-stock-earnings:8080", client),
-		valuation:  valuation.NewPortfolioValuationService("kytra-srv-v1-portfolio-valuation:8080", client),
+		followers:  followers.NewFollowersService("kytra-v1-followers:8080", client),
+		users:      users.NewUsersService("kytra-v1-users:8080", client),
+		stocks:     stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		trades:     trades.NewTradesService("kytra-v1-trades:8080", client),
+		portfolios: portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
+		earnings:   earnings.NewStockEarningsService("kytra-v1-stock-earnings:8080", client),
+		valuation:  valuation.NewPortfolioValuationService("kytra-v1-portfolio-valuation:8080", client),
 	}
 }
 
@@ -52,22 +52,22 @@ type Handler struct {
 
 // Subscribe registeres the consumer to recieve events from the broker
 func (h *Handler) Subscribe() (err error) {
-	h.subNewPost, err = broker.Subscribe("kytra-srv-v1-posts-post-created", h.HandleNewPost, broker.Queue("insights-post-created"))
+	h.subNewPost, err = broker.Subscribe("kytra-v1-posts-post-created", h.HandleNewPost, broker.Queue("insights-post-created"))
 	if err != nil {
 		return err
 	}
 
-	h.subNewMover, err = broker.Subscribe("kytra-srv-v1-stock-movers-mover-created", h.HandleNewMover, broker.Queue("insights-mover-created"))
+	h.subNewMover, err = broker.Subscribe("kytra-v1-stock-movers-mover-created", h.HandleNewMover, broker.Queue("insights-mover-created"))
 	if err != nil {
 		return err
 	}
 
-	h.subNewTrade, err = broker.Subscribe("kytra-srv-v1-trades-trade-created", h.HandleNewTrade, broker.Queue("insights-trade-created"))
+	h.subNewTrade, err = broker.Subscribe("kytra-v1-trades-trade-created", h.HandleNewTrade, broker.Queue("insights-trade-created"))
 	if err != nil {
 		return err
 	}
 
-	h.subNewArticle, err = broker.Subscribe("kytra-srv-v1-stock-news-article-created", h.HandleNewArticle, broker.Queue("insights-article-created"))
+	h.subNewArticle, err = broker.Subscribe("kytra-v1-stock-news-article-created", h.HandleNewArticle, broker.Queue("insights-article-created"))
 	if err != nil {
 		return err
 	}
@@ -95,6 +95,6 @@ func (h *Handler) publishNewInsight(i storage.Insight) {
 		fmt.Println(err)
 		return
 	}
-	broker.Publish("kytra-srv-v1-insights-insight-created", &broker.Message{Body: bytes})
+	broker.Publish("kytra-v1-insights-insight-created", &broker.Message{Body: bytes})
 	fmt.Println("Published Insight")
 }

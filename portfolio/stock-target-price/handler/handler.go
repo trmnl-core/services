@@ -5,14 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/helpers/microtime"
-	proto "github.com/kytra-app/stock-target-price-srv/proto"
-	"github.com/kytra-app/stock-target-price-srv/storage"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/client"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	proto "github.com/micro/services/portfolio/stock-target-price/proto"
+	"github.com/micro/services/portfolio/stock-target-price/storage"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 // New returns an instance of Handler
@@ -21,7 +21,7 @@ func New(iex iex.Service, db storage.Service, client client.Client, broker broke
 		db:     db,
 		iex:    iex,
 		broker: broker,
-		stocks: stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
+		stocks: stocks.NewStocksService("kytra-v1-stocks:8080", client),
 	}
 }
 
@@ -57,7 +57,7 @@ func (h *Handler) List(ctx context.Context, req *proto.ListRequest, rsp *proto.L
 	return nil
 }
 
-// Insight is the JSON object published by the insight-srv
+// Insight is the JSON object published by the insight
 type Insight struct {
 	StockUUID string `json:"asset_uuid"`
 }

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	proto "github.com/kytra-app/stock-quote-srv/proto"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	proto "github.com/micro/services/portfolio/stock-quote/proto"
 )
 
 // New returns an instance of Handler

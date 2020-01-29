@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/kytra-app/helpers/sms"
-	proto "github.com/kytra-app/sms-verification-srv/proto"
-	"github.com/kytra-app/sms-verification-srv/storage"
 	"github.com/micro/go-micro/errors"
+	"github.com/micro/services/portfolio/helpers/sms"
+	proto "github.com/micro/services/portfolio/sms-verification/proto"
+	"github.com/micro/services/portfolio/sms-verification/storage"
 )
 
 // New returns an instance of Handler

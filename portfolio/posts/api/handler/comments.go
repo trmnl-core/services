@@ -3,10 +3,10 @@ package handler
 import (
 	"context"
 
-	bullbear "github.com/kytra-app/bullbear-srv/proto"
-	comments "github.com/kytra-app/comments-srv/proto"
-	proto "github.com/kytra-app/posts-api/proto"
 	"github.com/micro/go-micro/errors"
+	bullbear "github.com/micro/services/portfolio/bullbear/proto"
+	comments "github.com/micro/services/portfolio/comments/proto"
+	proto "github.com/micro/services/portfolio/posts-api/proto"
 )
 
 // CreateComment inserts a new comment on the resource

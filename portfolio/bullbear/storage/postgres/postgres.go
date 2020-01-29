@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/kytra-app/bullbear-srv/storage"
+	"github.com/micro/services/portfolio/bullbear/storage"
 
 	// The PG driver
 	_ "github.com/jinzhu/gorm/dialects/postgres"

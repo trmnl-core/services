@@ -3,10 +3,9 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/investors-api/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	proto "github.com/micro/services/portfolio/investors-api/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
-
 
 // Search retrieves all investors which match the criteria
 func (h Handler) Search(ctx context.Context, req *proto.SearchRequest, rsp *proto.ListResponse) error {

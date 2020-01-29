@@ -1,8 +1,8 @@
 package main
 
-import(
+import (
 	"fmt"
-	"github.com/kytra-app/helpers/textenhancer"
+	"github.com/micro/services/portfolio/helpers/textenhancer"
 )
 
 func main() {

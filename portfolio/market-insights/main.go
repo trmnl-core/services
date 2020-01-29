@@ -4,20 +4,20 @@ import (
 	"fmt"
 	"os"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/market-insights-srv/generator"
-	"github.com/kytra-app/market-insights-srv/handler"
-	proto "github.com/kytra-app/market-insights-srv/proto"
-	"github.com/kytra-app/market-insights-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/market-insights/generator"
+	"github.com/micro/services/portfolio/market-insights/handler"
+	proto "github.com/micro/services/portfolio/market-insights/proto"
+	"github.com/micro/services/portfolio/market-insights/storage/postgres"
 	"github.com/pkg/errors"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-market-insights"),
+		micro.Name("kytra-v1-market-insights"),
 		micro.Version("latest"),
 	)
 	service.Init()

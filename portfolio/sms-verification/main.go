@@ -4,19 +4,19 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/helpers/sms"
-	"github.com/kytra-app/sms-verification-srv/handler"
-	proto "github.com/kytra-app/sms-verification-srv/proto"
-	"github.com/kytra-app/sms-verification-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/helpers/sms"
+	"github.com/micro/services/portfolio/sms-verification/handler"
+	proto "github.com/micro/services/portfolio/sms-verification/proto"
+	"github.com/micro/services/portfolio/sms-verification/storage/postgres"
 	"github.com/pkg/errors"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-sms-verification"),
+		micro.Name("kytra-v1-sms-verification"),
 		micro.Version("latest"),
 	)
 	service.Init()

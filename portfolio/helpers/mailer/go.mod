@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/mailer
+module github.com/micro/services/portfolio/helpers/mailer
 
 go 1.12
 

@@ -6,40 +6,40 @@ import (
 	"math"
 	"time"
 
-	feed "github.com/kytra-app/feed-items-srv/proto"
-	followers "github.com/kytra-app/followers-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/helpers/microtime"
-	valuation "github.com/kytra-app/portfolio-value-tracking-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
-	earnings "github.com/kytra-app/stock-earnings-srv/proto"
-	news "github.com/kytra-app/stock-news-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv-v2/proto"
-	target "github.com/kytra-app/stock-target-price-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	feed "github.com/micro/services/portfolio/feed-items/proto"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	valuation "github.com/micro/services/portfolio/portfolio-value-tracking/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	earnings "github.com/micro/services/portfolio/stock-earnings/proto"
+	news "github.com/micro/services/portfolio/stock-news/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote-v2/proto"
+	target "github.com/micro/services/portfolio/stock-target-price/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // New returns an instance of Handler
 func New(auth auth.Authenticator, client client.Client) *Handler {
 	return &Handler{
 		auth:          auth,
-		news:          news.NewStockNewsService("kytra-srv-v1-stock-news:8080", client),
-		feed:          feed.NewFeedItemsService("kytra-srv-v1-feed-items:8080", client),
-		posts:         posts.NewPostsService("kytra-srv-v1-posts:8080", client),
-		users:         users.NewUsersService("kytra-srv-v1-users:8080", client),
-		stocks:        stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		trades:        trades.NewTradesService("kytra-srv-v1-trades:8080", client),
-		quotes:        quotes.NewStockQuoteService("kytra-srv-v2-stock-quote:8080", client),
-		targets:       target.NewStockTargetPriceService("kytra-srv-v1-stock-target-price:8080", client),
-		earnings:      earnings.NewStockEarningsService("kytra-srv-v1-stock-earnings:8080", client),
-		valuation:     valuation.NewPortfolioValueTrackingService("kytra-srv-v1-portfolio-value-tracking:8080", client),
-		followers:     followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
-		portfolios:    portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
+		news:          news.NewStockNewsService("kytra-v1-stock-news:8080", client),
+		feed:          feed.NewFeedItemsService("kytra-v1-feed-items:8080", client),
+		posts:         posts.NewPostsService("kytra-v1-posts:8080", client),
+		users:         users.NewUsersService("kytra-v1-users:8080", client),
+		stocks:        stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		trades:        trades.NewTradesService("kytra-v1-trades:8080", client),
+		quotes:        quotes.NewStockQuoteService("kytra-v2-stock-quote:8080", client),
+		targets:       target.NewStockTargetPriceService("kytra-v1-stock-target-price:8080", client),
+		earnings:      earnings.NewStockEarningsService("kytra-v1-stock-earnings:8080", client),
+		valuation:     valuation.NewPortfolioValueTrackingService("kytra-v1-portfolio-value-tracking:8080", client),
+		followers:     followers.NewFollowersService("kytra-v1-followers:8080", client),
+		portfolios:    portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
 		luckyDipCache: map[int64]string{},
 	}
 }

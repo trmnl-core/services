@@ -1,4 +1,4 @@
-module github.com/kytra-app/market-insights-srv
+module github.com/micro/services/portfolio/market-insights
 
 go 1.12
 
@@ -21,9 +21,9 @@ require (
 	github.com/hashicorp/mdns v1.0.1 // indirect
 	github.com/hashicorp/serf v0.8.3 // indirect
 	github.com/jinzhu/gorm v1.9.11
-	github.com/kytra-app/helpers/iex-cloud v1.0.0
-	github.com/kytra-app/helpers/microgorm v0.0.0-00010101000000-000000000000
-	github.com/kytra-app/stocks-srv v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/helpers/iex-cloud v1.0.0
+	github.com/micro/services/portfolio/helpers/microgorm v0.0.0-00010101000000-000000000000
+	github.com/micro/services/portfolio/stocks v0.0.0-00010101000000-000000000000
 	github.com/micro/go-micro v1.16.0
 	github.com/micro/go-plugins v1.5.1
 	github.com/pkg/errors v0.8.1
@@ -40,8 +40,8 @@ require (
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible // indirect
 )
 
-replace github.com/kytra-app/helpers/iex-cloud => ../helpers/iex-cloud
+replace github.com/micro/services/portfolio/helpers/iex-cloud => ../helpers/iex-cloud
 
-replace github.com/kytra-app/helpers/microgorm => ../helpers/microgorm
+replace github.com/micro/services/portfolio/helpers/microgorm => ../helpers/microgorm
 
-replace github.com/kytra-app/stocks-srv => ../stocks-srv
+replace github.com/micro/services/portfolio/stocks => ../stocks

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/market-insights-srv/storage"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/client"
+	"github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/market-insights/storage"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 // New returns an instance of Generator
@@ -16,7 +16,7 @@ func New(iex iex.Service, db storage.Service, client client.Client) *Generator {
 	return &Generator{
 		iex:    iex,
 		db:     db,
-		stocks: stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
+		stocks: stocks.NewStocksService("kytra-v1-stocks:8080", client),
 	}
 }
 
@@ -29,7 +29,7 @@ type Generator struct {
 }
 
 // CreateDailyInsights creates an insight object in the database for each
-// stock in the stocks-srv database.
+// stock in the stocks database.
 func (g *Generator) CreateDailyInsights() {
 	// Step 1. Fetch the stocks
 	sRsp, err := g.stocks.All(context.Background(), &stocks.AllRequest{})

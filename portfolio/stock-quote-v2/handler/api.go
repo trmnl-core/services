@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 
-	"github.com/kytra-app/helpers/microtime"
-	proto "github.com/kytra-app/stock-quote-srv/proto"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	proto "github.com/micro/services/portfolio/stock-quote/proto"
 )
 
 // GetQuote the a stock and finds the latest quote for it

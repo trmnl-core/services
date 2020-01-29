@@ -4,21 +4,21 @@ import (
 	"fmt"
 	"os"
 
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/trades-srv/handler"
-	proto "github.com/kytra-app/trades-srv/proto"
-	"github.com/kytra-app/trades-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/broker"
 	rabbitmq "github.com/micro/go-plugins/broker/rabbitmq"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/trades/handler"
+	proto "github.com/micro/services/portfolio/trades/proto"
+	"github.com/micro/services/portfolio/trades/storage/postgres"
 	"github.com/pkg/errors"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-trades"),
+		micro.Name("kytra-v1-trades"),
 		micro.Version("latest"),
 	)
 	service.Init()

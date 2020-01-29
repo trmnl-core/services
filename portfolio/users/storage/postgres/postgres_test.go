@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/kytra-app/users-srv/storage"
+	"github.com/micro/services/portfolio/users/storage"
 )
 
 func TestMapWithoutBlank(t *testing.T) {

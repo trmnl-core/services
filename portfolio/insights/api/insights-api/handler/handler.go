@@ -4,19 +4,19 @@ import (
 	"context"
 	"time"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	iex "github.com/kytra-app/helpers/iex-cloud"
-	"github.com/kytra-app/helpers/microtime"
-	"github.com/kytra-app/helpers/photos"
-	"github.com/kytra-app/helpers/unique"
-	proto "github.com/kytra-app/insights-api/proto"
-	insights "github.com/kytra-app/insights-srv/proto"
-	summary "github.com/kytra-app/insights-summary-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv-v2/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	iex "github.com/micro/services/portfolio/helpers/iex-cloud"
+	"github.com/micro/services/portfolio/helpers/microtime"
+	"github.com/micro/services/portfolio/helpers/photos"
+	"github.com/micro/services/portfolio/helpers/unique"
+	proto "github.com/micro/services/portfolio/insights-api/proto"
+	summary "github.com/micro/services/portfolio/insights-summary/proto"
+	insights "github.com/micro/services/portfolio/insights/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote-v2/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -37,11 +37,11 @@ func New(auth auth.Authenticator, iex iex.Service, pics photos.Service, client c
 		auth:      auth,
 		iex:       iex,
 		photos:    pics,
-		stocks:    stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		insights:  insights.NewInsightsService("kytra-srv-v1-insights:8080", client),
-		summary:   summary.NewInsightsSummaryService("kytra-srv-v1-insights-summary:8080", client),
-		followers: followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
-		quotes:    quotes.NewStockQuoteService("kytra-srv-v2-stock-quote:8080", client),
+		stocks:    stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		insights:  insights.NewInsightsService("kytra-v1-insights:8080", client),
+		summary:   summary.NewInsightsSummaryService("kytra-v1-insights-summary:8080", client),
+		followers: followers.NewFollowersService("kytra-v1-followers:8080", client),
+		quotes:    quotes.NewStockQuoteService("kytra-v2-stock-quote:8080", client),
 	}
 }
 

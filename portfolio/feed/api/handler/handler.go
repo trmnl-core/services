@@ -6,14 +6,14 @@ import (
 
 	"github.com/micro/go-micro/client"
 
-	proto "github.com/kytra-app/feed-api/proto"
-	feeditems "github.com/kytra-app/feed-items-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	"github.com/kytra-app/helpers/photos"
-	"github.com/kytra-app/helpers/textenhancer"
-	enhancer "github.com/kytra-app/post-enhancer-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	proto "github.com/micro/services/portfolio/feed-api/proto"
+	feeditems "github.com/micro/services/portfolio/feed-items/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	"github.com/micro/services/portfolio/helpers/photos"
+	"github.com/micro/services/portfolio/helpers/textenhancer"
+	enhancer "github.com/micro/services/portfolio/post-enhancer/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 const resultsPerPage = 15
@@ -35,10 +35,10 @@ func New(auth auth.Authenticator, pics photos.Service, client client.Client) Han
 		auth:         auth,
 		photos:       pics,
 		textenhancer: textenhancer.Service{},
-		users:        users.NewUsersService("kytra-srv-v1-users:8080", client),
-		posts:        posts.NewPostsService("kytra-srv-v1-posts:8080", client),
-		feeditems:    feeditems.NewFeedItemsService("kytra-srv-v1-feed-items:8080", client),
-		enhancer:     enhancer.NewPostEnhancerService("kytra-srv-v1-post-enhancer:8080", client),
+		users:        users.NewUsersService("kytra-v1-users:8080", client),
+		posts:        posts.NewPostsService("kytra-v1-posts:8080", client),
+		feeditems:    feeditems.NewFeedItemsService("kytra-v1-feed-items:8080", client),
+		enhancer:     enhancer.NewPostEnhancerService("kytra-v1-post-enhancer:8080", client),
 	}
 }
 

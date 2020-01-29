@@ -3,9 +3,9 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/push-notifications-srv/proto"
-	"github.com/kytra-app/push-notifications-srv/storage"
 	"github.com/micro/go-micro/errors"
+	proto "github.com/micro/services/portfolio/push-notifications/proto"
+	"github.com/micro/services/portfolio/push-notifications/storage"
 	expo "github.com/oliveroneill/exponent-server-sdk-golang/sdk"
 )
 

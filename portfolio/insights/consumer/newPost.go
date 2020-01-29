@@ -5,12 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/kytra-app/insights-srv/storage"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/broker"
+	"github.com/micro/services/portfolio/insights/storage"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
-// Post is the JSON object published by the post-srv
+// Post is the JSON object published by the post
 type Post struct {
 	UUID     string `json:"uuid"`
 	Title    string `json:"title"`

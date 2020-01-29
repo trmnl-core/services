@@ -1,4 +1,4 @@
-module github.com/kytra-app/feeditems-srv
+module github.com/micro/services/portfolio/feeditems
 
 go 1.12
 

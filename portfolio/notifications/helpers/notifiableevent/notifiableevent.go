@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	push "github.com/kytra-app/push-notifications-srv/proto"
+	push "github.com/micro/services/portfolio/push-notifications/proto"
 
-	"github.com/kytra-app/notifications-srv/storage"
+	"github.com/micro/services/portfolio/notifications/storage"
 )
 
 // New returns an instance of NotifiableEvent

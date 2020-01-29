@@ -4,22 +4,22 @@ import (
 	"context"
 	"fmt"
 
-	feeditems "github.com/kytra-app/feed-items-srv/proto"
-	followers "github.com/kytra-app/followers-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
+	feeditems "github.com/micro/services/portfolio/feed-items/proto"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // New returns an instance of Handler
 func New(client client.Client) Handler {
 	return Handler{
-		usersSrv:     users.NewUsersService("kytra-srv-v1-users:8080", client),
-		postsSrv:     posts.NewPostsService("kytra-srv-v1-posts:8080", client),
-		stocksSrv:    stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		followerSrv:  followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
-		feedItemsSrv: feeditems.NewFeedItemsService("kytra-srv-v1-feed-items:8080", client),
+		usersSrv:     users.NewUsersService("kytra-v1-users:8080", client),
+		postsSrv:     posts.NewPostsService("kytra-v1-posts:8080", client),
+		stocksSrv:    stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		followerSrv:  followers.NewFollowersService("kytra-v1-followers:8080", client),
+		feedItemsSrv: feeditems.NewFeedItemsService("kytra-v1-feed-items:8080", client),
 	}
 }
 

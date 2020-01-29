@@ -1,5 +1,5 @@
 #!/bin/bash
-oldVersion=$(~/go/src/github.com/kytra-app/scripts/get-version)
+oldVersion=$(~/go/src/github.com/micro/services/portfolio/scripts/get-version)
 
 echo The current version number of $1 is $oldVersion
 printf "Enter the new version number: "

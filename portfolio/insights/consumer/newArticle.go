@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/kytra-app/insights-srv/storage"
 	"github.com/micro/go-micro/broker"
+	"github.com/micro/services/portfolio/insights/storage"
 )
 
-// Article is the JSON object published by the stock-news-srv
+// Article is the JSON object published by the stock-news
 type Article struct {
 	ArticleURL  string `json:"article_url"`
 	Title       string `json:"title"`

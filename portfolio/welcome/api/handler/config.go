@@ -3,7 +3,7 @@ package handler
 import (
 	"context"
 
-	proto "github.com/kytra-app/welcome-api/proto"
+	proto "github.com/micro/services/portfolio/welcome-api/proto"
 )
 
 // GetConfig returns the configuration for the "Welcome" interfaces

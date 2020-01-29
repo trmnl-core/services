@@ -3,13 +3,13 @@ package handler
 import (
 	"context"
 
-	auth "github.com/kytra-app/helpers/authentication"
-	ledger "github.com/kytra-app/ledger-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	proto "github.com/kytra-app/registration-api/proto"
-	user "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	ledger "github.com/micro/services/portfolio/ledger/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	proto "github.com/micro/services/portfolio/registration-api/proto"
+	user "github.com/micro/services/portfolio/users/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -24,13 +24,13 @@ type Handler struct {
 func New(auth auth.Authenticator, client client.Client) Handler {
 	return Handler{
 		auth:       auth,
-		user:       user.NewUsersService("kytra-srv-v1-users:8080", client),
-		ledger:     ledger.NewLedgerService("kytra-srv-v1-ledger:8080", client),
-		portfolios: portfolios.NewPortfoliosService("kytra-srv-v1-portfolios:8080", client),
+		user:       user.NewUsersService("kytra-v1-users:8080", client),
+		ledger:     ledger.NewLedgerService("kytra-v1-ledger:8080", client),
+		portfolios: portfolios.NewPortfoliosService("kytra-v1-portfolios:8080", client),
 	}
 }
 
-// Count returns the number of users registered in the user-srv
+// Count returns the number of users registered in the user
 func (h Handler) Count(ctx context.Context, req *proto.CountRequest, rsp *proto.CountResponse) error {
 	countRsp, err := h.user.Count(ctx, &user.CountRequest{})
 	if err != nil {

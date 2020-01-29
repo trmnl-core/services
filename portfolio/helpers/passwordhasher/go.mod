@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/passwordhasher
+module github.com/micro/services/portfolio/helpers/passwordhasher
 
 go 1.12
 

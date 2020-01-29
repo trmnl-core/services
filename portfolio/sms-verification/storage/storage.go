@@ -6,8 +6,8 @@ import (
 
 	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/jinzhu/gorm"
-	"github.com/kytra-app/sms-verification-srv/helpers"
 	"github.com/micro/go-micro/errors"
+	"github.com/micro/services/portfolio/sms-verification/helpers"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -25,7 +25,7 @@ var (
 	ErrCodeExpired = errors.BadRequest("CODE_EXPIRED", "The code has expired")
 )
 
-// Service is an wrapper of the trades-srv db
+// Service is an wrapper of the trades db
 type Service interface {
 	Get(string) (Verification, error)
 	Request(string) (Verification, error)

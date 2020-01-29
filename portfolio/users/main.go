@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/users-srv/handler"
-	proto "github.com/kytra-app/users-srv/proto"
-	"github.com/kytra-app/users-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/users/handler"
+	proto "github.com/micro/services/portfolio/users/proto"
+	"github.com/micro/services/portfolio/users/storage/postgres"
 	"github.com/pkg/errors"
 )
 
@@ -25,7 +25,7 @@ func main() {
 	defer storageService.Close()
 
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-users"),
+		micro.Name("kytra-v1-users"),
 		micro.Version("latest"),
 	)
 	service.Init()

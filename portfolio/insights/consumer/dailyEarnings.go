@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/kytra-app/insights-srv/storage"
-	earnings "github.com/kytra-app/stock-earnings-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
+	"github.com/micro/services/portfolio/insights/storage"
+	earnings "github.com/micro/services/portfolio/stock-earnings/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
 )
 
 // HandleDailyEarnings looks for earnings events happening today. It should be called

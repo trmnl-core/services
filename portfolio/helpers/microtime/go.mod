@@ -1,4 +1,4 @@
-module github.com/kytra-app/helpers/microtime
+module github.com/micro/services/portfolio/helpers/microtime
 
 go 1.13
 

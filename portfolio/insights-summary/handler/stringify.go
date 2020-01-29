@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	trades "github.com/kytra-app/trades-srv/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
 )
 
 func (data *summaryData) Stringify(stockUUID string) (result string) {

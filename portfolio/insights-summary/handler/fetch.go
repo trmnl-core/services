@@ -1,15 +1,15 @@
 package handler
 
 import (
-	followers "github.com/kytra-app/followers-srv/proto"
-	valuation "github.com/kytra-app/portfolio-valuation-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	earnings "github.com/kytra-app/stock-earnings-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv-v2/proto"
-	target "github.com/kytra-app/stock-target-price-srv/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	valuation "github.com/micro/services/portfolio/portfolio-valuation/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	earnings "github.com/micro/services/portfolio/stock-earnings/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote-v2/proto"
+	target "github.com/micro/services/portfolio/stock-target-price/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 func (data *summaryData) Fetch() error {

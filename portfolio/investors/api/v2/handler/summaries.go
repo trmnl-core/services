@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	allocation "github.com/kytra-app/portfolio-allocation-srv/proto"
-	valuation "github.com/kytra-app/portfolio-value-tracking-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	allocation "github.com/micro/services/portfolio/portfolio-allocation/proto"
+	valuation "github.com/micro/services/portfolio/portfolio-value-tracking/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // summariesForUsers produces a map of summaries, e.g.

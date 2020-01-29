@@ -7,8 +7,8 @@ import (
 	"github.com/micro/go-micro/broker"
 	_ "github.com/micro/go-plugins/broker/rabbitmq"
 
-	proto "github.com/kytra-app/comments-srv/proto"
-	"github.com/kytra-app/comments-srv/storage"
+	proto "github.com/micro/services/portfolio/comments/proto"
+	"github.com/micro/services/portfolio/comments/storage"
 )
 
 // New returns an instance of Handler
@@ -87,7 +87,7 @@ func (h *Handler) Create(ctx context.Context, req *proto.Comment, rsp *proto.Res
 	if err != nil {
 		return err
 	}
-	return h.broker.Publish("kytra-srv-v1-comments-comment-created", &broker.Message{Body: bytes})
+	return h.broker.Publish("kytra-v1-comments-comment-created", &broker.Message{Body: bytes})
 }
 
 // Delete destroys a comment

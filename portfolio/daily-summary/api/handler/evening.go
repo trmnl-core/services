@@ -8,17 +8,17 @@ import (
 	"strings"
 	"time"
 
-	proto "github.com/kytra-app/daily-summary-api/proto"
-	feed "github.com/kytra-app/feed-items-srv/proto"
-	reactlink "github.com/kytra-app/helpers/reactlink"
-	"github.com/kytra-app/helpers/unique"
-	valuation "github.com/kytra-app/portfolio-value-tracking-srv/proto"
-	portfolios "github.com/kytra-app/portfolios-srv/proto"
-	posts "github.com/kytra-app/posts-srv/proto"
-	quotes "github.com/kytra-app/stock-quote-srv-v2/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	trades "github.com/kytra-app/trades-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
+	proto "github.com/micro/services/portfolio/daily-summary-api/proto"
+	feed "github.com/micro/services/portfolio/feed-items/proto"
+	reactlink "github.com/micro/services/portfolio/helpers/reactlink"
+	"github.com/micro/services/portfolio/helpers/unique"
+	valuation "github.com/micro/services/portfolio/portfolio-value-tracking/proto"
+	portfolios "github.com/micro/services/portfolio/portfolios/proto"
+	posts "github.com/micro/services/portfolio/posts/proto"
+	quotes "github.com/micro/services/portfolio/stock-quote-v2/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	trades "github.com/micro/services/portfolio/trades/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Evening returns the evening summary for today

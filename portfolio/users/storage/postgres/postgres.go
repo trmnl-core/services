@@ -5,8 +5,8 @@ import (
 
 	"github.com/fatih/structs"
 	"github.com/jinzhu/gorm"
-	"github.com/kytra-app/helpers/microgorm"
-	"github.com/kytra-app/users-srv/storage"
+	"github.com/micro/services/portfolio/helpers/microgorm"
+	"github.com/micro/services/portfolio/users/storage"
 
 	// The PG driver
 	_ "github.com/jinzhu/gorm/dialects/postgres"

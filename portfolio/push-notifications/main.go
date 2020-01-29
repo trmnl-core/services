@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kytra-app/push-notifications-srv/handler"
-	proto "github.com/kytra-app/push-notifications-srv/proto"
-	"github.com/kytra-app/push-notifications-srv/storage/postgres"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/push-notifications/handler"
+	proto "github.com/micro/services/portfolio/push-notifications/proto"
+	"github.com/micro/services/portfolio/push-notifications/storage/postgres"
 	"github.com/pkg/errors"
 )
 
 func main() {
 	// Create The Service
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-push-notifications"),
+		micro.Name("kytra-v1-push-notifications"),
 		micro.Version("latest"),
 	)
 	service.Init()

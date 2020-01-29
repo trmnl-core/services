@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	proto "github.com/kytra-app/investors-api/proto"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	proto "github.com/micro/services/portfolio/investors-api/proto"
 )
 
 // Connections retries a list of investors the user currently follows

@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"strings"
 
-	followers "github.com/kytra-app/followers-srv/proto"
-	auth "github.com/kytra-app/helpers/authentication"
-	photos "github.com/kytra-app/helpers/photos"
-	"github.com/kytra-app/search-api/handler/scorer"
-	proto "github.com/kytra-app/search-api/proto"
-	stocks "github.com/kytra-app/stocks-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
 	"github.com/micro/go-micro/client"
+	followers "github.com/micro/services/portfolio/followers/proto"
+	auth "github.com/micro/services/portfolio/helpers/authentication"
+	photos "github.com/micro/services/portfolio/helpers/photos"
+	"github.com/micro/services/portfolio/search-api/handler/scorer"
+	proto "github.com/micro/services/portfolio/search-api/proto"
+	stocks "github.com/micro/services/portfolio/stocks/proto"
+	users "github.com/micro/services/portfolio/users/proto"
 )
 
 // Handler is an object can process RPC requests
@@ -29,9 +29,9 @@ func New(client client.Client, auth auth.Authenticator, pics photos.Service) Han
 	return Handler{
 		auth:      auth,
 		pics:      pics,
-		users:     users.NewUsersService("kytra-srv-v1-users:8080", client),
-		stocks:    stocks.NewStocksService("kytra-srv-v1-stocks:8080", client),
-		followers: followers.NewFollowersService("kytra-srv-v1-followers:8080", client),
+		users:     users.NewUsersService("kytra-v1-users:8080", client),
+		stocks:    stocks.NewStocksService("kytra-v1-stocks:8080", client),
+		followers: followers.NewFollowersService("kytra-v1-followers:8080", client),
 	}
 }
 

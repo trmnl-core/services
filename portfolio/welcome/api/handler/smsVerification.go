@@ -6,9 +6,9 @@ import (
 
 	"github.com/dongri/phonenumber"
 
-	sms "github.com/kytra-app/sms-verification-srv/proto"
-	users "github.com/kytra-app/users-srv/proto"
-	proto "github.com/kytra-app/welcome-api/proto"
+	sms "github.com/micro/services/portfolio/sms-verification/proto"
+	users "github.com/micro/services/portfolio/users/proto"
+	proto "github.com/micro/services/portfolio/welcome-api/proto"
 )
 
 // RequestSMSCode sends an auth code to the user via SMS

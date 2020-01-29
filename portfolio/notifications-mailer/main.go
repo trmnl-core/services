@@ -5,16 +5,16 @@ import (
 	"os"
 	"time"
 
-	"github.com/kytra-app/helpers/mailer"
-	"github.com/kytra-app/notifications-mailer-srv/handler"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/kubernetes"
+	"github.com/micro/services/portfolio/helpers/mailer"
+	"github.com/micro/services/portfolio/notifications-mailer/handler"
 	"github.com/robfig/cron/v3"
 )
 
 func main() {
 	service := micro.NewService(
-		micro.Name("kytra-srv-v1-notifications-mailer"),
+		micro.Name("kytra-v1-notifications-mailer"),
 		micro.Version("latest"),
 	)
 	service.Init()

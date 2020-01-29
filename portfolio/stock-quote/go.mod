@@ -1,4 +1,4 @@
-module github.com/kytra-app/stock-quote-srv
+module github.com/micro/services/portfolio/stock-quote
 
 go 1.12
 
@@ -17,7 +17,7 @@ require (
 	github.com/hashicorp/go-version v1.2.0 // indirect
 	github.com/hashicorp/mdns v1.0.1 // indirect
 	github.com/hashicorp/serf v0.8.3 // indirect
-	github.com/kytra-app/helpers/iex-cloud v1.0.0
+	github.com/micro/services/portfolio/helpers/iex-cloud v1.0.0
 	github.com/micro/go-micro v1.16.0
 	github.com/micro/go-plugins v1.5.1
 	github.com/posener/complete v1.2.1 // indirect
@@ -31,4 +31,4 @@ require (
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible // indirect
 )
 
-replace github.com/kytra-app/helpers/iex-cloud => ../helpers/iex-cloud
+replace github.com/micro/services/portfolio/helpers/iex-cloud => ../helpers/iex-cloud
