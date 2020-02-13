@@ -51,7 +51,7 @@ func NewHandler(srv micro.Service) *Handler {
 	// setup the ticker to perform the checks
 	// every 15 seconds
 	go func() {
-		ticker := time.NewTicker(3 * time.Second)
+		ticker := time.NewTicker(15 * time.Second)
 
 		for {
 			<-ticker.C
