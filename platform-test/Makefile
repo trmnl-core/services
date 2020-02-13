@@ -4,7 +4,7 @@ GOPATH:=$(shell go env GOPATH)
 
 .PHONY: run
 run:
-	MICRO_AUTH=service MICRO_AUTH_EXCLUDE=GetHealth MICRO_BROKER=service MICRO_CONFIG=service MICRO_REGISTRY=service MICRO_RUNTIME=service MICRO_STORE=service go run .
+	MICRO_AUTH=service MICRO_AUTH_EXCLUDE=PlatformTest.GetHealth MICRO_BROKER=service MICRO_CONFIG=service MICRO_REGISTRY=service MICRO_RUNTIME=service MICRO_STORE=service go run .
     
 
 .PHONY: proto
