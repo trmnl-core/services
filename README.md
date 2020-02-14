@@ -2,11 +2,11 @@
 
 This is a place for micro services
 
-They currently reside at [github.com/microhq](https://github.com/microhq) but we'll move them soon
+They currently reside at [github.com/microhq](https://github.com/microhq) but we'll move them soon.
 
 ## Overview
 
-This repository serves as the monorepo for the M3O Community platform and a reference architecture. 
+This repository serves as the monorepo for the M3O platform and as a reference architecture for others.
 
 ## Structure
 
