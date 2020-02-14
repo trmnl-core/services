@@ -4,7 +4,13 @@ This is a place for micro services
 
 They currently reside at [github.com/microhq](https://github.com/microhq) but we'll move them soon
 
+## Overview
+
+This repository serves as the monorepo for the M3O Community platform and a reference architecture. 
+
 ## Structure
+
+Services should be generated using the `micro new` command.
 
 Service and repo organisation should be as follows (example name used):
 
