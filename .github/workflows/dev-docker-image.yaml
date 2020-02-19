@@ -29,3 +29,4 @@ jobs:
          run: |
            cat $HOME/files.json
            curl https://micro.mu/platform/v1/github/build-finished -X POST -d @$HOME/files.json -H "Content-Type: application/json"
+
