@@ -1,4 +1,4 @@
-module test5
+module barfoo
 
 go 1.13
 
