@@ -79,6 +79,7 @@ jobs:
          password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build and Push Docker Image
       run: |
+         ls -ll ~/builds
          docker build ~/builds -f Dockerfile -t micro/services:${GITHUB_REF##*/}
          docker push micro/services:${GITHUB_REF##*/}   
     - name: Build Finished Webhook
