@@ -2,7 +2,6 @@ name: Build
 
 on:
   push:
-    branches-ignore: master
 
 jobs:
   devel_docker_build:
