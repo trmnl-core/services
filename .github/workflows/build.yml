@@ -1,33 +1,92 @@
 name: Build
 
-on:
+on: 
   push:
     branches:
-      - master
+    - master
 
 jobs:
-  devel_docker_build:
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v2
-         name: Check out repository
-       - uses: actions/checkout@v1
-       - id: file_changes
-         uses: trilom/file-changes-action@v1
-         with:
-           githubToken: ${{ secrets.GITHUB_TOKEN }}
-       - name: Build Started Webhook
-         run: |
-           cat $HOME/files.json
-           curl https://micro.mu/platform/v1/github/build-started -X POST -d @$HOME/files.json -H "Content-Type: application/json"
-       - uses: elgohr/Publish-Docker-Github-Action@2.12
-         name: Build and Push Docker Image
-         with:
-           name: micro/services
-           username: ${{ secrets.DOCKER_USERNAME }}
-           password: ${{ secrets.DOCKER_PASSWORD }}
-       - name: Build Finished Webhook
-         run: |
-           cat $HOME/files.json
-           curl https://micro.mu/platform/v1/github/build-finished -X POST -d @$HOME/files.json -H "Content-Type: application/json"
-
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Detect files changed
+      id: file_changes
+      uses: trilom/file-changes-action@v1
+      with:
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build Started Webhook
+      run: |
+        curl https://micro.mu/platform/v1/github/build-started -X POST -d @$HOME/files.json -H "Content-Type: application/json"
+    - name: Install Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+    - name: Check out repository
+      uses: actions/checkout@v2
+    - name: Setup go-mod cache
+      uses: actions/cache@v1
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-gomods-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-gomods-
+    - name: Setup builds cache
+      id: setup-builds-cache
+      uses: actions/cache@v1
+      with:
+        path: ~/builds
+        key: ${{ runner.os }}-binaries-${{ hashFiles('**/*.go') }}
+        restore-keys: |
+          ${{ runner.os }}-binaries-
+    - name: Create builds directory
+      run: |
+        if [ -d ~/builds ] && [ "$(ls -A ~/builds)" ]; then
+          echo "Binaries already exist"
+        else
+          mkdir ~/builds
+          for dir in */; do
+            cd $dir
+            echo Building $dir
+            (CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" . && mv ./${dir::-1} ~/builds/${dir::-1} || true)
+            upx ~/builds/${dir::-1}
+            cd ..
+          done
+        fi
+    - name: Build services with changes
+      run: |
+        for dir in */; do
+          if grep $dir $HOME/files.json; then
+            cd $dir
+            echo Building $dir
+            (CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" . && mv ./${dir::-1} ~/builds/${dir::-1} || true)
+            cd ..
+           else
+            echo Skipping $dir
+           fi
+        done
+    - name: Setup dumb init
+      run: |
+        if ! test -f ~/builds/dumb-init; then
+          git clone https://github.com/Yelp/dumb-init.git
+          cd dumb-init
+          make build
+          mv dumb-init ~/builds/dumb-init
+          cd ..
+        fi
+    - uses: azure/docker-login@v1
+      name: Authenticate docker
+      with:
+         username: ${{ secrets.DOCKER_USERNAME }}
+         password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build and Push Docker Image
+      run: |
+         docker build ~/builds -f Dockerfile -t micro/services:${GITHUB_REF##*/}
+         docker push micro/services:${GITHUB_REF##*/}   
+    - name: Build Finished Webhook
+      run: |
+         curl https://micro.mu/platform/v1/github/build-finished -X POST -d @$HOME/files.json -H "Content-Type: application/json"
+    - name: Compress new binaries
+      run: |        
+        for dir in */; do
+          if grep $dir $HOME/files.json; then upx ~/builds/${dir::-1}; fi
+        done
