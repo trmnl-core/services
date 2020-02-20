@@ -35,9 +35,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/builds
-        key: ${{ runner.os }}-binaries-${{ hashFiles('**/*.go') }}
+        key: ${{ runner.os }}-builder-${{ hashFiles('**/*.go') }}
         restore-keys: |
-          ${{ runner.os }}-binaries-
+          ${{ runner.os }}-builder-
     - name: Create builds directory
       run: |
         if [ -d ~/builds ] && [ "$(ls -A ~/builds)" ]; then
@@ -48,7 +48,6 @@ jobs:
             cd $dir
             echo Building $dir
             (CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" . && mv ./${dir::-1} ~/builds/${dir::-1} || true)
-            upx ~/builds/${dir::-1}
             cd ..
           done
         fi
@@ -58,7 +57,7 @@ jobs:
           if grep $dir $HOME/files.json; then
             cd $dir
             echo Building $dir
-            (CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" . && mv ./${dir::-1} ~/builds/${dir::-1} || true)
+            CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" . && mv ./${dir::-1} ~/builds/${dir::-1}
             cd ..
            else
             echo Skipping $dir
@@ -85,8 +84,8 @@ jobs:
     - name: Build Finished Webhook
       run: |
          curl https://micro.mu/platform/v1/github/build-finished -X POST -d @$HOME/files.json -H "Content-Type: application/json"
-    - name: Compress new binaries
-      run: |        
-        for dir in */; do
-          if grep $dir $HOME/files.json; then upx ~/builds/${dir::-1}; fi
-        done
+#     - name: Compress new binaries
+#       run: |        
+#         for dir in */; do
+#           if grep $dir $HOME/files.json; then upx ~/builds/${dir::-1}; fi
+#         done
