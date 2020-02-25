@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/micro/go-micro/v2/util/log"
-	"github.com/micro/go-micro/v2"
 	"cruft/handler"
 	"cruft/subscriber"
+	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2/util/log"
 
 	cruft "cruft/proto/cruft"
 )
