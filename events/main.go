@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/micro/go-micro/v2/util/log"
-	"github.com/micro/go-micro/v2"
 	"events/handler"
 	"events/subscriber"
+	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2/util/log"
 
 	events "events/proto/events"
 )
