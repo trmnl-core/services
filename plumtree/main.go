@@ -1,10 +1,12 @@
 package main
 
 import (
-	log "github.com/micro/go-micro/v2/logger"
-	"github.com/micro/go-micro/v2"
+	"fmt"
 	"plumtree/handler"
 	"plumtree/subscriber"
+
+	"github.com/micro/go-micro/v2"
+	log "github.com/micro/go-micro/v2/logger"
 
 	plumtree "plumtree/proto/plumtree"
 )
@@ -21,6 +23,8 @@ func main() {
 
 	// Register Handler
 	plumtree.RegisterPlumtreeHandler(service.Server(), new(handler.Plumtree))
+
+	fmt.Println("TEST")
 
 	// Register Struct as Subscriber
 	micro.RegisterSubscriber("go.micro.srv.plumtree", service.Server(), new(subscriber.Plumtree))
