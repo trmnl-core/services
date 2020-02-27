@@ -81,7 +81,7 @@ func (h *Handler) Update(ctx context.Context, stream pb.Notes_UpdateStream) erro
 		// Lookup the note from the store
 		recs, err := h.store.Read(StorePrefix + req.Note.Id)
 		if err != nil {
-			return errors.InternalServerError(ServiceName, "Error reading from store: %v", err)
+			return errors.InternalServerError(ServiceName, "Error reading from store: %v", err.Error())
 		}
 		if len(recs) == 0 {
 			return errors.NotFound(ServiceName, "Note not found")
@@ -90,7 +90,7 @@ func (h *Handler) Update(ctx context.Context, stream pb.Notes_UpdateStream) erro
 		// Decode the note
 		var note *pb.Note
 		if err := json.Unmarshal(recs[0].Value, &note); err != nil {
-			return errors.InternalServerError(ServiceName, "Error unmarshaling JSON: %v", err)
+			return errors.InternalServerError(ServiceName, "Error unmarshaling JSON: %v", err.Error())
 		}
 
 		// Update the notes title and text
@@ -100,13 +100,13 @@ func (h *Handler) Update(ctx context.Context, stream pb.Notes_UpdateStream) erro
 		// Remarshal the note into bytes
 		bytes, err := json.Marshal(note)
 		if err != nil {
-			return errors.InternalServerError(ServiceName, "Error marshaling JSON: %v", err)
+			return errors.InternalServerError(ServiceName, "Error marshaling JSON: %v", err.Error())
 		}
 
 		// Write the updated note to the store
 		err = h.store.Write(&store.Record{Key: StorePrefix + note.Id, Value: bytes})
 		if err != nil {
-			return errors.InternalServerError(ServiceName, "Error writing to store: %v", err)
+			return errors.InternalServerError(ServiceName, "Error writing to store: %v", err.Error())
 		}
 	}
 
@@ -129,7 +129,7 @@ func (h *Handler) List(ctx context.Context, req *pb.ListNotesRequest, rsp *pb.Li
 	// Retrieve all of the records in the store
 	recs, err := h.store.Read(StorePrefix, store.ReadPrefix())
 	if err != nil {
-		return errors.InternalServerError(ServiceName, "Error reading from store: %v", err)
+		return errors.InternalServerError(ServiceName, "Error reading from store: %v", err.Error())
 	}
 
 	// Initialize the response notes slice
@@ -138,7 +138,7 @@ func (h *Handler) List(ctx context.Context, req *pb.ListNotesRequest, rsp *pb.Li
 	// Unmarshal the notes into the response
 	for i, r := range recs {
 		if err := json.Unmarshal(r.Value, &rsp.Notes[i]); err != nil {
-			return errors.InternalServerError(ServiceName, "Error unmarshaling json: %v", err)
+			return errors.InternalServerError(ServiceName, "Error unmarshaling json: %v", err.Error())
 		}
 	}
 
