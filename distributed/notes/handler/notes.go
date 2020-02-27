@@ -127,7 +127,7 @@ func (h *Handler) Delete(ctx context.Context, req *pb.DeleteNoteRequest, rsp *pb
 // List returns all of the notes in the store
 func (h *Handler) List(ctx context.Context, req *pb.ListNotesRequest, rsp *pb.ListNotesResponse) error {
 	// Retrieve all of the records in the store
-	recs, err := h.store.List()
+	recs, err := h.store.Read(StorePrefix, store.ReadPrefix())
 	if err != nil {
 		return errors.InternalServerError(ServiceName, "Error reading from store")
 	}
