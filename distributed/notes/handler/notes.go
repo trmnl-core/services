@@ -16,6 +16,9 @@ import (
 // ServiceName is the identifier of the service
 const ServiceName = "go.micro.srv.distributed.notes"
 
+// StorePrefix is the prefix for the store
+const StorePrefix = ServiceName + "/"
+
 // NewHandler returns an initialized Handler
 func NewHandler() *Handler {
 	return &Handler{
@@ -48,7 +51,7 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateNoteRequest, rsp *pb
 	}
 
 	// write to the store
-	err = h.store.Write(&store.Record{Key: note.Id, Value: bytes})
+	err = h.store.Write(&store.Record{Key: StorePrefix + note.Id, Value: bytes})
 	if err != nil {
 		return err
 	}
@@ -76,7 +79,7 @@ func (h *Handler) Update(ctx context.Context, stream pb.Notes_UpdateStream) erro
 		}
 
 		// Lookup the note from the store
-		recs, err := h.store.Read(req.Note.Id)
+		recs, err := h.store.Read(StorePrefix + req.Note.Id)
 		if err != nil {
 			return errors.InternalServerError(ServiceName, "Error reading from store")
 		}
@@ -101,7 +104,7 @@ func (h *Handler) Update(ctx context.Context, stream pb.Notes_UpdateStream) erro
 		}
 
 		// Write the updated note to the store
-		err = h.store.Write(&store.Record{Key: note.Id, Value: bytes})
+		err = h.store.Write(&store.Record{Key: StorePrefix + note.Id, Value: bytes})
 		if err != nil {
 			return errors.InternalServerError(ServiceName, "Error writing to store")
 		}
@@ -118,7 +121,7 @@ func (h *Handler) Delete(ctx context.Context, req *pb.DeleteNoteRequest, rsp *pb
 	}
 
 	// Delete the note using ID and return the error
-	return h.store.Delete(req.Note.Id)
+	return h.store.Delete(StorePrefix + req.Note.Id)
 }
 
 // List returns all of the notes in the store
