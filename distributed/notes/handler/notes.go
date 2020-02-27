@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"strings"
 	"time"
 
 	pb "notes/proto/notes"
@@ -19,7 +20,11 @@ const ServiceName = "go.micro.srv.distributed.notes"
 // NewHandler returns an initialized Handler
 func NewHandler() *Handler {
 	s := store.DefaultStore
-	s.Init(store.Namespace(ServiceName))
+
+	// store namespace can only contain letters
+	// todo: move this to cockroach.configure() method
+	namespace := strings.ReplaceAll(ServiceName, ".", "")
+	s.Init(store.Namespace(namespace))
 
 	return &Handler{store: s}
 }
