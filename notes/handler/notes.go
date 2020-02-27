@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	pb "notes/proto/notes"
+	pb "github.com/micro/services/notes/proto"
 
 	"github.com/google/uuid"
 	"github.com/micro/go-micro/errors"

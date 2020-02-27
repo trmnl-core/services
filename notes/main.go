@@ -1,12 +1,11 @@
 package main
 
 import (
-	"notes/handler"
+	"github.com/micro/services/notes/handler"
 
 	"github.com/micro/go-micro/v2"
 	log "github.com/micro/go-micro/v2/logger"
-
-	notes "notes/proto/notes"
+	pb "github.com/micro/services/notes/proto"
 )
 
 func main() {
@@ -20,7 +19,7 @@ func main() {
 	service.Init()
 
 	// Register Handler
-	notes.RegisterNotesHandler(service.Server(), handler.NewHandler())
+	pb.RegisterNotesHandler(service.Server(), handler.NewHandler())
 
 	// Run service
 	if err := service.Run(); err != nil {
