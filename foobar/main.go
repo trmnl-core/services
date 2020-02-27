@@ -1,10 +1,12 @@
 package main
 
 import (
-	"github.com/micro/go-micro/v2/util/log"
-	"github.com/micro/go-micro/v2"
+	"fmt"
 	"foobar/handler"
 	"foobar/subscriber"
+
+	"github.com/micro/go-micro/v2"
+	log "github.com/micro/go-micro/v2/logger"
 
 	foobar "foobar/proto/foobar"
 )
@@ -13,6 +15,7 @@ func main() {
 	// New Service
 	service := micro.NewService(
 		micro.Name("go.micro.srv.foobar"),
+		micro.Version("latest"),
 	)
 
 	// Initialise service
@@ -23,6 +26,8 @@ func main() {
 
 	// Register Struct as Subscriber
 	micro.RegisterSubscriber("go.micro.srv.foobar", service.Server(), new(subscriber.Foobar))
+
+	fmt.Println("Foo")
 
 	// Run service
 	if err := service.Run(); err != nil {
