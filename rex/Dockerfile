@@ -1,3 +1,3 @@
 FROM alpine
-ADD rex /rex
-ENTRYPOINT [ "/rex" ]
+ADD rex-srv /rex-srv
+ENTRYPOINT [ "/rex-srv" ]

@@ -11,7 +11,7 @@ proto:
 .PHONY: build
 build: proto
 
-	go build -o rex *.go
+	go build -o rex-srv *.go
 
 .PHONY: test
 test:
@@ -19,4 +19,4 @@ test:
 
 .PHONY: docker
 docker:
-	docker build . -t rex:latest
+	docker build . -t rex-srv:latest

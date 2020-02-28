@@ -1,11 +1,11 @@
-# Rex Service
+# Auth Service
 
-This is the Rex service
+This is the Auth service
 
 Generated with
 
 ```
-micro new rex --namespace=go.micro --type=srv
+micro new auth --namespace=go.micro --type=srv
 ```
 
 ## Getting Started
@@ -16,9 +16,9 @@ micro new rex --namespace=go.micro --type=srv
 
 ## Configuration
 
-- FQDN: go.micro.srv.rex
+- FQDN: go.micro.srv.auth
 - Type: srv
-- Alias: rex
+- Alias: auth
 
 ## Dependencies
 
@@ -46,7 +46,7 @@ make build
 
 Run the service
 ```
-./rex
+./rex-srv
 ```
 
 Build a docker image
