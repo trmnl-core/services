@@ -3,10 +3,10 @@ package handler
 import (
 	"log"
 
-	"github.com/micro/go-micro"
-	"github.com/micro/go-micro/client"
-	"github.com/micro/go-micro/errors"
-	"github.com/micro/go-micro/server"
+	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2/client"
+	"github.com/micro/go-micro/v2/errors"
+	"github.com/micro/go-micro/v2/server"
 	"github.com/micro/services/location/ingester"
 	loc "github.com/micro/services/location/proto/location"
 

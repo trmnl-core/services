@@ -4,8 +4,8 @@ import (
 	"sync"
 
 	geo "github.com/hailocab/go-geoindex"
-	"github.com/micro/go-micro/errors"
-	"github.com/micro/go-micro/server"
+	"github.com/micro/go-micro/v2/errors"
+	"github.com/micro/go-micro/v2/server"
 	"github.com/micro/services/location/domain"
 )
 

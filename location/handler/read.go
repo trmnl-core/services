@@ -3,8 +3,8 @@ package handler
 import (
 	"log"
 
-	"github.com/micro/go-micro/errors"
-	"github.com/micro/go-micro/server"
+	"github.com/micro/go-micro/v2/errors"
+	"github.com/micro/go-micro/v2/server"
 	"github.com/micro/services/location/dao"
 	loc "github.com/micro/services/location/proto/location"
 

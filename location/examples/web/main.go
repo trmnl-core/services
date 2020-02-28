@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/v2"
 	"golang.org/x/net/context"
 
 	common "github.com/micro/services/location/proto"

@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/v2"
 	"github.com/micro/services/location/handler"
 	"github.com/micro/services/location/ingester"
 	proto "github.com/micro/services/location/proto/location"

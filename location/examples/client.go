@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/v2"
 	common "github.com/micro/services/location/proto"
 	loc "github.com/micro/services/location/proto/location"
 
