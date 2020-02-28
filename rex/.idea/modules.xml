@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/rex-srv.iml" filepath="$PROJECT_DIR$/.idea/rex-srv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/rex.iml" filepath="$PROJECT_DIR$/.idea/rex.iml" />
     </modules>
   </component>
 </project>

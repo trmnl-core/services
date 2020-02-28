@@ -5,7 +5,7 @@ import (
 
 	log "github.com/micro/go-micro/v2/logger"
 
-	rex "rex-srv/proto/rex"
+	rex "rex/proto/rex"
 )
 
 type Rex struct{}

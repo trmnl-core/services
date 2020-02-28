@@ -5,7 +5,7 @@ This is the Rex service
 Generated with
 
 ```
-micro new rex-srv --namespace=go.micro --type=srv
+micro new rex --namespace=go.micro --type=srv
 ```
 
 ## Getting Started
@@ -46,7 +46,7 @@ make build
 
 Run the service
 ```
-./rex-srv
+./rex
 ```
 
 Build a docker image

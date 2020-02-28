@@ -3,10 +3,10 @@ package main
 import (
 	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2"
-	"rex-srv/handler"
-	"rex-srv/subscriber"
+	"rex/handler"
+	"rex/subscriber"
 
-	rex "rex-srv/proto/rex"
+	rex "rex/proto/rex"
 )
 
 func main() {

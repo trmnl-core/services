@@ -1,4 +1,4 @@
-module rex-srv
+module rex
 
 go 1.13
 
