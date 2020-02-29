@@ -11,8 +11,38 @@ import (
 )
 
 var (
-	head = `<head><style>body {margin: 25px; font-family: sans-serif;}</style></head>`
-	html = `<html>` + head + `<body><h1>Enter Name<h1><form method=post><input name=name type=text /></form></body></html>`
+	head = `<html>
+<head>
+  <style>
+    body {
+      margin: 25px;
+      color: #0c2e47;
+      font-family: medium-content-sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    }
+    .content {
+      margin: 0 auto;
+      max-width: 800px;
+    }
+    .content img {
+      vertical-align: middle;
+    }
+    .title {
+      font-weight: 600;
+    }
+    input {
+      font-size: 20px;
+      outline: 0;
+      border: 0;
+      border-bottom: 1px solid whitesmoke;
+    }
+  </style>
+</head>
+<body>
+<div class="content">
+<h1><img src="https://micro.mu/logo.png" width=50px height=auto /> <span class="title">Helloworld</span></h1>
+`
+	foot = `</div></body></html>`
+	html = head + `<p>&nbsp;</p><form method=post><input name=name type=text placeholder="Enter your name" autofocus></form>` + foot
 )
 
 func main() {
@@ -41,7 +71,7 @@ func main() {
 				return
 			}
 
-			w.Write([]byte(`<html>` + head + `<body><h1>` + rsp.Msg + `</h1></body></html>`))
+			w.Write([]byte(head + `<h1>` + rsp.Msg + `</h1>` + foot))
 			return
 		}
 
