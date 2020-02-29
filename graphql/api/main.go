@@ -27,6 +27,7 @@ func main() {
 		&api.Endpoint{
 			Name:    "Graphql.Call",
 			Path:    []string{"^/graphql?$"},
+			Method:  []string{"GET", "POST"},
 			Handler: "api",
 		},
 	))
