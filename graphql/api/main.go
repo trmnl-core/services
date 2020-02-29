@@ -5,6 +5,7 @@ import (
 	"api/handler"
 	graphql "api/proto/graphql"
 	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2/api"
 	log "github.com/micro/go-micro/v2/logger"
 )
 
@@ -22,7 +23,14 @@ func main() {
 	)
 
 	// Register Handler
-	graphql.RegisterGraphqlHandler(service.Server(), new(handler.Graphql))
+	graphql.RegisterGraphqlHandler(service.Server(), new(handler.Graphql), api.WithEndpoint(
+		&api.Endpoint{
+			Name:    "Graphql.Call",
+			Path:    []string{"^/graphql?$"},
+			Method:  []string{"POST"},
+			Handler: "api",
+		},
+	))
 
 	// Run service
 	if err := service.Run(); err != nil {

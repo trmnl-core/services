@@ -6,7 +6,7 @@ package go_micro_api_graphql
 import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/micro/go-micro/api/proto"
+	_ "github.com/micro/go-micro/v2/api/proto"
 	math "math"
 )
 
