@@ -5,7 +5,7 @@ import (
 
 	"github.com/micro/services/location/dao"
 	"github.com/micro/services/location/domain"
-	proto "github.com/micro/services/location/proto"
+	proto "github.com/micro/services/location/proto/location"
 	"golang.org/x/net/context"
 )
 

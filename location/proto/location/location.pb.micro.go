@@ -6,7 +6,6 @@ package location
 import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/micro/services/location/proto"
 	math "math"
 )
 

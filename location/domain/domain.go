@@ -1,7 +1,7 @@
 package domain
 
 import (
-	common "github.com/micro/services/location/proto"
+	common "github.com/micro/services/location/proto/location"
 )
 
 type Entity struct {

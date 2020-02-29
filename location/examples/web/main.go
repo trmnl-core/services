@@ -12,7 +12,6 @@ import (
 	"github.com/micro/go-micro/v2"
 	"golang.org/x/net/context"
 
-	common "github.com/micro/services/location/proto"
 	loc "github.com/micro/services/location/proto/location"
 )
 
@@ -36,9 +35,9 @@ var (
 	service = micro.NewService()
 )
 
-func requestEntity(typ string, num int64, radius, lat, lon float64) ([]*common.Entity, error) {
+func requestEntity(typ string, num int64, radius, lat, lon float64) ([]*loc.Entity, error) {
 	req := service.Client().NewRequest("go.micro.srv.geo", "Location.Search", &loc.SearchRequest{
-		Center: &common.Point{
+		Center: &loc.Point{
 			Latitude:  lat,
 			Longitude: lon,
 		},
@@ -56,10 +55,10 @@ func requestEntity(typ string, num int64, radius, lat, lon float64) ([]*common.E
 }
 
 func saveEntity(id, typ string, lat, lon float64) {
-	entity := &common.Entity{
+	entity := &loc.Entity{
 		Id:   id,
 		Type: typ,
-		Location: &common.Point{
+		Location: &loc.Point{
 			Latitude:  lat,
 			Longitude: lon,
 			Timestamp: time.Now().Unix(),

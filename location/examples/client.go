@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/micro/go-micro/v2"
-	common "github.com/micro/services/location/proto"
 	loc "github.com/micro/services/location/proto/location"
 
 	"golang.org/x/net/context"
@@ -16,10 +15,10 @@ var (
 )
 
 func saveEntity() {
-	entity := &common.Entity{
+	entity := &loc.Entity{
 		Id:   "id123",
 		Type: "runner",
-		Location: &common.Point{
+		Location: &loc.Point{
 			Latitude:  51.516509,
 			Longitude: 0.124615,
 			Timestamp: time.Now().Unix(),
@@ -53,7 +52,7 @@ func readEntity() {
 
 func searchForEntities() {
 	rsp, err := cl.Search(context.Background(), &loc.SearchRequest{
-		Center: &common.Point{
+		Center: &loc.Point{
 			Latitude:  51.516509,
 			Longitude: 0.124615,
 			Timestamp: time.Now().Unix(),
