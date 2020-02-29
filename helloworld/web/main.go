@@ -42,7 +42,7 @@ var (
 <h1><img src="https://micro.mu/logo.png" width=50px height=auto /> <span class="title">Helloworld</span></h1>
 `
 	foot = `</div></body></html>`
-	html = head + `<p>&nbsp;</p><form method=post><input name=name type=text placeholder="Enter your name" autofocus></form>` + foot
+	html = head + `<form method=post><input name=name type=text placeholder="Enter your name" autofocus></form>` + foot
 )
 
 func main() {
