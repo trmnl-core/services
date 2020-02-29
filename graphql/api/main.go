@@ -1,7 +1,6 @@
 package main
 
 import (
-	"api/client"
 	"api/handler"
 	graphql "api/proto/graphql"
 	"github.com/micro/go-micro/v2"
@@ -17,10 +16,7 @@ func main() {
 	)
 
 	// Initialise service
-	service.Init(
-		// create wrap for the Graphql srv client
-		micro.WrapHandler(client.GraphqlWrapper(service)),
-	)
+	service.Init()
 
 	// Register Handler
 	graphql.RegisterGraphqlHandler(service.Server(), new(handler.Graphql), api.WithEndpoint(
