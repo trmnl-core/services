@@ -4,7 +4,7 @@ package go.micro.api.distributed;
 
 service Distributed {
 	rpc CreateNote(CreateNoteRequest) returns (CreateNoteResponse);
-	rpc UpdateNote(stream UpdateNoteRequest) returns (UpdateNoteResponse);
+	rpc UpdateNote(UpdateNoteRequest) returns (UpdateNoteResponse);
 	rpc DeleteNote(DeleteNoteRequest) returns (DeleteNoteResponse);
 	rpc ListNotes(ListNotesRequest) returns (ListNotesResponse);
 }

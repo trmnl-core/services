@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"io"
 
 	"github.com/micro/go-micro/v2/errors"
 	pb "github.com/micro/services/distributed/api/proto"
@@ -25,30 +24,13 @@ func (h *Handler) CreateNote(ctx context.Context, req *pb.CreateNoteRequest, rsp
 }
 
 // UpdateNote streams updates to the notes service
-func (h *Handler) UpdateNote(ctx context.Context, stream pb.Distributed_UpdateNoteStream) error {
-	client, err := h.notes.Update(ctx)
-	if err != nil {
-		return err
+func (h *Handler) UpdateNote(ctx context.Context, req *pb.UpdateNoteRequest, rsp *pb.UpdateNoteResponse) error {
+	if req.Note == nil {
+		return errors.BadRequest("go.micro.api.distributed", "Note Required")
 	}
-	defer client.Close()
 
-	for {
-		req, err := stream.Recv()
-		if err == io.EOF {
-			return nil
-		} else if err != nil {
-			return err
-		}
-
-		if req.Note == nil {
-			return errors.BadRequest("go.micro.api.distributed", "Note Required")
-		}
-
-		err = client.Send(&notes.UpdateNoteRequest{Note: deserializeNote(req.Note)})
-		if err != nil {
-			return err
-		}
-	}
+	_, err := h.notes.Update(ctx, &notes.UpdateNoteRequest{Note: deserializeNote(req.Note)})
+	return err
 }
 
 // DeleteNote note deleted a note in the notes service
