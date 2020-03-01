@@ -3,10 +3,11 @@ syntax = "proto3";
 package go.micro.srv.notes;
 
 service Notes {
-	rpc Create(CreateNoteRequest) returns (CreateNoteResponse);
-	rpc Update(stream UpdateNoteRequest) returns (UpdateNoteResponse);
-	rpc Delete(DeleteNoteRequest) returns (DeleteNoteResponse);
 	rpc List(ListNotesRequest) returns (ListNotesResponse);
+	rpc Create(CreateNoteRequest) returns (CreateNoteResponse);
+	rpc Delete(DeleteNoteRequest) returns (DeleteNoteResponse);
+	rpc Update(UpdateNoteRequest) returns (UpdateNoteResponse);
+	rpc UpdateStream(stream UpdateNoteRequest) returns (UpdateNoteResponse);
 }
 
 message Note {

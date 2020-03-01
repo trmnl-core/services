@@ -64,9 +64,53 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateNoteRequest, rsp *pb
 	return nil
 }
 
-// Update is a client streaming RPC which streams update events from the client which are used
-// to update the note in the store
-func (h *Handler) Update(ctx context.Context, stream pb.Notes_UpdateStream) error {
+// Update is a unary API which updates a note in the store
+func (h *Handler) Update(ctx context.Context, req *pb.UpdateNoteRequest, rsp *pb.UpdateNoteResponse) error {
+	// Validate the request
+	if req.Note == nil {
+		return errors.BadRequest(ServiceName, "Missing Note")
+	}
+	if len(req.Note.Id) == 0 {
+		return errors.BadRequest(ServiceName, "Missing Note ID")
+	}
+
+	// Lookup the note from the store
+	recs, err := h.store.Read(req.Note.Id)
+	if err != nil {
+		return errors.InternalServerError(ServiceName, "Error reading from store: %v", err.Error())
+	}
+	if len(recs) == 0 {
+		return errors.NotFound(ServiceName, "Note not found")
+	}
+
+	// Decode the note
+	var note *pb.Note
+	if err := json.Unmarshal(recs[0].Value, &note); err != nil {
+		return errors.InternalServerError(ServiceName, "Error unmarshaling JSON: %v", err.Error())
+	}
+
+	// Update the notes title and text
+	note.Title = req.Note.Title
+	note.Text = req.Note.Text
+
+	// Remarshal the note into bytes
+	bytes, err := json.Marshal(note)
+	if err != nil {
+		return errors.InternalServerError(ServiceName, "Error marshaling JSON: %v", err.Error())
+	}
+
+	// Write the updated note to the store
+	err = h.store.Write(&store.Record{Key: note.Id, Value: bytes})
+	if err != nil {
+		return errors.InternalServerError(ServiceName, "Error writing to store: %v", err.Error())
+	}
+
+	return nil
+}
+
+// UpdateStream is a client streaming RPC which streams update events from the client
+// which are used to update the note in the store
+func (h *Handler) UpdateStream(ctx context.Context, stream pb.Notes_UpdateStreamStream) error {
 	for {
 		// Get a request from the stream
 		req, err := stream.Recv()
