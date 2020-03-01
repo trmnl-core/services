@@ -1,0 +1,20 @@
+.NotesEditor {
+  display: flex;
+  flex-direction: column;
+
+  input, textarea {
+    outline: none;
+    border: none;
+  }
+
+  input {
+    margin-bottom: 20px;
+    font-size: 16pt;
+    font-weight: bold;
+  }
+
+  textarea {
+    flex-grow: 1;
+    font-size: 12pt;
+  }
+}
