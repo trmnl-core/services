@@ -1,12 +1,18 @@
 .NotesScene {
   display: flex;
   flex-direction: column;
+  padding: 25px 50px 0px 35px;
 
-  h1 {
-    margin-bottom: 20px;
+  .notes-upper {
+    padding-left: 10px;
+   
+    h1 {
+      margin-bottom: 20px;
+    }
   }
 
-  .inner {
+  .notes-lower {
+    overflow: hidden;
     margin-top: 20px;
     display: grid;
     grid-template-columns: 300px auto;

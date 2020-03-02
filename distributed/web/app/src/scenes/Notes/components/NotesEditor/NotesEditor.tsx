@@ -1,25 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Call, { Note } from '../../../../api';
+import { updateNote, deleteNote } from '../../../../store/notes';
+import bin from '../../../../assets/images/bin.png';
 import './NotesEditor.scss';
 
 interface Props {
+  history: any;
+
   note: Note;
+  noteID: string;
+  autoFocus?: boolean;
+  updateNote: (note: Note) => void;
+  deleteNote: (note: Note) => void;
 }
 
 interface State {
-  note: Note;
   typingTimer?: NodeJS.Timeout;
 }
 
-export default class NotesEditor extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { note: props.note };
-  }
+class NotesEditor extends React.Component<Props, State> {
+  readonly state: State = {};
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    if(this.props.note !== prevProps.note) return;
-    if(this.state.note === prevState.note) return;
+  componentDidUpdate(prevProps: Props) {
+    if(!prevProps.note || this.props.noteID === 'new') return;
+    if(this.props.note === prevProps.note) return;
 
     // If there was already a save scheduled, cancel it
     if (this.state.typingTimer) clearTimeout(this.state.typingTimer);
@@ -32,46 +37,72 @@ export default class NotesEditor extends React.Component<Props, State> {
   }
 
   saveChanges() {
+    console.log("Saving changes to note #", this.props.note.id);
+    
     const note = {
-      id: this.state.note.id,
-      title: this.state.note.title,
-      text: this.state.note.text,
+      id: this.props.note.id,
+      title: this.props.note.title,
+      text: this.props.note.text,
     }
 
-    Call('updateNote', { note })
-      .then(() => console.log("note saved"))
-      .catch(console.warn)
+    Call('updateNote', { note }).catch(console.warn)
+  }
+
+  updateValue(key:string, value: string) {
+    let note = { ...this.props.note, [key]: value }
+
+    // If its a new note, create via API then write to redux
+    if(this.props.noteID === 'new') {
+      Call('createNote', { note: { title: note.title, text: note.text } })
+        .then(res => {
+          const note = new Note(res.data.note);
+          this.props.updateNote(note);
+          this.props.history.push('/notes/' + note.id + '/autoFocus');
+        })
+        .catch(console.warn)
+    } else {
+      this.props.updateNote(note);
+    }
   }
 
   onTitleChanged(e: any) {
-    this.setState({
-      note: {
-        ...this.state.note,
-        title: e.target.value,
-      }
-    })
+    this.updateValue('title', e.target.value);
   }
 
   onTextChanged(e: any) {
-    this.setState({
-      note: {
-        ...this.state.note,
-        text: e.target.value,
-      }
-    })
+    this.updateValue('text', e.target.value);
+  }
+
+  onDeleteClicked() {
+    // eslint-disable-next-line no-restricted-globals
+    if(!confirm("Are you sure you want to delete this note?")) return;
+
+    Call('deleteNote', { note: { id: this.props.noteID } }).catch(console.warn);
+    this.props.deleteNote(this.props.note);
+    this.props.history.push('/notes');
   }
 
   render(): JSX.Element {
-    const { title, text, id } = this.state.note;
+    if(!this.props.note) return <form className='NotesEditor' />;
+
+    const { title, text, id } = this.props.note;
 
     return(
       <form className='NotesEditor'>
-        <input
-          type='text'
-          value={title}
-          autoFocus={!id}
-          placeholder={id ? 'Note title' : 'Create a new note'}
-          onChange={this.onTitleChanged.bind(this)} />
+        <div className='upper'>
+          <input
+            type='text'
+            value={title}
+            autoFocus={this.props.autoFocus || id === 'new'}
+            placeholder={id === 'new' ? 'Create a new note' : 'Note title'}
+            onChange={this.onTitleChanged.bind(this)} />
+
+          { this.props.noteID === 'new' ? null : 
+            <img
+              src={bin}
+              alt='Delete Note'
+              onClick={this.onDeleteClicked.bind(this)} /> }
+        </div>
 
         <textarea
           value={text}
@@ -81,3 +112,18 @@ export default class NotesEditor extends React.Component<Props, State> {
     );
   }
 }
+
+function mapDispatchToProps(dispatch: Function): any {
+  return {
+    updateNote: (note: Note) => dispatch(updateNote(note)),
+    deleteNote: (note: Note) => dispatch(deleteNote(note)),
+  };
+}
+
+function mapStateToProps(state: any, ownProps: Props): any {
+  return {
+    note: state.notes.notes[ownProps.noteID] || new Note({ id: 'new' }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotesEditor);

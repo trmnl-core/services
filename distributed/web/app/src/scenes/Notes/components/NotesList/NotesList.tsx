@@ -10,7 +10,9 @@ interface Props {
 
 export default class NotesList extends React.Component<Props> {
   render():JSX.Element {
-    const { notes } = this.props;
+    const notes = this.props.notes.sort((a,b) => {
+      return b.created.getTime() - a.created.getTime();
+    })
 
     return(
       <div className='NotesList'>

@@ -1,37 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Call, { Note } from '../../api';
 import NotesList from './components/NotesList';
 import NotesEditor from './components/NotesEditor';
 import PageLayout from '../../components/PageLayout';
 import './Notes.scss';
+import { setNotes } from '../../store/notes';
 
 interface Props {
   history: any;
   match: any;
-}
 
-interface State {
   notes: Note[];
+  setNotes: (notes: Note[]) => void;
 }
 
-export default class NotesScene extends React.Component<Props, State> {
+class NotesScene extends React.Component<Props> {
   _mounted = false;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = { notes: [] };
-  }
 
   componentDidMount() {
     this._mounted = true;
+    const { notes, match, history, setNotes } = this.props;
 
     // Set the default note when navigating to /notes
-    if(!this.props.match.params.id) {
-      this.props.history.push('/notes/new');
+    if(!match.params.id) {
+      const id = notes.length === 0 ? 'new' : notes[0].id;
+      history.push('/notes/' + id);
       return
     }
 
-    // Fetch the notes from the API
+    // Fetch the notes from the API if we have none
+    if(notes.length > 0) return;
     Call('listNotes').catch(console.warn).then(res => {
       if(!this._mounted || !res) return;
       
@@ -39,7 +38,7 @@ export default class NotesScene extends React.Component<Props, State> {
         return new Note(n);
       });
 
-      this.setState({ notes });
+      setNotes(notes);
     })
   }
 
@@ -48,23 +47,28 @@ export default class NotesScene extends React.Component<Props, State> {
   }
 
   render():JSX.Element {
-    const { notes } = this.state;
-    
+    const { notes } = this.props;
     const activeNoteID = this.props.match.params.id;
-    const activeNote = notes.find(n => n.id === activeNoteID) || new Note({});
+    const autoFocus = this.props.match.params.options === 'autoFocus';
 
     return(
       <PageLayout className='NotesScene'>
-        <h1>Notes</h1>
-        <p>There are {notes.length} notes</p>
+        <div className='notes-upper'>
+          <h1>Notes</h1>
+          <p>There are {notes.length} notes</p>
+        </div>
 
-        <div className='inner'>
+        <div className='notes-lower'>
           <NotesList
             notes={notes}
             activeNoteID={activeNoteID}
             onNoteClicked={this.onNoteClicked.bind(this)} />
             
-          <NotesEditor key={activeNoteID} note={activeNote} />
+          <NotesEditor
+            key={activeNoteID}
+            noteID={activeNoteID}
+            autoFocus={autoFocus}
+            history={this.props.history} />
         </div>
       </PageLayout>
     );
@@ -74,3 +78,17 @@ export default class NotesScene extends React.Component<Props, State> {
     this.props.history.push('/notes/' + id)
   }
 }
+
+function mapDispatchToProps(dispatch: Function):any {
+  return {
+    setNotes: (notes: Note[]) => dispatch(setNotes(notes)),
+  };
+}
+
+function mapStateToProps(state: any):any {
+  return {
+    notes: Object.values(state.notes.notes),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotesScene);
