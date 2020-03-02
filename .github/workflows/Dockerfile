@@ -1,4 +1,4 @@
 FROM alpine:latest
 COPY ./dumb-init /bin/dumb-init
 COPY . .
-ENTRYPOINT ["dumb-init", "./app"]
+ENTRYPOINT ["dumb-init", "./micro-service"]
