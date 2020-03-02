@@ -14,28 +14,12 @@ interface State {
   notes: Note[];
 }
 
-const testNotes: Note[] = [
-  new Note({
-    "id": "5240f5e0-59a3-11ea-a6d5-0e654358a17d",
-    "created": 1582836858,
-    "title": "My first note",
-    "text": "Helloworld one"
-  }),
-  new Note({
-    "id": "5240f5e0-59a3-11ea-a6d5-0e654358a17c",
-    "created": 1582836858,
-    "title": "My second note",
-    "text": "Helloworld two"
-  })
-];
-
 export default class NotesScene extends React.Component<Props, State> {
   _mounted = false;
 
   constructor(props: Props) {
     super(props);
-    // this.state = { notes: [] };
-    this.state = { notes: testNotes };
+    this.state = { notes: [] };
   }
 
   componentDidMount() {
@@ -43,13 +27,12 @@ export default class NotesScene extends React.Component<Props, State> {
 
     // Set the default note when navigating to /notes
     if(!this.props.match.params.id) {
-      const id = this.state.notes[0] ? this.state.notes[0].id : 'new';
-      this.props.history.push('/notes/' + id);
+      this.props.history.push('/notes/new');
       return
     }
 
     // Fetch the notes from the API
-    Call('/ListNotes').catch(console.warn).then(res => {
+    Call('listNotes').catch(console.warn).then(res => {
       if(!this._mounted || !res) return;
       
       const notes = (res.data.notes || []).map((n: any) => {

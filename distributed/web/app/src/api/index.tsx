@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const BaseURL = 'https://api.micro.mu/distributed'
+// const BaseURL = 'http://localhost:8080/distributed/'
+const BaseURL = 'https://api.micro.mu/distributed/'
 
 export default async function Call(path: string, params?: any): Promise<any> {
-  return axios.get(BaseURL + path, params)
+  return axios.post(BaseURL + path, params)
 }
 
 export class Note {
