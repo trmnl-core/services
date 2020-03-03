@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	// New Service client
+	// New Service
 	service := micro.NewService(
 		micro.Name("go.micro.api.client"),
 	)
