@@ -19,7 +19,7 @@ import (
 
 var (
 	// URLSafeRegex is a function which returns true if a string is URL safe
-	URLSafeRegex = regexp.MustCompile(`^[a-Z0-9_-].*?$`).MatchString
+	URLSafeRegex = regexp.MustCompile(`^[A-Za-z0-9_-].*?$`).MatchString
 )
 
 // Handler implements the users service interface
