@@ -18,11 +18,14 @@ function fatal {
 
 function checkFiles() {
 	# should exist
-	for file in README.md go.mod main.go; do
-		if [ ! -f $file ]; then
-			fatal "$1 does not include $file"
-		fi
-	done
+	# only do this if directory contains main.go
+	if [ -f main.go ]; then
+		for file in README.md go.mod; do
+			if [ ! -f $file ]; then
+				fatal "$1 does not include $file"
+			fi
+		done
+	fi
 
 	# should NOT exist e.g binaries
 	for file in ${1} ${1}-srv; do
