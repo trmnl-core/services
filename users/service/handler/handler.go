@@ -115,6 +115,7 @@ func (h *Handler) Update(ctx context.Context, req *pb.UpdateRequest, rsp *pb.Upd
 	user.LastName = req.User.LastName
 	user.Username = req.User.Username
 	user.Email = req.User.Email
+	user.Metadata = req.User.Metadata
 	user.Updated = time.Now().Unix()
 
 	// Validate the user
