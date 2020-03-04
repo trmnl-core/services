@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BaseURL = 'http://localhost:8080/users/'
-// const BaseURL = 'https://api.micro.mu/users/'
+// const BaseURL = 'http://localhost:8080/users/'
+const BaseURL = 'https://api.micro.mu/users/'
 
 export default async function Call(path: string, token: string, params?: any): Promise<any> {
   const headers = { 'Authorization': 'Bearer ' + token };
