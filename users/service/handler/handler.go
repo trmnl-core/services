@@ -3,7 +3,6 @@ package handler
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"regexp"
 	"strings"
 	"time"
@@ -68,8 +67,7 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateRequest, rsp *pb.Cre
 	}
 
 	// Write to the store
-	key := h.keyForUser(&user)
-	if err := h.store.Write(&store.Record{Key: key, Value: bytes}); err != nil {
+	if err := h.store.Write(&store.Record{Key: user.Id, Value: bytes}); err != nil {
 		return errors.InternalServerError("go.micro.srv.users", "Could not write to store: %v", err)
 	}
 
@@ -125,14 +123,13 @@ func (h *Handler) Update(ctx context.Context, req *pb.UpdateRequest, rsp *pb.Upd
 	}
 
 	// Encode the updated user
-	bytes, err := json.Marshal(req.User)
+	bytes, err := json.Marshal(user)
 	if err != nil {
 		return errors.InternalServerError("go.micro.srv.users", "Coould not marshal user: %v", err)
 	}
 
 	// Write to the store
-	key := h.keyForUser(user)
-	if err := h.store.Write(&store.Record{Key: key, Value: bytes}); err != nil {
+	if err := h.store.Write(&store.Record{Key: user.Id, Value: bytes}); err != nil {
 		return errors.InternalServerError("go.micro.srv.users", "Could not write to store: %v", err)
 	}
 
@@ -150,7 +147,7 @@ func (h *Handler) Delete(ctx context.Context, req *pb.DeleteRequest, rsp *pb.Del
 	}
 
 	// Delete from the store
-	if err := h.store.Delete(h.keyForUser(user)); err != nil {
+	if err := h.store.Delete(user.Id); err != nil {
 		return errors.InternalServerError("go.micro.srv.users", "Could not write to store: %v", err)
 	}
 
@@ -224,13 +221,6 @@ func (h *Handler) findUser(id string) (*pb.User, error) {
 func (h *Handler) usernameExists(username string) (bool, error) {
 	recs, err := h.store.Read(username, store.ReadSuffix())
 	return len(recs) > 0, err
-}
-
-// keyForUser returns the key used in the store. The key format
-// used is ID/USERNAME. This allows lookup by both keys using the
-// ReadPrefix and ReadSuffix options.
-func (h *Handler) keyForUser(u *pb.User) string {
-	return fmt.Sprintf("%v/%v", u.Id, u.Username)
 }
 
 // validateUser performs some checks to ensure the validity of
