@@ -17,7 +17,7 @@ export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const token = Cookies.get('token');
+    const token = Cookies.get('micro_token');
     this.state = { token, saving: false };
   }
 
