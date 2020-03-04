@@ -250,7 +250,7 @@ func (h *Handler) validateUser(u *pb.User) error {
 
 	// Ensure no other users with this username exist
 	exists, err := h.usernameExists(u.Username)
-	if err == nil || exists {
+	if err == nil && exists {
 		return errors.BadRequest("go.micro.srv.users", "Username is taken")
 	}
 

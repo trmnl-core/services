@@ -2,9 +2,7 @@ package handler
 
 import (
 	"context"
-	"strings"
 
-	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/auth"
 	"github.com/micro/go-micro/v2/errors"
@@ -14,52 +12,29 @@ import (
 
 // Handler implements the users api interface
 type Handler struct {
-	auth  auth.Auth
 	users users.UsersService
 }
 
 // NewHandler returns an initialised handler
 func NewHandler(srv micro.Service) *Handler {
 	return &Handler{
-		auth:  srv.Options().Auth,
 		users: users.NewUsersService("go.micro.srv.users", srv.Client()),
 	}
-}
-
-const (
-	// BearerScheme is the prefix used in the Authorization header
-	BearerScheme = "Bearer "
-)
-
-// userFromContext retrives the auth account from the context (req headers).
-// TOOD: Refactor this to be part of go-micro/auth
-func (h *Handler) userFromContext(ctx context.Context) (*auth.Account, error) {
-	// Extract the token if present. Note: if noop is being used
-	// then the token can be blank without erroring
-	var token string
-	if header, ok := metadata.Get(ctx, "Authorization"); ok {
-		// Ensure the correct scheme is being used
-		if !strings.HasPrefix(header, BearerScheme) {
-			return nil, errors.Unauthorized("go.micro.api.users", "invalid authorization header. expected Bearer schema")
-		}
-
-		token = header[len(BearerScheme):]
-	}
-
-	// Verify the token
-	return h.auth.Verify(token)
 }
 
 // Read retrieves a user from the users service
 func (h *Handler) Read(ctx context.Context, req *pb.ReadRequest, rsp *pb.ReadResponse) error {
 	// Identify the user
-	a, err := h.userFromContext(ctx)
+	acc, err := auth.AccountFromContext(ctx)
 	if err != nil {
 		return err
 	}
+	if acc == nil {
+		return errors.Unauthorized("go.micro.api.users", "A valid auth token is required")
+	}
 
 	// Lookup the user
-	resp, err := h.users.Read(ctx, &users.ReadRequest{Id: a.Id})
+	resp, err := h.users.Read(ctx, &users.ReadRequest{Id: acc.Id})
 	if err != nil {
 		return err
 	}
@@ -72,16 +47,19 @@ func (h *Handler) Read(ctx context.Context, req *pb.ReadRequest, rsp *pb.ReadRes
 // Update modifies a user in the users service
 func (h *Handler) Update(ctx context.Context, req *pb.UpdateRequest, rsp *pb.UpdateResponse) error {
 	// Identify the user
-	a, err := h.userFromContext(ctx)
+	acc, err := auth.AccountFromContext(ctx)
 	if err != nil {
 		return err
+	}
+	if acc == nil {
+		return errors.Unauthorized("go.micro.api.users", "A valid auth token is required")
 	}
 
 	// Validate the request
 	if req.User == nil {
 		return errors.BadRequest("go.micro.api.users", "User is missing")
 	}
-	req.User.Id = a.Id
+	req.User.Id = acc.Id
 
 	// Update the user
 	resp, err := h.users.Update(ctx, &users.UpdateRequest{User: h.deserializeUser(req.User)})
@@ -97,13 +75,16 @@ func (h *Handler) Update(ctx context.Context, req *pb.UpdateRequest, rsp *pb.Upd
 // Delete a user in the store
 func (h *Handler) Delete(ctx context.Context, req *pb.DeleteRequest, rsp *pb.DeleteResponse) error {
 	// Identify the user
-	a, err := h.userFromContext(ctx)
+	acc, err := auth.AccountFromContext(ctx)
 	if err != nil {
 		return err
 	}
+	if acc == nil {
+		return errors.Unauthorized("go.micro.api.users", "A valid auth token is required")
+	}
 
 	// Delete the user
-	_, err = h.users.Delete(ctx, &users.DeleteRequest{Id: a.Id})
+	_, err = h.users.Delete(ctx, &users.DeleteRequest{Id: acc.Id})
 	return err
 }
 
