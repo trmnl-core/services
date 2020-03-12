@@ -1,32 +1,80 @@
 package main
 
 import (
-	"api/handler"
-	graphql "api/proto/graphql"
+	"api/directives"
+	"api/graph"
+	"api/graph/generated"
+	"context"
+	"github.com/99designs/gqlgen/graphql"
+	gqlgen "github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/handler/apollotracing"
+	"github.com/99designs/gqlgen/graphql/handler/extension"
+	"github.com/99designs/gqlgen/graphql/handler/lru"
+	"github.com/99designs/gqlgen/graphql/handler/transport"
+	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/micro/go-micro/v2"
-	"github.com/micro/go-micro/v2/api"
 	log "github.com/micro/go-micro/v2/logger"
+	"github.com/micro/go-micro/v2/web"
+	"net/http"
+	"time"
 )
+
+func graphqlHandler() *gqlgen.Server {
+	service := micro.NewService()
+	service.Init()
+
+	gqlc := generated.Config{Resolvers: &graph.Resolver{}}
+	gqlApi := directives.GraphqlApi{Client: service.Client() }
+
+	gqlc.Directives.ServiceCall = func(ctx context.Context, obj interface{}, next graphql.Resolver, srv string, handler string) (interface{}, error) {
+		return gqlApi.ServiceCall(ctx, obj, next, srv, handler)
+	}
+
+	h := gqlgen.NewDefaultServer(generated.NewExecutableSchema(gqlc))
+	h.Use(extension.Introspection{})
+	h.Use(extension.AutomaticPersistedQuery{
+		Cache: lru.New(100),
+	})
+	h.Use(apollotracing.Tracer{})
+
+	h.AddTransport(transport.Websocket{
+		KeepAlivePingInterval: 10 * time.Second,
+	})
+	h.AddTransport(transport.Options{})
+	h.AddTransport(transport.MultipartForm{})
+
+	return h
+}
+
+// Defining the Playground handler
+func playgroundHandler() http.HandlerFunc {
+	h := playground.Handler("GraphQL", "/graph")
+	return h
+}
 
 func main() {
 	// New Service
-	service := micro.NewService(
-		micro.Name("go.micro.api.graphql"),
-		micro.Version("latest"),
+	service := web.NewService(
+		web.Name("go.micro.web.graphql"),
+		web.Version("latest"),
 	)
 
 	// Initialise service
-	service.Init()
+	_ = service.Init()
+
+	//Setup graphql
+	service.Handle("/", playgroundHandler())
+	service.Handle("/graph", graphqlHandler())
 
 	// Register Handler
-	graphql.RegisterGraphqlHandler(service.Server(), new(handler.Graphql), api.WithEndpoint(
+	/* _ = graphql.RegisterGraphqlHandler(service.Server(), new(handler.Graphql), api.WithEndpoint(
 		&api.Endpoint{
 			Name:    "Graphql.Call",
 			Path:    []string{"^/graphql?$"},
 			Method:  []string{"GET", "POST"},
 			Handler: "api",
 		},
-	))
+	)) */
 
 	// Run service
 	if err := service.Run(); err != nil {
