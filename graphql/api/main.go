@@ -26,21 +26,29 @@ func graphqlHandler() *gqlgen.Server {
 	gqlc := generated.Config{Resolvers: &graph.Resolver{}}
 	gqlApi := directives.GraphqlApi{Client: service.Client() }
 
+	// Register directive
 	gqlc.Directives.ServiceCall = func(ctx context.Context, obj interface{}, next graphql.Resolver, srv string, handler string) (interface{}, error) {
 		return gqlApi.ServiceCall(ctx, obj, next, srv, handler)
 	}
 
 	h := gqlgen.NewDefaultServer(generated.NewExecutableSchema(gqlc))
 	h.Use(extension.Introspection{})
+
+	// Enable automatic persist for heavy (Adds some performance improvements)
 	h.Use(extension.AutomaticPersistedQuery{
 		Cache: lru.New(100),
 	})
+
+	// Enable apollo tracing for graphql queries and mutations
 	h.Use(apollotracing.Tracer{})
 
+	// Enable graphql subscription support
 	h.AddTransport(transport.Websocket{
 		KeepAlivePingInterval: 10 * time.Second,
 	})
 	h.AddTransport(transport.Options{})
+
+	// Enable multipart support for uploading files
 	h.AddTransport(transport.MultipartForm{})
 
 	return h
