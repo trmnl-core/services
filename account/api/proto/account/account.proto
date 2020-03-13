@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package go.micro.api.account;
+
+service Account {
+	rpc ReadUser(ReadUserRequest) returns (ReadUserResponse) {}
+	rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
+	rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
+
+	rpc CreatePaymentMethod(CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse);
+	rpc DeletePaymentMethod(DeletePaymentMethodRequest) returns (DeletePaymentMethodResponse);
+
+	rpc EmailSignup(EmailSignupRequest) returns (EmailSignupResponse);
+	rpc EmailLogin(EmailLoginRequest) returns (EmailLoginResponse);
+}
+
+message EmailSignupRequest {
+	string email = 1;
+	string password = 2;
+}
+
+message EmailSignupResponse {
+	User user = 1;
+	string token = 2;
+}
+
+message EmailLoginRequest {
+	string email = 1;
+	string password = 2;
+}
+
+message EmailLoginResponse {
+	User user = 1;
+	string token = 2;
+}
+
+message Subscription {}
+
+message User {
+	string id = 1;					// uuid
+	int64 created = 2;			// unix
+	int64 updated = 3;			// unix
+	string first_name = 4;
+	string last_name = 5;
+	string email = 6;
+	string username = 7;		// alphanumeric user or org
+	repeated PaymentMethod payment_methods = 8;
+	repeated Subscription subscriptions = 9;
+}
+
+message ReadUserRequest {}
+
+message ReadUserResponse {
+	User user = 1;
+}
+
+message UpdateUserRequest {
+	User user = 1;
+}
+
+message UpdateUserResponse {
+	User user = 1;
+}
+
+message DeleteUserRequest {}
+
+message DeleteUserResponse {}
+
+message PaymentMethod {
+  string id = 1;
+  int64 created = 2;
+  string user_id = 3;
+  string type = 4;
+  string card_brand = 5;
+  string card_exp_month = 6;
+  string card_exp_year = 7;
+  string card_last_4 = 8;
+}
+
+message CreatePaymentMethodRequest {
+  string id = 1;
+}
+message DeletePaymentMethodRequest {
+  string id = 1;
+}
+
+message CreatePaymentMethodResponse {
+  PaymentMethod payment_method = 1;
+}
+
+message DeletePaymentMethodResponse {}

@@ -1,0 +1,97 @@
+syntax="proto3";
+
+package go.micro.srv.provider;
+
+service Provider {
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+  rpc CreatePlan(CreatePlanRequest) returns (CreatePlanResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse);
+  rpc CreatePaymentMethod(CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse);
+	rpc ListPaymentMethods(ListPaymentMethodsRequest) returns (ListPaymentMethodsResponse);
+	rpc DeletePaymentMethod(DeletePaymentMethodRequest) returns (DeletePaymentMethodResponse);
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  bool active = 4;
+}
+
+message CreateProductRequest {
+  Product product = 1;
+}
+
+message CreateProductResponse {}
+
+enum PlanInterval {
+  UNKNOWN = 0;
+  DAY = 1;
+  WEEK = 2;
+  MONTH = 3;
+  YEAR = 4;
+}
+
+message Plan {
+  string id = 1;
+  string name = 2;
+  int64 amount = 3;
+  string currency = 4;
+  PlanInterval interval = 5;
+  string product_id = 6;
+}
+
+message CreatePlanRequest {
+  Plan plan = 1;
+}
+
+message CreatePlanResponse {}
+
+message User {
+  string id = 1;
+  map<string, string> metadata = 2;
+}
+
+message CreateUserRequest {
+  User User = 1;
+}
+
+message CreateUserResponse {}
+
+message CreateSubscriptionRequest {}
+message CreateSubscriptionResponse {}
+
+message PaymentMethod {
+  string id = 1;
+  int64 created = 2;
+  string user_id = 3;
+  string type = 4;
+  string card_brand = 5;
+  string card_exp_month = 6;
+  string card_exp_year = 7;
+  string card_last_4 = 8;
+}
+
+message CreatePaymentMethodRequest {
+  string id = 1;
+  string user_id =  2;
+}
+
+message ListPaymentMethodsRequest {
+  string user_id = 1;
+}
+
+message DeletePaymentMethodRequest {
+  string id = 1;
+}
+
+message CreatePaymentMethodResponse {
+  PaymentMethod payment_method = 1;
+}
+
+message ListPaymentMethodsResponse {
+  repeated PaymentMethod payment_methods = 1;
+}
+
+message DeletePaymentMethodResponse {}

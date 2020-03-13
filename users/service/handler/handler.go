@@ -23,8 +23,9 @@ var (
 
 // Handler implements the users service interface
 type Handler struct {
-	auth  auth.Auth
-	store store.Store
+	auth      auth.Auth
+	store     store.Store
+	publisher micro.Publisher
 }
 
 // NewHandler returns an initialised handler
@@ -37,8 +38,9 @@ func NewHandler(srv micro.Service) (*Handler, error) {
 
 	// Return the initialised store
 	return &Handler{
-		store: s,
-		auth:  srv.Options().Auth,
+		store:     s,
+		auth:      srv.Options().Auth,
+		publisher: micro.NewPublisher(srv.Name(), srv.Client()),
 	}, nil
 }
 
@@ -49,14 +51,33 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateRequest, rsp *pb.Cre
 		return errors.BadRequest("go.micro.srv.users", "User is missing")
 	}
 
+	// Check to see if the user already exists
+	if user, err := h.findUser(req.User.Id); err == nil {
+		rsp.User = user
+
+		if acc, err := h.auth.Generate(user.Id); err == nil {
+			rsp.Token = acc.Token
+		}
+
+		return nil
+	}
+
 	// Validate the user
 	if err := h.validateUser(req.User); err != nil {
 		return err
 	}
 
+	// If validating only, return here
+	if req.ValidateOnly {
+		return nil
+	}
+
 	// Add the auto-generate fields
 	var user pb.User = *req.User
-	user.Id = uuid.New().String()
+	if len(user.Id) == 0 {
+		// allow ID to be set for oauth providers
+		user.Id = uuid.New().String()
+	}
 	user.Created = time.Now().Unix()
 	user.Updated = time.Now().Unix()
 
@@ -76,6 +97,12 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateRequest, rsp *pb.Cre
 	if err != nil {
 		return errors.InternalServerError("go.micro.srv.users", "Could not generate auth account: %v", err)
 	}
+
+	// Publish the event
+	go h.publisher.Publish(ctx, &pb.Event{
+		Type: pb.EventType_UserCreated,
+		User: &user,
+	})
 
 	// Return the user and token in the response
 	rsp.User = &user
@@ -134,6 +161,12 @@ func (h *Handler) Update(ctx context.Context, req *pb.UpdateRequest, rsp *pb.Upd
 		return errors.InternalServerError("go.micro.srv.users", "Could not write to store: %v", err)
 	}
 
+	// Publish the event
+	go h.publisher.Publish(ctx, &pb.Event{
+		Type: pb.EventType_UserUpdated,
+		User: user,
+	})
+
 	// Return the user in the response
 	rsp.User = user
 	return nil
@@ -152,6 +185,12 @@ func (h *Handler) Delete(ctx context.Context, req *pb.DeleteRequest, rsp *pb.Del
 		return errors.InternalServerError("go.micro.srv.users", "Could not write to store: %v", err)
 	}
 
+	// Publish the event
+	go h.publisher.Publish(ctx, &pb.Event{
+		Type: pb.EventType_UserDeleted,
+		User: user,
+	})
+
 	return nil
 }
 
@@ -163,7 +202,7 @@ func (h *Handler) Search(ctx context.Context, req *pb.SearchRequest, rsp *pb.Sea
 	}
 
 	// List all the records
-	recs, err := h.store.List()
+	recs, err := h.store.Read("", store.ReadPrefix())
 	if err != nil {
 		return errors.InternalServerError("go.micro.srv.users", "Could not read from store: %v", err)
 	}
@@ -229,10 +268,8 @@ func (h *Handler) usernameExists(username string) (bool, error) {
 // a go-micro error is returned
 func (h *Handler) validateUser(u *pb.User) error {
 	if len(u.Username) == 0 {
-		return errors.BadRequest("go.micro.srv.users", "Username is missing")
+		return nil
 	}
-
-	// TODO: validate the email is valid if provided
 
 	// Validate the username is url safe
 	if safe := URLSafeRegex(u.Username); !safe {
@@ -240,8 +277,7 @@ func (h *Handler) validateUser(u *pb.User) error {
 	}
 
 	// Ensure no other users with this username exist
-	exists, err := h.usernameExists(u.Username)
-	if err == nil && exists {
+	if exists, err := h.usernameExists(u.Username); err == nil && exists {
 		return errors.BadRequest("go.micro.srv.users", "Username is taken")
 	}
 
