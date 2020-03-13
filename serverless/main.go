@@ -1,29 +1,26 @@
 package main
 
 import (
-	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2"
+	log "github.com/micro/go-micro/v2/logger"
+	pb "github.com/micro/go-micro/v2/runtime/service/proto"
 	"serverless/handler"
-	"serverless/subscriber"
-
 	serverless "serverless/proto/serverless"
 )
 
 func main() {
 	// New Service
 	service := micro.NewService(
-		micro.Name("go.micro.srv.serverless"),
-		micro.Version("latest"),
+		micro.Name("go.micro.service.serverless"),
 	)
 
 	// Initialise service
 	service.Init()
 
 	// Register Handler
-	serverless.RegisterServerlessHandler(service.Server(), new(handler.Serverless))
-
-	// Register Struct as Subscriber
-	micro.RegisterSubscriber("go.micro.srv.serverless", service.Server(), new(subscriber.Serverless))
+	serverless.RegisterAppsHandler(service.Server(), &handler.Apps{
+		Client: pb.NewRuntimeService("go.micro.runtime", service.Client()),
+	})
 
 	// Run service
 	if err := service.Run(); err != nil {
