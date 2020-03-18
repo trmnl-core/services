@@ -4,10 +4,10 @@ package graph
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
-	"api/graph/generated"
-	"api/graph/model"
 	"context"
 	"fmt"
+	"web/graph/generated"
+	"web/graph/model"
 )
 
 func (r *mutationResolver) Login(ctx context.Context, input model.LoginInput) (*model.AuthPayload, error) {

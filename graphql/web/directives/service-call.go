@@ -16,7 +16,7 @@ type GraphqlApi struct {
 	Client client.Client
 }
 
-func (ga *GraphqlApi) ServiceCall(ctx context.Context, obj interface{}, next graphql.Resolver, srv string, endpoint string) (interface{}, error)  {
+func (ga *GraphqlApi) ServiceCall(ctx context.Context, obj interface{}, next graphql.Resolver, srv string, endpoint string) (interface{}, error) {
 	// Get request fields
 	input := graphql.GetFieldContext(ctx)
 
@@ -37,7 +37,7 @@ func (ga *GraphqlApi) ServiceCall(ctx context.Context, obj interface{}, next gra
 
 	// Create new request to service go.micro.srv.example, method Example.Call
 	// TODO: Add request struct
-	req := ga.Client.NewRequest("go.micro.srv." + srv, endpoint, nil)
+	req := ga.Client.NewRequest("go.micro.srv."+srv, endpoint, nil)
 
 	// create context with metadata
 	mctx := metadata.NewContext(context.Background(), map[string]string{

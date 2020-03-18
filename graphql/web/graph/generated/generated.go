@@ -3,7 +3,6 @@
 package generated
 
 import (
-	"api/graph/model"
 	"bytes"
 	"context"
 	"errors"
@@ -11,6 +10,7 @@ import (
 	"strconv"
 	"sync"
 	"time"
+	"web/graph/model"
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
