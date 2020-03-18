@@ -132,10 +132,18 @@ export interface Repository {
 
 export interface BuildPack {
   name?: string;
+  imageTag?: string;
 }
 
 export interface RepoContents {
   type?: string;
   path?: string;
   name?: string;
+}
+
+export interface App {
+  name?: string;
+  version?: string;
+  source?: string;
+  language?: string;
 }
