@@ -8,7 +8,6 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/micro/go-micro/v2/logger"
 	users "github.com/micro/services/users/service/proto"
 )
 
@@ -47,7 +46,6 @@ func (h *Handler) HandleGithubOauthVerify(w http.ResponseWriter, req *http.Reque
 		Token string `json:"access_token"`
 	}
 	json.NewDecoder(resp.Body).Decode(&result)
-	logger.Infof("TOKEN: %v", result.Token)
 
 	// Use the token to get the users profile
 	r, _ = http.NewRequest("GET", "https://api.github.com/user", nil)
@@ -69,15 +67,17 @@ func (h *Handler) HandleGithubOauthVerify(w http.ResponseWriter, req *http.Reque
 		Name     string `json:"name"`
 		Email    string `json:"email"`
 		Username string `json:"login"`
+		Picture  string `json:"avatar_url"`
 	}
 	json.NewDecoder(resp.Body).Decode(&profile)
 
 	// Create the user in the users service
 	uRsp, err := h.users.Create(req.Context(), &users.CreateRequest{
 		User: &users.User{
-			Id:       fmt.Sprintf("github_%v", profile.ID),
-			Email:    profile.Email,
-			Username: profile.Username,
+			Id:                fmt.Sprintf("github_%v", profile.ID),
+			Email:             profile.Email,
+			Username:          profile.Username,
+			ProfilePictureUrl: profile.Picture,
 		},
 	})
 	if err != nil {
@@ -93,8 +93,6 @@ func (h *Handler) HandleGithubOauthVerify(w http.ResponseWriter, req *http.Reque
 	r, _ = http.NewRequest("GET", url, nil)
 	r.Header.Add("Authorization", "Bearer "+result.Token)
 	resp, err = client.Do(r)
-	logger.Info("GitHub url: ", url)
-	logger.Info("GitHub response: ", resp.StatusCode)
 	if err != nil {
 		h.handleError(w, req, "Error getting user team membership from GitHub: %v", err)
 		return
