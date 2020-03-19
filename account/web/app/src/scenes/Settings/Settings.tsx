@@ -4,10 +4,29 @@ import PageLayout from '../../components/PageLayout';
 import './Settings.scss';
 import Call from '../../api';
 
+interface State {
+  copied: boolean;
+}
+
 export default class Settings extends React.Component {
+  state: State = { copied: false };
+
   render(): JSX.Element {
+    const cookies = new Cookies();
+    const command = `micro login --platform ${cookies.get("micro-token")}`;
+
     return(
       <PageLayout className='Settings' {...this.props}>
+        <div className='section'>
+          <h3>Login to CLI</h3>
+          <p>Copy the command below to login with the Micro CLI</p>
+          <input id='command' value={command} className='code'/>
+
+          <button className='fixed-width' onClick={this.copyLogin.bind(this)}>
+            { this.state.copied ? 'Done ✅' : 'Copy Login Command' }
+          </button>
+        </div>
+
         <div className='section'>
           <h3>Logout</h3>
           <p>Press the button below to logout. You will need to log back in to access your account.</p>
@@ -21,6 +40,21 @@ export default class Settings extends React.Component {
         </div>        
       </PageLayout>
     )
+  }
+
+  copyLogin() {
+    /* Get the text field */
+    var copyText = document.getElementById("command") as HTMLInputElement;
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Update the UI */
+    this.setState({ copied: true });
   }
 
   logout() {
