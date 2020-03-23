@@ -62,7 +62,7 @@ func RegisterHandler(srv web.Service) {
 		h.githubOrgID = id
 	}
 
-	srv.HandleFunc("/*", func(w http.ResponseWriter, req *http.Request) {
+	srv.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(200)
 	})
 
