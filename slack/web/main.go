@@ -20,7 +20,7 @@ func main() {
 
 	// register html handler
 	service.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "https://micro.mu/community", 302)
+		http.Redirect(w, r, "https://micro-services.slack.com/", 302)
 	})
 
 	// run service
