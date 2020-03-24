@@ -35,7 +35,7 @@ func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb
 		return err
 	}
 
-	uRsp, err := h.users.Read(ctx, &users.ReadRequest{Id: acc.Id})
+	uRsp, err := h.users.Read(ctx, &users.ReadRequest{Id: acc.ID})
 	if err != nil {
 		return err
 	}
@@ -94,7 +94,7 @@ func canAccessApp(acc *auth.Account, app *apps.App) bool {
 
 	for _, reqRole := range app.Roles {
 		for _, accRole := range acc.Roles {
-			if reqRole == accRole.Name {
+			if reqRole == accRole {
 				return true
 			}
 		}
