@@ -37,7 +37,7 @@ class Login extends React.Component<Props, State> {
     this.setState({ loading: true, error: undefined });
 
     const { email, password, signup } = this.state;
-    const path = signup ? 'EmailSignup' : 'EmailLogin';
+    const path = signup ? 'Signup' : 'Login';
 
     Call(path, { email, password })
       .then((res) => {
