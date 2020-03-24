@@ -85,7 +85,7 @@ func (h *Handler) handleError(w http.ResponseWriter, req *http.Request, format s
 
 func (h *Handler) loginUser(w http.ResponseWriter, req *http.Request, user *users.User, roles ...string) {
 	// Create an auth account
-	acc, err := h.auth.Generate(user.Id, auth.WithRoles(roles))
+	acc, err := h.auth.Generate(user.Id, auth.WithRoles(roles...))
 	if err != nil {
 		h.handleError(w, req, "Error creating auth account: %v", err)
 		return
