@@ -18,7 +18,7 @@ function build {
     #find . -name "*.proto" | xargs --no-run-if-empty protoc --proto_path=. --micro_out=. --go_out=.  
 
     if [ "$dir" == "explore/web" ]; then
-        go generate
+        # go generate
     fi
 
     # build the binaries
@@ -42,7 +42,7 @@ function build {
 }
 
 # This must always be deployed even if it has not changed
-build "explore/web"
+# build "explore/web"
 
 for dir in "${SERVICES[@]}"; do
     build $dir
