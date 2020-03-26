@@ -16,10 +16,7 @@ import (
 // ReadUser retrieves a user from the users service
 func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb.ReadUserResponse) error {
 	// Generate a context with elevated privelages
-	privCtx, err := auth.ContextWithToken(ctx, h.authToken)
-	if err != nil {
-		return err
-	}
+	privCtx := auth.ContextWithToken(ctx, h.authToken)
 
 	// Identify the user
 	acc, err := auth.AccountFromContext(ctx)
@@ -58,10 +55,7 @@ func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb
 // UpdateUser modifies a user in the users service
 func (h *Handler) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest, rsp *pb.UpdateUserResponse) error {
 	// Generate a context with elevated privelages
-	privCtx, err := auth.ContextWithToken(ctx, h.authToken)
-	if err != nil {
-		return err
-	}
+	privCtx := auth.ContextWithToken(ctx, h.authToken)
 
 	// Identify the user
 	acc, err := auth.AccountFromContext(ctx)

@@ -22,10 +22,7 @@ func (h *Handler) RefreshToken(ctx context.Context, req *pb.RefreshTokenRequest,
 // Login looks up an account using an email and password
 func (h *Handler) Login(ctx context.Context, req *pb.LoginRequest, rsp *pb.LoginResponse) error {
 	// Generate a context with elevated privelages
-	privCtx, err := auth.ContextWithToken(ctx, h.authToken)
-	if err != nil {
-		return err
-	}
+	privCtx := auth.ContextWithToken(ctx, h.authToken)
 
 	// Verify the login credentials
 	lRsp, err := h.login.VerifyLogin(privCtx, &login.VerifyLoginRequest{
@@ -62,13 +59,10 @@ func (h *Handler) Login(ctx context.Context, req *pb.LoginRequest, rsp *pb.Login
 // Signup creates an account using an email and password
 func (h *Handler) Signup(ctx context.Context, req *pb.SignupRequest, rsp *pb.SignupResponse) error {
 	// Generate a context with elevated privelages
-	privCtx, err := auth.ContextWithToken(ctx, h.authToken)
-	if err != nil {
-		return err
-	}
+	privCtx := auth.ContextWithToken(ctx, h.authToken)
 
 	// Validate the user can be created
-	_, err = h.users.Create(privCtx, &users.CreateRequest{
+	_, err := h.users.Create(privCtx, &users.CreateRequest{
 		User:         &users.User{Email: req.Email},
 		ValidateOnly: true,
 	})
