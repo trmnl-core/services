@@ -17,9 +17,9 @@ function build {
     # build the proto buffers
     #find . -name "*.proto" | xargs --no-run-if-empty protoc --proto_path=. --micro_out=. --go_out=.  
 
-    if [ "$dir" == "explore/web" ]; then
+    # if [ "$dir" == "explore/web" ]; then
         # go generate
-    fi
+    # fi
 
     # build the binaries
     go build -ldflags="-s -w" -o service .
