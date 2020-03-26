@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/auth"
@@ -105,7 +106,7 @@ func (h *Handler) loginUser(w http.ResponseWriter, req *http.Request, user *user
 	}
 
 	// Create an auth token
-	tok, err := h.auth.Refresh(acc.Secret.Token)
+	tok, err := h.auth.Refresh(acc.Secret.Token, auth.WithTokenExpiry(time.Hour*24))
 	if err != nil {
 		h.handleError(w, req, "Error creating auth token: %v", err)
 		return
