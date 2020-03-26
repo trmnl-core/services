@@ -5,6 +5,6 @@ go 1.13
 require (
 	github.com/golang/protobuf v1.3.4
 	github.com/hailocab/go-geoindex v0.0.0-20160127134810-64631bfe9711
-	github.com/micro/go-micro/v2 v2.3.1-0.20200326155248-42b6bf5bbf1f
+	github.com/micro/go-micro/v2 v2.3.1-0.20200326163031-00e7804f965a
 	golang.org/x/net v0.0.0-20200226121028-0de0cce0169b
 )
