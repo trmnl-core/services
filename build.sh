@@ -5,13 +5,38 @@ export CGO_ENABLED=0
 export GOOS=linux
 export GOARCH=amd64 
 
-SERVICES=($1) # e.g. "foobar barfoo helloworld"
+URL="https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files"
+FILES=($(curl -s -X GET -G $URL | jq -r '.[] | .filename'))
+
+# Might not always have services passed down -
+# Github Actions needs GITHUB_TOKEN and for PR forks we don't have that.
+if [ -z "$1" ]; then
+    SERVICES=($(find . -name main.go | cut -c 3- | rev | cut -c 9- | rev))
+else
+    SERVICES=($1) # e.g. "foobar barfoo helloworld"
+fi
 
 rootDir=$(pwd)
 
+function containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" =~ ^$match ]] && return 0; done
+  return 1
+}
+
 function build {
     dir=$1
-    echo Building $dir
+    EXIT_CODE=0
+    # We don't want to fail the whole script if contains fails
+    containsElement $dir "${FILES[@]}" || EXIT_CODE=$?
+    if [ $EXIT_CODE -eq 0 ]; then
+        echo Building $dir
+    else
+        echo Skipping $dir
+        return 0
+    fi
+    
     cd $dir
 
     # build the proto buffers
@@ -25,9 +50,13 @@ function build {
     tag=docker.pkg.github.com/micro/services/$(echo $dir | tr / -)
     docker build . -t $tag -f $rootDir/.github/workflows/Dockerfile
 
-    # push the docker image
-    echo Pushing $tag
-    docker push $tag
+    if [ -z "$1" &&  ] && [ "$BRANCH" = "master" ]; then
+        # push the docker image
+        echo Pushing $tag
+        docker push $tag
+    else
+        echo "Skipping pushing docker images due to lack of credentials"
+    fi
 
     # remove the binaries
     rm service
