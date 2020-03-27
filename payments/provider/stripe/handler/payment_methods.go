@@ -112,7 +112,9 @@ func (h *Handler) SetDefaultPaymentMethod(ctx context.Context, req *pb.SetDefaul
 
 	// Construct the params
 	var params stripe.CustomerParams
-	params.DefaultSource = stripe.String(req.PaymentMethodId)
+	params.InvoiceSettings = &stripe.CustomerInvoiceSettingsParams{
+		DefaultPaymentMethod: stripe.String(req.PaymentMethodId),
+	}
 
 	// Update the payment method
 	if _, err := h.client.Customers.Update(stripeID, &params); err != nil {
