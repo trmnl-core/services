@@ -115,6 +115,11 @@ func folderStatuses(statuses []fileToStatus) map[string]serviceStatus {
 	// continue with normal file changes for service updates
 	for _, status := range statuses {
 		fname := status.fileName
+		// All service files are inside folders,
+		// so any file in the top folder can be safely ignored.
+		if !strings.Contains(fname, "/") {
+			continue
+		}
 		folds := topFolders(fname)
 		for _, fold := range folds {
 			_, exists := folders[fold]
@@ -165,14 +170,17 @@ func (m *manager) updateService(folderPath, commit, build string, status service
 		if err := runtime.DefaultRuntime.Create(service, opts...); err != nil {
 			return err
 		}
+		return nil
 	case serviceStatusUpdated:
 		if err := runtime.DefaultRuntime.Update(service); err != nil {
 			return err
 		}
+		return nil
 	case serviceStatusDeleted:
 		if err := runtime.DefaultRuntime.Delete(service); err != nil {
 			return err
 		}
+		return nil
 	}
 	return fmt.Errorf("Unrecognized service status: '%v'", status)
 }
