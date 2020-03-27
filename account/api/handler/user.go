@@ -151,7 +151,7 @@ func (h *Handler) CreatePaymentMethod(ctx context.Context, req *pb.CreatePayment
 	}
 
 	// Set the default
-	_, err = h.payment.SetDefaultPaymentMethod(ctx, &payment.SetDefaultPaymentMethodRequest{UserId: acc.ID, PaymentMethodId: req.Id})
+	_, err = h.payment.SetDefaultPaymentMethod(ctx, &payment.SetDefaultPaymentMethodRequest{UserId: acc.ID, PaymentMethodId: pRsp.PaymentMethod.Id})
 	if err != nil {
 		log.Infof("Error setting default payment method: %v", err)
 		return nil
