@@ -105,7 +105,7 @@ func folderStatuses(statuses []fileToStatus) map[string]serviceStatus {
 		if exists {
 			continue
 		}
-		if status == "created" {
+		if status == "added" {
 			folders[fold] = serviceStatusCreated
 		} else if status == "removed" {
 			folders[fold] = serviceStatusDeleted
