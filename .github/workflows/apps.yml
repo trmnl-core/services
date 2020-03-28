@@ -1,0 +1,11 @@
+name: Webhook
+
+on:
+  push:
+    branches: [ master ]
+    
+jobs:
+  call:
+    runs-on: [ubuntu-latest]
+    steps:
+    - run: curl https://api.micro.mu/apps/import

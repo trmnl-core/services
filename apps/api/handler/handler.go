@@ -27,6 +27,11 @@ type Handler struct {
 	apps apps.AppsService
 }
 
+var (
+	// The place from which to import apps
+	ImportPath = "https://api.github.com/repos/micro/services/contents/apps/store"
+)
+
 // NewHandler returns an initialised handdler
 func NewHandler(srv micro.Service) *Handler {
 	return &Handler{
@@ -67,7 +72,7 @@ func (h *Handler) Import(ctx context.Context, req *pb.ImportRequest, rsp *pb.Imp
 // getAppsFromGitHub fetches the .yaml files in the Micro/Apps GitHub repo
 // and decodes them into Apps Service App objects.
 func (h *Handler) getAppsFromGitHub() ([]*apps.App, error) {
-	resp, err := http.Get("https://api.github.com/repos/micro/apps/contents")
+	resp, err := http.Get(ImportPath)
 	if err != nil {
 		return nil, err
 	}
