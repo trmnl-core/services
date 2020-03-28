@@ -1,4 +1,4 @@
-name: Apps Import
+name: Apps
 
 on:
   push:
