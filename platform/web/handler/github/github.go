@@ -151,60 +151,6 @@ func (h *Handler) eventsHandler(w http.ResponseWriter, req *http.Request) {
 	for _, srv := range data.Services.Updated {
 		createEvent(srv, evType)
 	}
-
-	// If the build has finished, create/update/delete all services
-	if evType == platform.EventType_BuildFinished {
-		for _, srv := range data.Services.Created {
-			_, err := h.platform.CreateService(req.Context(), &platform.CreateServiceRequest{
-				Service: &platform.Service{
-					Name:    srv,
-					Source:  path.Join(repoURL, srv),
-					Version: DefaultVersion,
-					Metadata: map[string]string{
-						"build": commitID,
-					},
-				},
-			})
-
-			if err != nil {
-				log.Errorf("Unable to create service %v: %v", srv, err)
-				utils.Write500(w, err)
-			}
-		}
-
-		for _, srv := range data.Services.Updated {
-			_, err := h.platform.UpdateService(req.Context(), &platform.UpdateServiceRequest{
-				Service: &platform.Service{
-					Name:    srv,
-					Source:  path.Join(repoURL, srv),
-					Version: DefaultVersion,
-					Metadata: map[string]string{
-						"build": commitID,
-					},
-				},
-			})
-
-			if err != nil {
-				log.Errorf("Unable to update service %v: %v", srv, err)
-				utils.Write500(w, err)
-			}
-		}
-
-		for _, srv := range data.Services.Deleted {
-			_, err := h.platform.DeleteService(req.Context(), &platform.DeleteServiceRequest{
-				Service: &platform.Service{
-					Name:    srv,
-					Source:  path.Join(repoURL, srv),
-					Version: DefaultVersion,
-				},
-			})
-
-			if err != nil {
-				log.Errorf("Unable to delete service %v: %v", srv, err)
-				utils.Write500(w, err)
-			}
-		}
-	}
 }
 
 // nameForService determines the name of the service from the directory path,
