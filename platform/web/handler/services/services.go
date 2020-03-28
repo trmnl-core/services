@@ -192,6 +192,12 @@ func servicesHandler(service web.Service) func(http.ResponseWriter, *http.Reques
 		}
 		ret := []*registry.Service{}
 		for _, v := range services {
+			// already got the data
+			if len(v.Nodes) > 0 {
+				ret = append(ret, v)
+				continue
+			}
+
 			service, err := reg.GetService(v.Name)
 			if err != nil {
 				utils.Write500(w, err)
