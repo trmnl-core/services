@@ -1,4 +1,4 @@
-name: Webhook
+name: Apps Import
 
 on:
   push:
