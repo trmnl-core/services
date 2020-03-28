@@ -44,7 +44,7 @@ type githubFileChangeStatus string
 // a list of github file status changes.
 // not documented in the github API
 var (
-	githubFileChangeStatusCreated  githubFileChangeStatus = "created"
+	githubFileChangeStatusCreated  githubFileChangeStatus = "added"
 	githubFileChangeStatusChanged  githubFileChangeStatus = "changed"
 	githubFileChangeStatusModified githubFileChangeStatus = "modified"
 	githubFileChangeStatusRemoved  githubFileChangeStatus = "removed"
