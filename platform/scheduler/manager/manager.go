@@ -226,10 +226,13 @@ func (m *manager) Run() {
 			}
 
 			var processList []*github.WorkflowRun
-			// If there is nothing in memory, just process the last
-			// workflow.
+			// If there is nothing in memory save the commit and continue
 			if m.latestCommit == "" {
-				processList = workflows.WorkflowRuns[0:1]
+				// save the latest
+				workflow := workflows.WorkflowRuns[0]
+				m.latestCommit = workflow.GetHeadSHA()
+				m.lastUpdated = workflow.GetUpdatedAt().Time
+				continue
 			} else {
 				processList = workflows.WorkflowRuns
 				reverse(processList)
