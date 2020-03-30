@@ -28,12 +28,12 @@ class PageLayout extends React.Component<Props> {
       redirectUI = (
         <a href={redirect} className='page-return-link'>
           <img src={BackArrow} alt='Return' />
-          <p>Return <span>{redirect.replace('/', '')}</span></p>
+          <p>Go back</p>
         </a>
       );
     } else {
       redirectUI = (
-        <a href='/' className='page-return-link'>
+        <a href='https://web.micro.mu' className='page-return-link'>
           <img src={BackArrow} alt='Go Home' />
           <p>Home</p>
         </a>
