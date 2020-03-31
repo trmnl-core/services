@@ -47,7 +47,7 @@ jobs:
         run: |
           # Login to docker
           echo ${{ secrets.GITHUB_TOKEN }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
-            
+          
           if [ -z "${{ steps.services_changed.outputs.services_added }}" ] && [ -z "${{ steps.services_changed.outputs.services_modified }}" ]; then
             ./build.sh
           else 
