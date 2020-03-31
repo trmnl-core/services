@@ -85,7 +85,7 @@ func getConfigInt(srv micro.Service, keys ...string) int {
 
 func (h *Handler) handleError(w http.ResponseWriter, req *http.Request, format string, args ...interface{}) {
 	params := url.Values{"error": {fmt.Sprintf(format, args...)}}
-	http.Redirect(w, req, "/account?"+params.Encode(), http.StatusFound)
+	http.Redirect(w, req, "/?"+params.Encode(), http.StatusFound)
 }
 
 func (h *Handler) loginUser(w http.ResponseWriter, req *http.Request, user *users.User, roles ...string) {
@@ -111,5 +111,5 @@ func (h *Handler) loginUser(w http.ResponseWriter, req *http.Request, user *user
 		Path:   "/",
 	})
 
-	http.Redirect(w, req, "/account", http.StatusFound)
+	http.Redirect(w, req, "/", http.StatusFound)
 }
