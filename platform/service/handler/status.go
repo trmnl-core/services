@@ -23,6 +23,9 @@ func (h *Handler) Status(ctx context.Context, req *pb.StatusRequest, rsp *pb.Sta
 
 	platform := createStatus("ok", "Everything is awesome", "").Status
 
+        // we must allocate the map
+        rsp.Runtime = make(map[string]*pb.Status)
+
 	for k, v := range h.status {
 		rsp.Runtime[k] = v.Status
 		if !v.Ok() {
