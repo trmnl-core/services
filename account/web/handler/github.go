@@ -47,7 +47,6 @@ func (h *Handler) HandleGithubOauthVerify(w http.ResponseWriter, req *http.Reque
 		Token string `json:"access_token"`
 	}
 	json.NewDecoder(resp.Body).Decode(&result)
-	fmt.Println(result.Token)
 
 	// Use the token to get the users profile
 	r, _ = http.NewRequest("GET", "https://api.github.com/user", nil)
