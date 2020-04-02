@@ -153,6 +153,7 @@ type githubProfile struct {
 }
 
 func (h *Handler) getGithubProfile(token string) (*githubProfile, error) {
+	fmt.Println(token)
 	// Use the token to get the users profile
 	r, _ := http.NewRequest("GET", "https://api.github.com/user", nil)
 	r.Header.Add("Authorization", "Bearer "+token)
