@@ -39,7 +39,7 @@ func main() {
 			path = "./app/build/index.html"
 		}
 
-		log.Logf(log.InfoLevel, "Serving file: %v", path)
+		log.Tracef(log.InfoLevel, "Serving file: %v", path)
 		http.ServeFile(w, req, path)
 	})
 

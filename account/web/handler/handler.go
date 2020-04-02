@@ -89,6 +89,7 @@ const storePrefixAccountSecrets = "secrets/"
 
 func (h *Handler) setAccountSecret(id, secret string) error {
 	key := storePrefixAccountSecrets + id
+	fmt.Printf("setAccountSecret: %v = %v\n", id, secret)
 	return h.store.Write(&store.Record{Key: key, Value: []byte(secret)})
 }
 
@@ -98,6 +99,7 @@ func (h *Handler) getAccountSecret(id string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	fmt.Printf("getAccountSecret: %v = %v\n", id, recs[0].Value)
 	return string(recs[0].Value), nil
 }
 
