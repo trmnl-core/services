@@ -32,7 +32,7 @@ func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb
 	rsp.User.Roles = acc.Roles
 
 	// Fetch the payment methods
-	pCtx, pCancel := context.WithTimeout(ctx, time.Millisecond*500)
+	pCtx, pCancel := context.WithTimeout(ctx, time.Millisecond*1000)
 	pRsp, err := h.payment.ListPaymentMethods(pCtx, &payment.ListPaymentMethodsRequest{UserId: user.Id})
 	defer pCancel()
 	if err == nil {
