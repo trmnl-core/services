@@ -273,10 +273,10 @@ github.com/micro/cli/v2 v2.1.2/go.mod h1:EguNh6DAoWKm9nmk+k/Rg0H3lQnDxqzu5x5srOt
 github.com/micro/go-micro/v2 v2.3.1-0.20200331090613-76ade7efd9b8/go.mod h1:lYuHYFPjY3QE9fdiy3F2awXcsXTdB68AwoY3RQ3dPN4=
 github.com/micro/go-micro/v2 v2.4.1-0.20200401222715-0a15ae9b9dfa h1:2u2BWMVfGxJLJaz7QPNR9Gw5+KRNVqSwWv7zMZELHvU=
 github.com/micro/go-micro/v2 v2.4.1-0.20200401222715-0a15ae9b9dfa/go.mod h1:U+EJM7sW4qGm7bnpyGuz5ZYtuzAz0ld5qXxYUC26muE=
-github.com/micro/go-micro/v2 v2.4.1-0.20200406124040-c4442a753323 h1:QOOn/S+UlWpVBCpoGvdwuU4JPGxy2M0KMseDzLSginU=
-github.com/micro/go-micro/v2 v2.4.1-0.20200406124040-c4442a753323/go.mod h1:YY0HeiFvbJcP7kgPMRTTfBo2t4cYtLI120hJD8owZH4=
 github.com/micro/go-micro/v2 v2.4.1-0.20200408184449-bf41d8d28e63 h1:equKClf83V/cu6Gsb3QtC8NpVWbQ1WPfZf8Ter3Ys3s=
 github.com/micro/go-micro/v2 v2.4.1-0.20200408184449-bf41d8d28e63/go.mod h1:QOk6oWfMYQTAvQG50oNk8BYV3CwZlS+e1AJTQNNhjos=
+github.com/micro/go-micro/v2 v2.4.1-0.20200409084150-c1ad6d6c7c11 h1:v+yaeSvQcBaO5YGFWuhYDHd+K5v7F0Q2gmMym0u4GE0=
+github.com/micro/go-micro/v2 v2.4.1-0.20200409084150-c1ad6d6c7c11/go.mod h1:QOk6oWfMYQTAvQG50oNk8BYV3CwZlS+e1AJTQNNhjos=
 github.com/micro/mdns v0.3.0 h1:bYycYe+98AXR3s8Nq5qvt6C573uFTDPIYzJemWON0QE=
 github.com/micro/mdns v0.3.0/go.mod h1:KJ0dW7KmicXU2BV++qkLlmHYcVv7/hHnbtguSWt9Aoc=
 github.com/micro/micro/v2 v2.4.0/go.mod h1:/7lxBaU/Isx3USObggNVw6x6pdIJzTDexee7EsARD+A=
@@ -540,8 +540,6 @@ golang.org/x/sys v0.0.0-20190916202348-b4ddaad3f8a3/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/sys v0.0.0-20190924154521-2837fb4f24fe/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20191110163157-d32e6e3b99c4 h1:Hynbrlo6LbYI3H1IqXpkVDOcX/3HiPdhVEuyj5a59RM=
 golang.org/x/sys v0.0.0-20191110163157-d32e6e3b99c4/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 h1:1/DFK4b7JH8DmkqhUk48onnSfrPzImPoVxuomtbT2nk=
-golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20200202164722-d101bd2416d5 h1:LfCXLvNmTYH9kEmVgqbnsWfruoXZIrh4YBgqVHtDvw0=
 golang.org/x/sys v0.0.0-20200202164722-d101bd2416d5/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
