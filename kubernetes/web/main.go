@@ -12,8 +12,10 @@ import (
 )
 
 func kubeURL() string {
-	host := "https://" + os.Getenv("KUBERNETES_SERVICE_HOST") + ":" + os.Getenv("KUBERNETES_SERVICE_PORT")
-	path := "/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/"
+//	host := "https://" + os.Getenv("KUBERNETES_SERVICE_HOST") + ":" + os.Getenv("KUBERNETES_SERVICE_PORT")
+//	path := "/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/"
+	host := "https://kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local"
+	path := "/"
 	return host + path
 }
 
