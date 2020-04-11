@@ -8,7 +8,7 @@ export PATH=$PATH:$GOBIN
 go env
 
 go get --tags extended github.com/gohugoio/hugo
-go get github.com/micro/platform
+go get github.com/micro/micro/cmd/platform
 
 mkdir html
 mkdir -p docuapi/microApi/content
