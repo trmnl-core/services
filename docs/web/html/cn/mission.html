@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+    content="">
+<meta name="keywords" content="intromissionmicroservices,  intro, mission, microservices">
+
+
+<title>Mission | Micro</title>
+
+
+<link rel="stylesheet" href="/docs/css/syntax.css">
+<link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="/docs/css/customstyles.css?v=1">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs/js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/docs/js/toc.js"></script>
+<script src="/docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="docs" href="https://micro.mu/docsfeed.xml">
+
+    <script>
+        $(document).ready(function () {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+
+</head>
+
+<body>
+    <!-- Navigation -->
+<div class="container">
+	<nav class="navbar">
+	    
+	    <a class="navbar-brand" href="index.html">
+		<img src="https://micro.mu/logo.png" height="50px" width="auto" /><span class="projectTitle"> Micro</span>
+	    </a>
+	    
+
+	    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-1">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	    </button>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">English<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/docs/index.html">English</a></li>
+                        
+                        
+                        
+                        <li><a href="/docs/cn/index.html">中文</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-lg-12">&nbsp;</div>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Sidebar Column -->
+            <div class="col-md-3">
+
+                
+
+
+
+
+
+
+
+<ul id="mysidebar" class="nav list-group">
+    
+    
+    
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">概览</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/index.html">简介</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/faq.html">常见问题</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/features.html">特性</a></li>
+            
+            
+            
+            
+            
+            
+            <li class="active highlight"><a href="/docs/cn/mission.html">Mission</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/resources.html">相关资源</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/users.html">相关用户</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">整体框架</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/go-micro.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-micro-internals.html">内部设计</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-api.html">API</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-config.html">Config</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-grpc.html">GRPC</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">运行时工具</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/runtime.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/architecture.html">架构</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/api.html">API Gateway</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/web.html">Web 管理控制台</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/proxy.html">服务Proxy代理</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/cli.html">命令行接口</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/bot.html">Slack小机器人</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/new.html">服务模板</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">部署</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/deploy-docker.html">Docker</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/deploy-kubernetes.html">Kubernetes</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">指导</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/install-guide.html">安装</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/grpc-gateway.html">GRPC 网关</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/writing-a-go-service.html">编写服务</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/fault-tolerance.html">容错</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">插件</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/plugins.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/plugins-go-micro.html">Go Micro</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/runtime-plugins.html">Micro</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+                <!-- Content Column -->
+                <div class="col-md-9">
+                    <div class="post-header">
+   <h1 class="post-title-main">Mission</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+
+  <p>Let’s talk about the future of software development.</p>
+
+<p>Change is afoot. We’re moving more and more towards a world driven by technology at 
+the heart of every business. Maintaining a competitive edge in this day and age is 
+becoming difficult. Organisation’s ability to execute can grind to a halt as they 
+try to scale with inefficient platforms, processes and structure. Decade old technology 
+companies have undergone these scaling pains and most have used the same methods 
+to overcome those challenges.</p>
+
+<p>It’s time to bring the competitive advantages of the most successful companies in the world to 
+everyone else. So with that, let’s talk microservices, a way to create competitive edge.</p>
+
+<h3 id="what-are-microservices">What are microservices?</h3>
+
+<p>Microservices is an software architecture pattern used to breakdown large monolithic applications 
+into smaller manageable independent services which communicate via language agnostic protocols and 
+each focus on doing one thing well.</p>
+
+<p>Definition of microservices from industry experts.</p>
+
+<blockquote>
+  <p>Loosely coupled service oriented architecture with a bounded context <br />
+<sub>Adrian Cockcroft</sub></p>
+</blockquote>
+
+<p />
+
+<blockquote>
+  <p>An approach to developing a single application as a suite of small services, 
+each running in its own process and communicating with lightweight mechanisms <br />
+<sub>Martin Fowler</sub></p>
+</blockquote>
+
+<p>The concept of microservices is not new, this is the reimagining of service orientied architecture 
+but with an approach more holistically aligned with unix processes and pipes.</p>
+
+<p>The philosophy of Microservices architecture:</p>
+
+<ul>
+  <li>The services are small - fine-grained as a singular business purpose similar to unix philosophy of “Do one thing and do it well”</li>
+  <li>The organization culture should embrace automation of deployment and testing. This eases the burden on management and operations</li>
+  <li>The culture and design principles should embrace failure and faults, similar to anti-fragile systems.</li>
+</ul>
+
+<h3 id="why-microservices">Why microservices?</h3>
+
+<p>As organisations scale both technology and head count it becomes much more difficult to manage monolithic 
+code bases. We all became accustomed to the Twitter fail whale for a period of time as they attempted to 
+scale their user base and product feature set with a monolithic system. Microservices enabled Twitter to 
+decompose their application into smaller services that could be managed separately by many different teams. 
+Each team being responsible for a business function composed of many microservices which can be deployed 
+independently from other teams.</p>
+
+<div class="text-center">
+    <img src="images/micro-service-architecture.png" style="width: 100%; height: auto;" />
+</div>
+
+<p>We’ve seen through first hand experience that microservice systems enable faster development cycles, 
+improved productivity and superior scalable systems.</p>
+
+<p>Let’s talk about some of the benefits:</p>
+
+<ol>
+  <li>
+    <p><strong>Easier to scale development</strong> - teams organise around different business requirements and manage their own services.</p>
+  </li>
+  <li>
+    <p><strong>Easier to understand</strong> - microservices are much smaller, usually 1000 LOC or less.</p>
+  </li>
+  <li>
+    <p><strong>Easier to deploy new versions of services frequently</strong> - services can be deployed, scaled and managed independently.</p>
+  </li>
+  <li>
+    <p><strong>Improved fault tolerance and isolation</strong> - separation of concerns minimises the impact of issues in one service from another.</p>
+  </li>
+  <li>
+    <p><strong>Improved speed of execution</strong> - teams deliver on business requirements faster by developing, deploying and managing microservices independently.</p>
+  </li>
+  <li>
+    <p><strong>Reusable services and rapid prototyping</strong> - the unix philosophy ingrained in microservices allow you to reuse existing services and 
+build entirely new functionality on top much quicker.</p>
+  </li>
+</ol>
+
+<h3 id="what-is-micro">What is Micro?</h3>
+
+<p>Micro is a microservices ecosystem focused on providing products, services and solutions to enable 
+innovation in modern software driven enterprises. We plan to be the defacto resource for anything 
+microservices related and will look to enable companies to leverage this technology for their 
+own businesses. From early stage prototyping all the way through to large scale production 
+deployments.</p>
+
+<p>We’ve seen a fundamental shift coming in the industry. Moore’s law is in effect and we’re gaining access 
+to more and more compute power everyday. Yet we’re not able to fully realise this new capacity. Existing 
+tools and development practices do not scale in this new era. Developers are not being provided the tools 
+to move from monolithic code bases to more efficient design patterns. Most companies inevitably reach a 
+point of diminishing returns with monolithic designs and have to undergo massive R&amp;D reengineering efforts. 
+Netfix, Twitter, Gilt and Hailo are all prime examples of this. All ended up building their own microservice 
+platforms.</p>
+
+<p>Our vision is to provide the fundamental building blocks to make it easier for anyone to adopt microservices.</p>
+
+
+
+<!--
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+-->
+    
+
+</div>
+
+<hr class="faded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy; 2020 Micro Services, Inc.<br />
+ Last generated: Apr 13, 2020 <br />
+                </div>
+            </div>
+</footer>
+
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </div>
+    </div>
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-70478210-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+</html>

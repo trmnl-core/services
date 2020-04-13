@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+    content="微服务运行时管理系统">
+<meta name="keywords" content="microruntime,  runtime">
+
+
+<title>Micro Runtime | Micro文档</title>
+
+
+<link rel="stylesheet" href="/docs/css/syntax.css">
+<link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="/docs/css/cn/customstyles.css?v=1">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs/js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/docs/js/toc.js"></script>
+<script src="/docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="docs" href="https://micro.mu/docsfeed.xml">
+
+    <script>
+        $(document).ready(function () {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+
+</head>
+
+<body>
+    <!-- Navigation -->
+<div class="container">
+	<nav class="navbar">
+	    
+	    <a class="navbar-brand" href="index.html"><span class="projectTitle"> Micro文档</span></a>
+	    
+
+	    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-1">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	    </button>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">English<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/docs/index.html">English</a></li>
+                        
+                        
+                        
+                        <li><a href="/docs/cn/index.html">中文</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-lg-12">&nbsp;</div>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Sidebar Column -->
+            <div class="col-md-3">
+
+                
+
+
+
+
+
+
+
+<ul id="mysidebar" class="nav list-group">
+    
+    
+    
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">概览</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/index.html">简介</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/faq.html">常见问题</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/features.html">特性</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/mission.html">Mission</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/resources.html">相关资源</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/users.html">相关用户</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">整体框架</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/go-micro.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-micro-internals.html">内部设计</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-api.html">API</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-config.html">Config</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-grpc.html">GRPC</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">运行时工具</a>
+        <ul>
+            
+            
+            
+            <li class="active highlight"><a href="/docs/cn/runtime.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/architecture.html">架构</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/api.html">API Gateway</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/web.html">Web 管理控制台</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/proxy.html">服务Proxy代理</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/cli.html">命令行接口</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/bot.html">Slack小机器人</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/new.html">服务模板</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">部署</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/deploy-docker.html">Docker</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/deploy-kubernetes.html">Kubernetes</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">指导</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/install-guide.html">安装</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/grpc-gateway.html">GRPC 网关</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/writing-a-go-service.html">编写服务</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/fault-tolerance.html">容错</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">插件</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/plugins.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/plugins-go-micro.html">Go Micro</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/runtime-plugins.html">Micro</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+                <!-- Content Column -->
+                <div class="col-md-9">
+                    <div class="post-header">
+   <h1 class="post-title-main">Micro Runtime</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+    <div class="summary">微服务运行时管理系统</div>
+   
+
+    
+
+  <p>Micro是开发微服务的工具库</p>
+
+<h1 id="概览">概览</h1>
+
+<p>Micro重点工作服务方向是满足构建可伸缩的系统。Micro包含了微服务的架构模式，并把它把转换成一系列构建平台的工具。Micro深入复杂的分布式系统，且要把其简化抽象成众所周知的方式暴露给开发者使用。</p>
+
+<p>技术本身是日新月异的。而那些基础的技术栈也总是会发生变动。Micro工具插件化就是要处理这个问题。</p>
+
+<p>Micro的愿景是，在任何技术栈中都可插拔，使用Micro构建永不过时的系统。</p>
+
+<h2 id="特性">特性</h2>
+
+<p>micro工具库由以下几个部分组成：</p>
+
+<ul>
+  <li>
+    <p><strong>API Gateway:</strong> API网关作为单一的http入口，它使用服务发现中查询的服务地址，把请求动态路由到具体服务。网关允许我们建立可伸缩的后台微服务架构，并且让工作在前端的公共API更健壮。Micro API基于服务发现拥有强大的路由能力，它可以处理http、gRPC、websocket、消息推送事件等等。</p>
+  </li>
+  <li>
+    <p><strong>Interactive CLI:</strong> 交互式的命令行接口。CLI通过终端可以描述、查询、直接与平台和服务进行交互。CLI提供所有的命令让开发者明白微服务正在处理的事情。CLI也包含了交互模式。</p>
+  </li>
+  <li>
+    <p><strong>Service Proxy:</strong> 服务代理，基于<a href="https://github.com/micro/go-micro">Go Micro</a>和<a href="https://github.com/micro/protocol">MUCP协议</a>构建的透明的代理服务。它将服务发现、负载均衡、消息编码、中间件、传输及代理插件卸载到单一位置。</p>
+  </li>
+</ul>
+
+<p>可以单独运行或与服务一起运行。</p>
+
+<ul>
+  <li>
+    <p><strong>Service Templates:</strong> 服务生成模板，目的是快速生成服务代码，让编写代码飞起来。Micro预置了一些模板用来编写服务。
+保持相同的方式编写服务，提高效率。</p>
+  </li>
+  <li>
+    <p><strong>SlackOps Bot:</strong> Slack小机器人插件，当它运行中服务中时，这个插件允许开发者通过Slack消息来操作平台。MicroBot插件提供聊天配置选项，这样就可以让团队通过向小机器人发送聊天消息来做一些我们希望它做的事，这里面当然也包含像动态发现服务一样创建slack命令。</p>
+  </li>
+  <li>
+    <p><strong>Web Dashboard:</strong> 通过Web管理控制台，可以直接在Web页面上查看服务的运行情况，展示端点信息，请求与响应状态，甚至直接向服务进行查询。管理控制台也有CLI交互页面提供给开发者在线上处理，就像直接操作终端一样。</p>
+  </li>
+</ul>
+
+<h2 id="开始使用">开始使用</h2>
+
+<ul>
+  <li><a href="#安装Micro">安装Micro</a></li>
+  <li><a href="#依赖">依赖</a></li>
+  <li><a href="#服务发现">服务发现</a></li>
+  <li><a href="#编写服务">编写服务</a></li>
+  <li><a href="#示例">示例</a></li>
+  <li><a href="#相关插件">相关插件</a></li>
+</ul>
+
+<h2 id="安装micro">安装Micro</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go get <span class="nt">-u</span> github.com/micro/micro
+</code></pre></div></div>
+
+<p>也可以通过Docker安装</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull micro/micro
+</code></pre></div></div>
+
+<h2 id="依赖">依赖</h2>
+
+<p>micro工具库有两个依赖：</p>
+
+<ul>
+  <li><a href="#service-discovery">Service Discovery</a> - 用于服务名解析</li>
+  <li><a href="#protobuf">Protobuf</a> - 代码生成工具</li>
+</ul>
+
+<h2 id="服务发现">服务发现</h2>
+
+<p>服务发现用于服务名解析、路由、集中元数据。</p>
+
+<p>Micro使用<a href="https://github.com/micro/go-micro">go-micro</a>来向服务发现中心发送注册请求。</p>
+
+<h3 id="consul">Consul</h3>
+
+<p>安装并运行Consul</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># install</span>
+brew install consul
+
+<span class="c"># run</span>
+consul agent <span class="nt">-dev</span>
+</code></pre></div></div>
+
+<h3 id="mdns">mDNS</h3>
+
+<p>Micro内置了mDNS组播系统，这是一种零依赖的服务注册发现机制，它是区别于有注册中心的替代方案。</p>
+
+<p>通过在启动指令中传入<code class="highlighter-rouge">--registry=mdns</code> 或者在<strong>环境变量</strong>中设置<code class="highlighter-rouge">MICRO_REGISTRY=mdns</code>。</p>
+
+<p>其实也可以不传，早期版本的go-micro默认注册中心是<strong>consul</strong>，现在换成了<strong>mdns</strong></p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用命令行参数</span>
+micro <span class="nt">--registry</span><span class="o">=</span>mdns list services
+
+<span class="c"># 使用环境变量</span>
+<span class="nv">MICRO_REGISTRY</span><span class="o">=</span>mdns micro list services<span class="sb">`</span>
+</code></pre></div></div>
+
+<p>查看更多关于插件的资料：<a href="https://github.com/micro/go-plugins">go-plugins</a>.</p>
+
+<h2 id="protobuf">Protobuf</h2>
+
+<p>Protobuf功能是代码生成，可以免去手写一些模板化的代码。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 安装protobuf
+brew install protobuf
+
+# 安装golang的protobuf代码生成器 protoc-gen-go
+go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+
+# 安装micro的protobuf插件 protoc-gen-micro
+go get -u github.com/micro/protoc-gen-micro
+</code></pre></div></div>
+
+<p>更多资料请查看<a href="https://github.com/micro/protoc-gen-micro">protoc-gen-micro</a>。</p>
+
+<h2 id="编写服务">编写服务</h2>
+
+<p>上面说过Micro是有模板生成功能可以快速生成服务应用。</p>
+
+<p>详情可以翻阅：<a href="https://github.com/micro/go-micro"><strong>go-micro</strong></a>.</p>
+
+<h3 id="使用模板生成">使用模板生成</h3>
+
+<p>下面演示使用<code class="highlighter-rouge">micro new</code>命令来快速生成一个示例服务</p>
+
+<p>生成的服务会被放到$GOPATH的相对目录下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro new github.com/micro/example
+</code></pre></div></div>
+
+<p>刚这个命令生成的目录如下所示：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>example/
+	Dockerfile	# A template docker file
+	README.md	# A readme with command used
+	handler/	# Example rpc handler
+	main.go		# The main Go program
+	proto/		# Protobuf directory
+	subscriber/	# Example pubsub Subscriber
+</code></pre></div></div>
+
+<p>然后使用<code class="highlighter-rouge">protoc</code>把proto方便生成go源码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>protoc --proto_path=. --micro_out=. --go_out=. proto/example/example.proto
+</code></pre></div></div>
+
+<p>下面就可以像运行其它go语言程序一下执行下面的命令了：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go run main.go
+</code></pre></div></div>
+
+<h2 id="示例">示例</h2>
+
+<p>刚我们通过<code class="highlighter-rouge">micro new</code>生成了命令并跑了起来，下面我们测一下。</p>
+
+<ul>
+  <li><a href="#list-services">列出所有服务</a></li>
+  <li><a href="#get-service">获取服务信息</a></li>
+  <li><a href="#call-service">调用服务</a></li>
+  <li><a href="#run-api">执行API</a></li>
+  <li><a href="#call-api">调用API</a></li>
+</ul>
+
+<h3 id="列出所有服务">列出所有服务</h3>
+
+<p>通过服务发现注册的服务都可以被列出来</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro list services
+</code></pre></div></div>
+
+<p>相关服务：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>consul
+go.micro.srv.example
+topic:topic.go.micro.srv.example
+</code></pre></div></div>
+
+<p>示例中的注册了的应用使用的限定了的注册名<code class="highlighter-rouge">go.micro.srv.example</code>，<code class="highlighter-rouge">go.micro.srv</code>是后台服务名的默认前缀</p>
+
+<h3 id="获取指定名的服务">获取指定名的服务</h3>
+
+<p>每一个服务注册都是通过唯一的id、地址及元数据。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro get service go.micro.srv.example
+</code></pre></div></div>
+<p>输出的结果：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service  go.micro.srv.example
+
+version latest
+
+ID	Address	Port	Metadata
+go.micro.srv.example-437d1277-303b-11e8-9be9-f40f242f6897	192.168.1.65	53545	transport=http,broker=http,server=rpc,registry=consul
+
+Endpoint: Example.Call
+Metadata: stream=false
+
+Request: {
+	name string
+}
+
+Response: {
+	msg string
+}
+
+
+Endpoint: Example.PingPong
+Metadata: stream=true
+
+Request: {}
+
+Response: {}
+
+
+Endpoint: Example.Stream
+Metadata: stream=true
+
+Request: {}
+
+Response: {}
+
+
+Endpoint: Func
+Metadata: subscriber=true,topic=topic.go.micro.srv.example
+
+Request: {
+	say string
+}
+
+Response: {}
+
+
+Endpoint: Example.Handle
+Metadata: subscriber=true,topic=topic.go.micro.srv.example
+
+Request: {
+	say string
+}
+
+Response: {}
+</code></pre></div></div>
+
+<h3 id="调用服务">调用服务</h3>
+
+<p>通过CLI命令行接口来调用RPC服务，这次查询我们使用JSON来发送：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro call go.micro.srv.example Example.Call <span class="s1">'{"name": "John"}'</span>
+</code></pre></div></div>
+
+<p>输出的结果：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+	"msg": "Hello John"
+}
+</code></pre></div></div>
+
+<p>可以查看<a href="https://micro.mu/docs/cli.html">cli文档来查看</a>更多信息。</p>
+
+<p>下面，我们试一下通过HTTP来调用服务。</p>
+
+<h3 id="执行api">执行API</h3>
+
+<p>Micro API本质上是一个http协议的网关接口，它会把动态路由到转到后台服务中。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MICRO_API_HANDLER=rpc \
+MICRO_API_NAMESPACE=go.micro.srv \ 
+micro api
+</code></pre></div></div>
+
+<p>说明信息：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">MICRO_API_HANDLER</code> http API的触发方法</li>
+  <li><code class="highlighter-rouge">MICRO_API_NAMESPACE</code> API所属服务的命名空间</li>
+</ul>
+
+<h3 id="调用api">调用API</h3>
+
+<p>发送一个POST请求到API：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -XPOST -H 'Content-Type: application/json' -d '{"name": "John"}' http://localhost:8080/example/call
+</code></pre></div></div>
+
+<p>结果：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"msg":"Hello John"}
+</code></pre></div></div>
+
+<p>更多详情信息翻看<a href="https://micro.mu/docs/api.html">api doc</a>。</p>
+
+<h2 id="相关插件">相关插件</h2>
+
+<p>Micro是基于<a href="https://github.com/micro/go-micro">go-micro</a>来开发插件。</p>
+
+<p>Go-micro向分布式系统架构可抽离的基础部分提供抽象。</p>
+
+<h3 id="可插拔特性">可插拔特性</h3>
+
+<p>下面列表出的Micro特性都是可插拔的：</p>
+
+<ul>
+  <li>broker - 发布订阅消息的代理</li>
+  <li>registry - 服务发现与注册</li>
+  <li>selector - 客户端负载均衡</li>
+  <li>transport - 传输，请求-响应或者双向流</li>
+  <li>client - 管理以上特性的客户端</li>
+  <li>server - 管理以上特性的服务端</li>
+</ul>
+
+<p>Find plugins at <a href="https://github.com/micro/go-plugins">go-plugins</a></p>
+
+<h3 id="使用插件">使用插件</h3>
+
+<p>插件的集成很简单，只需要创建个文件并引用这些插件即可。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+	</span><span class="c">// etcd v3 registry</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/registry/etcdv3"</span><span class="x">
+	</span><span class="c">// nats transport</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/transport/nats"</span><span class="x">
+	</span><span class="c">// kafka broker</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/broker/kafka"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+</span></code></pre></div></div>
+
+<h3 id="构建二进制文件">构建二进制文件</h3>
+
+<p>直接使用Go命令行工具链即可。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 本地打包</span>
+go build <span class="nt">-i</span> <span class="nt">-o</span> micro ./main.go ./plugins.go
+
+<span class="c"># 打包成docker镜像</span>
+<span class="nv">CGO_ENABLED</span><span class="o">=</span>0 <span class="nv">GOOS</span><span class="o">=</span>linux go build <span class="nt">-a</span> <span class="nt">-installsuffix</span> cgo <span class="nt">-ldflags</span> <span class="s1">'-w'</span> <span class="nt">-i</span> <span class="nt">-o</span> micro ./main.go ./plugins.go
+</code></pre></div></div>
+
+<h3 id="激活插件">激活插件</h3>
+
+<p>引用插件后如果要激活，那么可以使用命令行或者设置环境变量即可。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 命令行参数 </span>
+micro <span class="nt">--registry</span><span class="o">=</span>etcdv3 <span class="nt">--transport</span><span class="o">=</span>nats <span class="nt">--broker</span><span class="o">=</span>kafka <span class="o">[</span>其它命令]
+
+<span class="c"># 环境变量</span>
+<span class="nv">MICRO_REGISTRY</span><span class="o">=</span>etcdv3 <span class="nv">MICRO_TRANSPORT</span><span class="o">=</span>nats <span class="nv">MICRO_BROKER</span><span class="o">=</span>kafka micro <span class="o">[</span>其它命令]
+</code></pre></div></div>
+
+
+
+<!--
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+-->
+    
+
+</div>
+
+<hr class="faded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy; 2020 Micro Services, Inc.<br />
+ Last generated: Apr 13, 2020 <br />
+                </div>
+            </div>
+</footer>
+
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </div>
+    </div>
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-70478210-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+</html>

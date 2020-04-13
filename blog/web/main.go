@@ -18,11 +18,6 @@ func main() {
                 log.Fatal(err)
         }
 
-	// register html handler
-	service.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "https://micro.mu/blog/", 302)
-	})
-
 	// run service
         if err := service.Run(); err != nil {
                 log.Fatal(err)

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+    content="">
+<meta name="keywords" content="plugins,  plugins">
+
+
+<title>Go Micro插件 | Micro文档</title>
+
+
+<link rel="stylesheet" href="/docs/css/syntax.css">
+<link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="/docs/css/cn/customstyles.css?v=1">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs/js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/docs/js/toc.js"></script>
+<script src="/docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="docs" href="https://micro.mu/docsfeed.xml">
+
+    <script>
+        $(document).ready(function () {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+
+</head>
+
+<body>
+    <!-- Navigation -->
+<div class="container">
+	<nav class="navbar">
+	    
+	    <a class="navbar-brand" href="index.html"><span class="projectTitle"> Micro文档</span></a>
+	    
+
+	    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-1">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	    </button>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">English<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/docs/index.html">English</a></li>
+                        
+                        
+                        
+                        <li><a href="/docs/cn/index.html">中文</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-lg-12">&nbsp;</div>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Sidebar Column -->
+            <div class="col-md-3">
+
+                
+
+
+
+
+
+
+
+<ul id="mysidebar" class="nav list-group">
+    
+    
+    
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">概览</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/index.html">简介</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/faq.html">常见问题</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/features.html">特性</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/mission.html">Mission</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/resources.html">相关资源</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/users.html">相关用户</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">整体框架</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/go-micro.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-micro-internals.html">内部设计</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-api.html">API</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-config.html">Config</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-grpc.html">GRPC</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">运行时工具</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/runtime.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/architecture.html">架构</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/api.html">API Gateway</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/web.html">Web 管理控制台</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/proxy.html">服务Proxy代理</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/cli.html">命令行接口</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/bot.html">Slack小机器人</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/new.html">服务模板</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">部署</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/deploy-docker.html">Docker</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/deploy-kubernetes.html">Kubernetes</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">指导</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/install-guide.html">安装</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/grpc-gateway.html">GRPC 网关</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/writing-a-go-service.html">编写服务</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/fault-tolerance.html">容错</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">插件</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/plugins.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li class="active highlight"><a href="/docs/cn/plugins-go-micro.html">Go Micro</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/runtime-plugins.html">Micro</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+                <!-- Content Column -->
+                <div class="col-md-9">
+                    <div class="post-header">
+   <h1 class="post-title-main">Go Micro插件</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+
+  <p>Micro是可插拔的工具库与框架，在<a href="https://github.com/micro/go-plugins">go-plugins</a>中您可以随意根据需要替换需要的插件。</p>
+
+<p>micro工具集有独立的插件接口，查看<a href="https://github.com/micro/micro/tree/master/plugin">micro/plugin</a>了解更多。</p>
+
+<p>下面是go-micro插件使用方式。</p>
+
+<h2 id="使用方式">使用方式</h2>
+
+<p>go-micro中插件可以通过下面几种方式使用，可以通过命令行参数或者环境变量。</p>
+
+<p>在Golang中引用插件代码，然后调用<code class="highlighter-rouge">service.Init</code>方法就会解析命令行、环境变量。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+	</span><span class="s">"github.com/micro/go-micro/v2"</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/broker/rabbitmq"</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/registry/kubernetes"</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/transport/nats"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
+		</span><span class="c">// Set service name</span><span class="x">
+		</span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"my.service"</span><span class="p">),</span><span class="x">
+	</span><span class="p">)</span><span class="x">
+
+	</span><span class="c">// Parse CLI flags</span><span class="x">
+	</span><span class="n">service</span><span class="o">.</span><span class="n">Init</span><span class="p">()</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<h3 id="参数标识">参数标识</h3>
+
+<p>您可以像下面这样声明参数标记：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go run service.go <span class="nt">--broker</span><span class="o">=</span>rabbitmq <span class="nt">--registry</span><span class="o">=</span>kubernetes <span class="nt">--transport</span><span class="o">=</span>nats
+</code></pre></div></div>
+
+<h3 id="环境变量">环境变量</h3>
+
+<p>在启动应用前声明环境变量：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MICRO_BROKER=rabbitmq \
+MICRO_REGISTRY=kubernetes \ 
+MICRO_TRANSPORT=nats \ 
+go run service.go
+</code></pre></div></div>
+
+<h3 id="其它选项">其它选项</h3>
+
+<p>在创建新服务前引入并设置选项：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+	</span><span class="s">"github.com/micro/go-micro/v2"</span><span class="x">
+	</span><span class="s">"github.com/micro/go-plugins/registry/kubernetes"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">registry</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">kubernetes</span><span class="o">.</span><span class="n">NewRegistry</span><span class="p">()</span><span class="x"> </span><span class="c">// a default to using env vars for master API</span><span class="x">
+
+	</span><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
+		</span><span class="c">// Set service name</span><span class="x">
+		</span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"my.service"</span><span class="p">),</span><span class="x">
+		</span><span class="c">// Set service registry</span><span class="x">
+		</span><span class="n">micro</span><span class="o">.</span><span class="n">Registry</span><span class="p">(</span><span class="n">registry</span><span class="p">),</span><span class="x">
+	</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<h2 id="构建">构建</h2>
+
+<p>不提倡直接在<code class="highlighter-rouge">main.go</code>文件中加入插件代码这种反模式的方式，推荐创建新的插件文件来引用插件。这样就可以自动构建插件并且插件与主逻辑分离。</p>
+
+<p>创建新的文件，plugins.go，并引入需要的插件</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/broker/rabbitmq"</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/registry/kubernetes"</span><span class="x">
+	</span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/transport/nats"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+</span></code></pre></div></div>
+
+<p>重新带上plugins.go构建成二进制文件</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go build <span class="nt">-o</span> service main.go plugins.go
+</code></pre></div></div>
+
+<p>然后在启动时声明环境变量，变量会被加入的插件识别并使用</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">MICRO_BROKER</span><span class="o">=</span>rabbitmq <span class="se">\</span>
+<span class="nv">MICRO_REGISTRY</span><span class="o">=</span>kubernetes <span class="se">\</span>
+<span class="nv">MICRO_TRANSPORT</span><span class="o">=</span>nats <span class="se">\</span>
+service
+</code></pre></div></div>
+
+<h2 id="重新构建工具">重新构建工具</h2>
+
+<p>如果想集成插件，那您只需要把插件引入单独的文件中，然后重新构建即可。</p>
+
+<p>创建plugins.go，引入插件</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="c">// etcd v3 registry</span><span class="x">
+        </span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/registry/etcdv3"</span><span class="x">
+        </span><span class="c">// nats transport</span><span class="x">
+        </span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/transport/nats"</span><span class="x">
+        </span><span class="c">// kafka broker</span><span class="x">
+        </span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/broker/kafka"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+</span></code></pre></div></div>
+
+<p>构建二进制文件</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 本地使用
+go build <span class="nt">-i</span> <span class="nt">-o</span> micro ./main.go ./plugins.go
+
+// docker镜像
+<span class="nv">CGO_ENABLED</span><span class="o">=</span>0 <span class="nv">GOOS</span><span class="o">=</span>linux go build <span class="nt">-a</span> <span class="nt">-installsuffix</span> cgo <span class="nt">-ldflags</span> <span class="s1">'-w'</span> <span class="nt">-i</span> <span class="nt">-o</span> micro ./main.go ./plugins.go
+</code></pre></div></div>
+
+<p>使用插件</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro <span class="nt">--registry</span><span class="o">=</span>etcdv3 <span class="nt">--transport</span><span class="o">=</span>nats <span class="nt">--broker</span><span class="o">=</span>kafka
+</code></pre></div></div>
+
+<h2 id="源码仓库">源码仓库</h2>
+
+<p>go-micro插件集可以在<a href="https://github.com/micro/go-plugins">github.com/micro/go-plugins</a>中找到。</p>
+
+
+
+<!--
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+    </div>
+-->
+    
+
+</div>
+
+<hr class="faded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy; 2020 Micro Services, Inc.<br />
+ Last generated: Apr 13, 2020 <br />
+                </div>
+            </div>
+</footer>
+
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </div>
+    </div>
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-70478210-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+</html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+    content="">
+<meta name="keywords" content="go-micro,  go-micro">
+
+
+<title>Go Micro | Micro文档</title>
+
+
+<link rel="stylesheet" href="/docs/css/syntax.css">
+<link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="/docs/css/cn/customstyles.css?v=1">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/docs/js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/docs/js/toc.js"></script>
+<script src="/docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="docs" href="https://micro.mu/docsfeed.xml">
+
+    <script>
+        $(document).ready(function () {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function (e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+
+</head>
+
+<body>
+    <!-- Navigation -->
+<div class="container">
+	<nav class="navbar">
+	    
+	    <a class="navbar-brand" href="index.html"><span class="projectTitle"> Micro文档</span></a>
+	    
+
+	    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-1">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	    </button>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">English<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/docs/index.html">English</a></li>
+                        
+                        
+                        
+                        <li><a href="/docs/cn/index.html">中文</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-lg-12">&nbsp;</div>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Sidebar Column -->
+            <div class="col-md-3">
+
+                
+
+
+
+
+
+
+
+<ul id="mysidebar" class="nav list-group">
+    
+    
+    
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">概览</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/index.html">简介</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/faq.html">常见问题</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/features.html">特性</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/mission.html">Mission</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/resources.html">相关资源</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/users.html">相关用户</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">整体框架</a>
+        <ul>
+            
+            
+            
+            <li class="active highlight"><a href="/docs/cn/go-micro.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-micro-internals.html">内部设计</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-api.html">API</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-config.html">Config</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/go-grpc.html">GRPC</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">运行时工具</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/runtime.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/architecture.html">架构</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/api.html">API Gateway</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/web.html">Web 管理控制台</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/proxy.html">服务Proxy代理</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/cli.html">命令行接口</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/bot.html">Slack小机器人</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/new.html">服务模板</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">部署</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/deploy-docker.html">Docker</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/deploy-kubernetes.html">Kubernetes</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">指导</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/install-guide.html">安装</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/grpc-gateway.html">GRPC 网关</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/writing-a-go-service.html">编写服务</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/fault-tolerance.html">容错</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li class="list-group-item">
+        <a href="#" class="title">插件</a>
+        <ul>
+            
+            
+            
+            <li><a href="/docs/cn/plugins.html">概览</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/plugins-go-micro.html">Go Micro</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/cn/runtime-plugins.html">Micro</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+                <!-- Content Column -->
+                <div class="col-md-9">
+                    <div class="post-header">
+   <h1 class="post-title-main">Go Micro</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+
+  <p>Go Micro是可插拔的微服务开发框架。</p>
+
+<h2 id="概览">概览</h2>
+
+<p>Go Micro提供分布式系统开发的核心库，包含RPC与事件驱动的通信机制。</p>
+
+<p><strong>micro</strong>的设计哲学是可插拔的架构理念，她提供可快速构建系统的组件，并且可以根据自身的需求剥离默认实现并自行定制。</p>
+
+<h2 id="特性">特性</h2>
+
+<p>Go Micro把分布式系统的各种细节抽象出来。下面是它的主要特性。</p>
+
+<ul>
+  <li>
+    <p><strong>服务发现（Service Discovery）</strong> - 自动服务注册与名称解析。服务发现是微服务开发中的核心。当服务A要与服务B协作时，它得知道B在哪里。默认的服务发现系统是Consul，而multicast DNS (mdns，组播)机制作为本地解决方案，或者零依赖的P2P网络中的SWIM协议（gossip）。</p>
+  </li>
+  <li>
+    <p><strong>负载均衡（Load Balancing）</strong> - 在服务发现之上构建了负载均衡机制。当我们得到一个服务的任意多个的实例节点时，我们要一个机制去决定要路由到哪一个节点。我们使用随机处理过的哈希负载均衡机制来保证对服务请求颁发的均匀分布，并且在发生问题时进行重试。</p>
+  </li>
+  <li>
+    <p><strong>消息编码（Message Encoding）</strong> - 支持基于内容类型（content-type）动态编码消息。客户端和服务端会一起使用content-type的格式来对Go进行无缝编/解码。各种各样的消息被编码会发送到不同的客户端，客户端服服务端默认会处理这些消息。content-type默认包含proto-rpc和json-rpc。</p>
+  </li>
+  <li>
+    <p><strong>Request/Response</strong> - RPC通信基于支持双向流的请求/响应方式，我们提供有抽象的同步通信机制。请求发送到服务时，会自动解析、负载均衡、拨号、转成字节流，默认的传输协议是http/1.1，而tls下使用http2协议。</p>
+  </li>
+  <li>
+    <p><strong>异步消息（Async Messaging）</strong> - 发布订阅（PubSub）头等功能内置在异步通信与事件驱动架构中。事件通知在微服务开发中处于核心位置。默认的消息传送使用点到点http/1.1，激活tls时则使用http2。</p>
+  </li>
+  <li>
+    <p><strong>可插拔接口（Pluggable Interfaces）</strong> - Go Micro为每个分布式系统抽象出接口。因此，Go Micro的接口都是可插拔的，允许其在运行时不可知的情况下仍可支持。所以只要实现接口，可以在内部使用任何的技术。更多插件请参考：<a href="https://github.com/micro/go-plugins">github.com/micro/go-plugins</a>。</p>
+  </li>
+</ul>
+
+<h2 id="安装protobuf">安装protobuf</h2>
+
+<p>代码生成依赖Protobuf，参考安装：</p>
+
+<ul>
+  <li><a href="https://github.com/micro/protoc-gen-micro">protoc-gen-micro</a></li>
+</ul>
+
+<h2 id="服务发现">服务发现</h2>
+
+<p>服务发现用于解析服务名与地址。</p>
+
+<h3 id="consul">Consul</h3>
+
+<p><a href="https://www.consul.io/">Consul</a> 在Go Micro中是默认（以后的版本可能会更改）的服务发现注册中心。</p>
+
+<p>发现系统可插拔，其它插件像 etcd, kubernetes, zookeeper可以参考<a href="https://github.com/micro/go-plugins">micro/go-plugins</a> 库。</p>
+
+<p><a href="https://www.consul.io/intro/getting-started/install.html">Consul安装指导</a></p>
+
+<p>安装好后，可以在命令行启动时传入变量或指令便可以使用consul作为注册中心：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ MICRO_REGISTRY</span><span class="o">=</span>consul go run main.go
+</code></pre></div></div>
+
+<p>或者</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>go run main.go <span class="nt">--registry</span><span class="o">=</span>consul
+</code></pre></div></div>
+
+<h3 id="multicast-dns">Multicast DNS</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Multicast_DNS">组播dns</a>内置在服务发现系统之中的插件，提供零依赖的配置。</p>
+
+<p>在启动命令中传入 <code class="highlighter-rouge">--registry=mdns</code>，或声明环境变量 <code class="highlighter-rouge">MICRO_REGISTRY=mdns</code>：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MICRO_REGISTRY=mdns go run main.go
+</code></pre></div></div>
+
+<h2 id="编写服务">编写服务</h2>
+
+<p>我们写一个简单的问候（greeter）程序作为示例。</p>
+
+<p>例子可参考：<a href="https://github.com/micro/examples/tree/master/service">examples/service</a>.</p>
+
+<h3 id="服务原型">服务原型</h3>
+
+<p>微服务中有个关键需求点，就是接口的强定义。Micro使用protobuf来完成这个需求。下面我们定义Greeter处理器，它有一个Hello方法。它有HelloRequest入参对象及HelloResponse出参对象，两个对象都有一个字符串类型的参数。</p>
+
+<div class="language-proto highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">syntax</span> <span class="o">=</span> <span class="s">"proto3"</span><span class="p">;</span>
+
+<span class="kd">service</span> <span class="n">Greeter</span> <span class="p">{</span>
+	<span class="k">rpc</span> <span class="n">Hello</span><span class="p">(</span><span class="n">HelloRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">HelloResponse</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">HelloRequest</span> <span class="p">{</span>
+	<span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">HelloResponse</span> <span class="p">{</span>
+	<span class="kt">string</span> <span class="na">greeting</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="生成原型">生成原型</h3>
+
+<p>在定义好原型后我们得使用protoc及micro的插件编译它，micro插件可以帮助生成go micro需要的原型文件</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>protoc <span class="nt">--proto_path</span><span class="o">=</span><span class="nv">$GOPATH</span>/src:. <span class="nt">--micro_out</span><span class="o">=</span><span class="nb">.</span> <span class="nt">--go_out</span><span class="o">=</span><span class="nb">.</span> path/to/greeter.proto
+</code></pre></div></div>
+
+<h3 id="编写服务-1">编写服务</h3>
+
+<p>下方的代码是greeter服务的代码</p>
+
+<p>它要实现下面的几个要求</p>
+
+<ol>
+  <li>实现在Greeter Handler中定义的接口。</li>
+  <li>初始化 micro.Service</li>
+  <li>注册 Greeter handler</li>
+  <li>运行服务</li>
+</ol>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+	</span><span class="s">"context"</span><span class="x">
+	</span><span class="s">"fmt"</span><span class="x">
+
+	</span><span class="n">micro</span><span class="x"> </span><span class="s">"github.com/micro/go-micro/v2"</span><span class="x">
+	</span><span class="n">proto</span><span class="x"> </span><span class="s">"github.com/micro/examples/service/proto"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">type</span><span class="x"> </span><span class="n">Greeter</span><span class="x"> </span><span class="k">struct</span><span class="p">{}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="p">(</span><span class="n">g</span><span class="x"> </span><span class="o">*</span><span class="n">Greeter</span><span class="p">)</span><span class="x"> </span><span class="n">Hello</span><span class="p">(</span><span class="n">ctx</span><span class="x"> </span><span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span><span class="x"> </span><span class="n">req</span><span class="x"> </span><span class="o">*</span><span class="n">proto</span><span class="o">.</span><span class="n">HelloRequest</span><span class="p">,</span><span class="x"> </span><span class="n">rsp</span><span class="x"> </span><span class="o">*</span><span class="n">proto</span><span class="o">.</span><span class="n">HelloResponse</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">rsp</span><span class="o">.</span><span class="n">Greeting</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"Hello "</span><span class="x"> </span><span class="o">+</span><span class="x"> </span><span class="n">req</span><span class="o">.</span><span class="n">Name</span><span class="x">
+	</span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="c">// 创建新的服务，这里可以传入其它选项。</span><span class="x">
+	</span><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
+		</span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"greeter"</span><span class="p">),</span><span class="x">
+	</span><span class="p">)</span><span class="x">
+
+	</span><span class="c">// 初始化方法会解析命令行标识</span><span class="x">
+	</span><span class="n">service</span><span class="o">.</span><span class="n">Init</span><span class="p">()</span><span class="x">
+
+	</span><span class="c">// 注册处理器</span><span class="x">
+	</span><span class="n">proto</span><span class="o">.</span><span class="n">RegisterGreeterHandler</span><span class="p">(</span><span class="n">service</span><span class="o">.</span><span class="n">Server</span><span class="p">(),</span><span class="x"> </span><span class="nb">new</span><span class="p">(</span><span class="n">Greeter</span><span class="p">))</span><span class="x">
+
+	</span><span class="c">// 运行服务</span><span class="x">
+	</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">service</span><span class="o">.</span><span class="n">Run</span><span class="p">();</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<h3 id="运行服务">运行服务</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go run examples/service/main.go
+</code></pre></div></div>
+
+<p>输出</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016/03/14 10:59:14 Listening on [::]:50137
+2016/03/14 10:59:14 Broker Listening on [::]:50138
+2016/03/14 10:59:14 Registering node: greeter-ca62b017-e9d3-11e5-9bbb-68a86d0d36b6
+</code></pre></div></div>
+
+<h3 id="定义客户端">定义客户端</h3>
+
+<p>下面的客户端代码用来查询greeter服务。上面我们生成的proto原型文件中包含了客户端部分，这样可以减少模板代码量。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+	</span><span class="s">"context"</span><span class="x">
+	</span><span class="s">"fmt"</span><span class="x">
+
+	</span><span class="n">micro</span><span class="x"> </span><span class="s">"github.com/micro/go-micro/v2"</span><span class="x">
+	</span><span class="n">proto</span><span class="x"> </span><span class="s">"github.com/micro/examples/service/proto"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="c">// 定义服务，可以传入其它可选参数</span><span class="x">
+	</span><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"greeter.client"</span><span class="p">))</span><span class="x">
+	</span><span class="n">service</span><span class="o">.</span><span class="n">Init</span><span class="p">()</span><span class="x">
+
+	</span><span class="c">// 创建新的客户端</span><span class="x">
+	</span><span class="n">greeter</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">proto</span><span class="o">.</span><span class="n">NewGreeterService</span><span class="p">(</span><span class="s">"greeter"</span><span class="p">,</span><span class="x"> </span><span class="n">service</span><span class="o">.</span><span class="n">Client</span><span class="p">())</span><span class="x">
+
+	</span><span class="c">// 调用greeter</span><span class="x">
+	</span><span class="n">rsp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">greeter</span><span class="o">.</span><span class="n">Hello</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">TODO</span><span class="p">(),</span><span class="x"> </span><span class="o">&amp;</span><span class="n">proto</span><span class="o">.</span><span class="n">HelloRequest</span><span class="p">{</span><span class="n">Name</span><span class="o">:</span><span class="x"> </span><span class="s">"John"</span><span class="p">})</span><span class="x">
+	</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+
+	</span><span class="c">// 打印响应请求</span><span class="x">
+	</span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">rsp</span><span class="o">.</span><span class="n">Greeting</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<h3 id="运行客户端">运行客户端</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go run client.go
+</code></pre></div></div>
+
+<p>输出</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello John
+</code></pre></div></div>
+
+<h2 id="编写function">编写Function</h2>
+
+<p>Go Micro包含了函数式编程模型。</p>
+
+<p>Function是指接收一次请求，执行后便退出的服务</p>
+
+<h3 id="定义function">定义Function</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+	</span><span class="s">"context"</span><span class="x">
+
+	</span><span class="n">proto</span><span class="x"> </span><span class="s">"github.com/micro/examples/function/proto"</span><span class="x">
+	</span><span class="s">"github.com/micro/go-micro/v2"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">type</span><span class="x"> </span><span class="n">Greeter</span><span class="x"> </span><span class="k">struct</span><span class="p">{}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="p">(</span><span class="n">g</span><span class="x"> </span><span class="o">*</span><span class="n">Greeter</span><span class="p">)</span><span class="x"> </span><span class="n">Hello</span><span class="p">(</span><span class="n">ctx</span><span class="x"> </span><span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span><span class="x"> </span><span class="n">req</span><span class="x"> </span><span class="o">*</span><span class="n">proto</span><span class="o">.</span><span class="n">HelloRequest</span><span class="p">,</span><span class="x"> </span><span class="n">rsp</span><span class="x"> </span><span class="o">*</span><span class="n">proto</span><span class="o">.</span><span class="n">HelloResponse</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">rsp</span><span class="o">.</span><span class="n">Greeting</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"Hello "</span><span class="x"> </span><span class="o">+</span><span class="x"> </span><span class="n">req</span><span class="o">.</span><span class="n">Name</span><span class="x">
+	</span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="c">// 创建新函数</span><span class="x">
+	</span><span class="n">fnc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewFunction</span><span class="p">(</span><span class="x">
+		</span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"greeter"</span><span class="p">),</span><span class="x">
+	</span><span class="p">)</span><span class="x">
+
+	</span><span class="c">// 初始化命令行</span><span class="x">
+	</span><span class="n">fnc</span><span class="o">.</span><span class="n">Init</span><span class="p">()</span><span class="x">
+
+	</span><span class="c">// 注册handler</span><span class="x">
+	</span><span class="n">fnc</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="nb">new</span><span class="p">(</span><span class="n">Greeter</span><span class="p">))</span><span class="x">
+
+	</span><span class="c">// 运行服务</span><span class="x">
+	</span><span class="n">fnc</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<p>简单吧！</p>
+
+<h2 id="发布与订阅">发布与订阅</h2>
+
+<p>Go-micro 给事件驱动架构内置了消息代理（broker）接口。发布与订阅像RPC一样操控生成的protobuf消息。这些消息会自动编/解码并通过代理发送。</p>
+
+<p>Go-micro默认包含点到点的http代理，但是也可以通过go-plugins把这层逻辑替换掉。</p>
+
+<h3 id="发布">发布</h3>
+
+<p>创建发布器，传入<code class="highlighter-rouge">topic</code>主题名，及服务客户端。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewPublisher</span><span class="p">(</span><span class="s">"events"</span><span class="p">,</span><span class="x"> </span><span class="n">service</span><span class="o">.</span><span class="n">Client</span><span class="p">())</span><span class="x">
+</span></code></pre></div></div>
+
+<p>发布一条protobuf消息</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span><span class="o">.</span><span class="n">Publish</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">TODO</span><span class="p">(),</span><span class="x"> </span><span class="o">&amp;</span><span class="n">proto</span><span class="o">.</span><span class="n">Event</span><span class="p">{</span><span class="n">Name</span><span class="o">:</span><span class="x"> </span><span class="s">"event"</span><span class="p">})</span><span class="x">
+</span></code></pre></div></div>
+
+<h3 id="订阅">订阅</h3>
+
+<p>创建消息处理器，签名得是<code class="highlighter-rouge">func(context.Context, v interface{}) error</code>。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span><span class="x"> </span><span class="n">ProcessEvent</span><span class="p">(</span><span class="n">ctx</span><span class="x"> </span><span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span><span class="x"> </span><span class="n">event</span><span class="x"> </span><span class="o">*</span><span class="n">proto</span><span class="o">.</span><span class="n">Event</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Got event %+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">event</span><span class="p">)</span><span class="x">
+	</span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<p>在这个消息处理器注册上<code class="highlighter-rouge">topic</code>主题</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">micro</span><span class="o">.</span><span class="n">RegisterSubscriber</span><span class="p">(</span><span class="s">"events"</span><span class="p">,</span><span class="x"> </span><span class="n">ProcessEvent</span><span class="p">)</span><span class="x">
+</span></code></pre></div></div>
+
+<p>查看完成例子：<a href="https://github.com/micro/examples/tree/master/pubsub">examples/pubsub</a></p>
+
+<h2 id="插件">插件</h2>
+
+<p>Go-micro默认下只提供了少量的核心接口实现，但是这些都是可插拔的。<a href="https://github.com/micro/go-plugins">github.com/micro/go-plugins</a>提供了一捆插件，可以供参考，也欢迎贡献您的代码。</p>
+
+<h3 id="构建插件">构建插件</h3>
+
+<p>如果想要集成插件，只需要把插件位置导入到文件中，重新编译即可。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="c">// etcd v3 registry</span><span class="x">
+        </span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/registry/etcdv3"</span><span class="x">
+        </span><span class="c">// nats transport</span><span class="x">
+        </span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/transport/nats"</span><span class="x">
+        </span><span class="c">// kafka broker</span><span class="x">
+        </span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/micro/go-plugins/broker/kafka"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+</span></code></pre></div></div>
+
+<p>打包二进制文件：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 本地使用
+go build <span class="nt">-i</span> <span class="nt">-o</span> service ./main.go ./plugins.go
+</code></pre></div></div>
+
+<p>标识使用插件</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service <span class="nt">--registry</span><span class="o">=</span>etcdv3 <span class="nt">--transport</span><span class="o">=</span>nats <span class="nt">--broker</span><span class="o">=</span>kafka
+</code></pre></div></div>
+
+<h3 id="插件即选项">插件即选项</h3>
+
+<p>另外，你也可以在服务中设置插件作为选项</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="x">
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="s">"github.com/micro/go-micro/v2"</span><span class="x"> 
+        </span><span class="c">// etcd v3 registry</span><span class="x">
+        </span><span class="s">"github.com/micro/go-plugins/registry/etcdv3"</span><span class="x">
+        </span><span class="c">// nats transport</span><span class="x">
+        </span><span class="s">"github.com/micro/go-plugins/transport/nats"</span><span class="x">
+        </span><span class="c">// kafka broker</span><span class="x">
+        </span><span class="s">"github.com/micro/go-plugins/broker/kafka"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">registry</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">etcdv3</span><span class="o">.</span><span class="n">NewRegistry</span><span class="p">()</span><span class="x">
+	</span><span class="n">broker</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">kafka</span><span class="o">.</span><span class="n">NewBroker</span><span class="p">()</span><span class="x">
+	</span><span class="n">transport</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">nats</span><span class="o">.</span><span class="n">NewTransport</span><span class="p">()</span><span class="x">
+
+    </span><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
+            </span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"greeter"</span><span class="p">),</span><span class="x">
+            </span><span class="n">micro</span><span class="o">.</span><span class="n">Registry</span><span class="p">(</span><span class="n">registry</span><span class="p">),</span><span class="x">
+            </span><span class="n">micro</span><span class="o">.</span><span class="n">Broker</span><span class="p">(</span><span class="n">broker</span><span class="p">),</span><span class="x">
+            </span><span class="n">micro</span><span class="o">.</span><span class="n">Transport</span><span class="p">(</span><span class="n">transport</span><span class="p">),</span><span class="x">
+    </span><span class="p">)</span><span class="x">
+
+	</span><span class="n">service</span><span class="o">.</span><span class="n">Init</span><span class="p">()</span><span class="x">
+	</span><span class="n">service</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<h3 id="编写插件">编写插件</h3>
+
+<p>插件是构建在Go接口之上的的概念。每个包都维护着高度抽象的接口。简单实现接口并把它作为选项传入服务。</p>
+
+<p>服务发现的接口称作<a href="https://pkg.go.dev/github.com/micro/go-micro/v2/registry#Registry">注册（Registry）</a>。
+任何实现了这个接口的都可以当作注册中心。同样，对于其它包的实现也是如此。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span><span class="x"> </span><span class="n">Registry</span><span class="x"> </span><span class="k">interface</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">Register</span><span class="p">(</span><span class="o">*</span><span class="n">Service</span><span class="p">,</span><span class="x"> </span><span class="o">...</span><span class="n">RegisterOption</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x">
+    </span><span class="n">Deregister</span><span class="p">(</span><span class="o">*</span><span class="n">Service</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x">
+    </span><span class="n">GetService</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="p">([]</span><span class="o">*</span><span class="n">Service</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x">
+    </span><span class="n">ListServices</span><span class="p">()</span><span class="x"> </span><span class="p">([]</span><span class="o">*</span><span class="n">Service</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x">
+    </span><span class="n">Watch</span><span class="p">()</span><span class="x"> </span><span class="p">(</span><span class="n">Watcher</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x">
+    </span><span class="n">String</span><span class="p">()</span><span class="x"> </span><span class="kt">string</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<p>浏览<a href="https://github.com/micro/go-plugins">go-plugins</a>获取更多优秀实现内容。</p>
+
+<h2 id="包装器wrappers">包装器（Wrappers）</h2>
+
+<p>Go-micro中有中间件即包装器的概念。客户端或者处理器可以使用装饰模式包装起来。</p>
+
+<h3 id="处理器">处理器</h3>
+
+<p>这里演示服务处理器包装器，它负责打印传入请求的日志。
+Here’s an example service handler wrapper which logs the incoming request</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// 实现server.HandlerWrapper接口</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">logWrapper</span><span class="p">(</span><span class="n">fn</span><span class="x"> </span><span class="n">server</span><span class="o">.</span><span class="n">HandlerFunc</span><span class="p">)</span><span class="x"> </span><span class="n">server</span><span class="o">.</span><span class="n">HandlerFunc</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="k">return</span><span class="x"> </span><span class="k">func</span><span class="p">(</span><span class="n">ctx</span><span class="x"> </span><span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span><span class="x"> </span><span class="n">req</span><span class="x"> </span><span class="n">server</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span><span class="x"> </span><span class="n">rsp</span><span class="x"> </span><span class="k">interface</span><span class="p">{})</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"[%v] server request: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">(),</span><span class="x"> </span><span class="n">req</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">())</span><span class="x">
+		</span><span class="k">return</span><span class="x"> </span><span class="n">fn</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="x"> </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">rsp</span><span class="p">)</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<p>可以在创建服务时初始化</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
+	</span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"greeter"</span><span class="p">),</span><span class="x">
+	</span><span class="c">// 把handler包起来</span><span class="x">
+	</span><span class="n">micro</span><span class="o">.</span><span class="n">WrapHandler</span><span class="p">(</span><span class="n">logWrapper</span><span class="p">),</span><span class="x">
+</span><span class="p">)</span><span class="x">
+</span></code></pre></div></div>
+
+<h3 id="客户端">客户端</h3>
+
+<p>下面演示客户端包装器，它负责打印请求创建的日志。
+Here’s an example of a client wrapper which logs requests made</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span><span class="x"> </span><span class="n">logWrapper</span><span class="x"> </span><span class="k">struct</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">client</span><span class="o">.</span><span class="n">Client</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="p">(</span><span class="n">l</span><span class="x"> </span><span class="o">*</span><span class="n">logWrapper</span><span class="p">)</span><span class="x"> </span><span class="n">Call</span><span class="p">(</span><span class="n">ctx</span><span class="x"> </span><span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span><span class="x"> </span><span class="n">req</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span><span class="x"> </span><span class="n">rsp</span><span class="x"> </span><span class="k">interface</span><span class="p">{},</span><span class="x"> </span><span class="n">opts</span><span class="x"> </span><span class="o">...</span><span class="n">client</span><span class="o">.</span><span class="n">CallOption</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"[wrapper] client request to service: %s method: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">req</span><span class="o">.</span><span class="n">Service</span><span class="p">(),</span><span class="x"> </span><span class="n">req</span><span class="o">.</span><span class="n">Endpoint</span><span class="p">())</span><span class="x">
+	</span><span class="k">return</span><span class="x"> </span><span class="n">l</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="x"> </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">rsp</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// 实现client.Wrapper，充当日志包装器</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">logWrap</span><span class="p">(</span><span class="n">c</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Client</span><span class="p">)</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Client</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="k">return</span><span class="x"> </span><span class="o">&amp;</span><span class="n">logWrapper</span><span class="p">{</span><span class="n">c</span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+<p>可以在创建服务时初始化</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
+	</span><span class="n">micro</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"greeter"</span><span class="p">),</span><span class="x">
+	</span><span class="c">// 把客户端包起来</span><span class="x">
+	</span><span class="n">micro</span><span class="o">.</span><span class="n">WrapClient</span><span class="p">(</span><span class="n">logWrap</span><span class="p">),</span><span class="x">
+</span><span class="p">)</span><span class="x">
+</span></code></pre></div></div>
+
+<h2 id="相关示例">相关示例</h2>
+
+<p>服务示例可以在<a href="https://github.com/micro/examples/tree/master/service"><strong>examples/service</strong></a>中找到，Function则到<a href="https://github.com/micro/examples/tree/master/function"><strong>examples/function</strong></a>查看</p>
+
+<p><a href="https://github.com/micro/examples"><strong>examples</strong></a>的Github目录下包含了各种示例，比如中间件/包装器，选择过滤器，发布/订阅，gRPC，插件等。</p>
+
+<p>greeter示例的完整代码<a href="https://github.com/micro/examples/tree/master/greeter"><strong>examples/greeter</strong></a>。</p>
+
+<p>所有的示例都可以在GitHub仓库中找到。</p>
+
+<p>观看<a href="https://www.youtube.com/watch?v=xspaDovwk34">Golang英国会议2016</a>视频，获得更高级的视角。</p>
+
+
+
+<!--
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+    </div>
+-->
+    
+
+</div>
+
+<hr class="faded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy; 2020 Micro Services, Inc.<br />
+ Last generated: Apr 13, 2020 <br />
+                </div>
+            </div>
+</footer>
+
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </div>
+    </div>
+</body>
+
+<!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-70478210-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+</html>
