@@ -19,7 +19,7 @@ func (u *Update) Info(ctx context.Context, req json.RawMessage, rsp *json.RawMes
 	return nil
 }
 
-func (u *Update) Event(ctx context.Context, req json.RawMessage, rsp json.RawMessage) error {
+func (u *Update) Event(ctx context.Context, req json.RawMessage, rsp *json.RawMessage) error {
 	return update.Event(ctx, req)
 }
 
