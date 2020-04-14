@@ -101,7 +101,7 @@ func getLatestImage() (string, error) {
 }
 
 // set new update
-func getUpdates() {
+func Init() {
 	commit, _ := getLatestCommit()
 	release, _ := getLatestRelease()
 	image, _ := getLatestImage()
@@ -122,9 +122,6 @@ func Get() *Update {
 }
 
 func Event(ctx context.Context, data []byte) error {
-	// get the latest updates
-	getUpdates()
-
 	md, ok := metadata.FromContext(ctx)
 	if !ok {
 		return nil

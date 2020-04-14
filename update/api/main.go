@@ -29,6 +29,9 @@ func main() {
 	)
 	service.Init()
 
+	// setup update
+	update.Init()
+
 	// register the handler
 	service.Server().Handle(
 		service.Server().NewHandler(new(Update)),
