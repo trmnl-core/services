@@ -8,19 +8,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/api.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/api.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/architecture.html</loc>
   </url>
   
   
@@ -32,19 +20,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/bot.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/bot.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/cli.html</loc>
   </url>
   
   
@@ -56,31 +32,13 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/enable-debug.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/debugging.html</loc>
   </url>
   
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/deploy-docker.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/deploy-docker.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/deploy-kubernetes.html</loc>
   </url>
   
   
@@ -104,31 +62,13 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/faq.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/faq.html</loc>
   </url>
   
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/fault-tolerance.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/fault-tolerance.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/features.html</loc>
   </url>
   
   
@@ -154,19 +94,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/go-api.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/go-api.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/go-config.html</loc>
   </url>
   
   
@@ -190,12 +118,6 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/go-grpc.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/go-grpc.html</loc>
   </url>
   
@@ -209,18 +131,6 @@
   
   <url>
     <loc>https://micro.mu/docs/go-internals.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/go-micro-internals.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/go-micro.html</loc>
   </url>
   
   
@@ -256,12 +166,6 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/grpc-gateway.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/grpc-gateway.html</loc>
   </url>
   
@@ -274,19 +178,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/index.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/index.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/install-guide.html</loc>
   </url>
   
   
@@ -310,18 +202,6 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/microservices.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/mission.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/js/mydoc_scroll.html</loc>
   </url>
   
@@ -329,12 +209,6 @@
   
   <url>
     <loc>https://micro.mu/docs/network.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/new.html</loc>
   </url>
   
   
@@ -358,18 +232,6 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/plugins-go-micro.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/plugins-nats.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/plugins-nats.html</loc>
   </url>
   
@@ -382,19 +244,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/plugins.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/plugins.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/proxy.html</loc>
   </url>
   
   
@@ -406,19 +256,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/resources.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/resources.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/roadmap.html</loc>
   </url>
   
   
@@ -437,18 +275,6 @@
   
   <url>
     <loc>https://micro.mu/docs/run.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/runtime-plugins.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/runtime.html</loc>
   </url>
   
   
@@ -486,19 +312,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/users.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/users.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/web.html</loc>
   </url>
   
   
@@ -510,19 +324,7 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/cn/writing-a-go-function.html</loc>
-  </url>
-  
-  
-  
-  <url>
     <loc>https://micro.mu/docs/writing-a-go-function.html</loc>
-  </url>
-  
-  
-  
-  <url>
-    <loc>https://micro.mu/docs/cn/writing-a-go-service.html</loc>
   </url>
   
   

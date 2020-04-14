@@ -4,17 +4,6 @@
 
 
 {
-"title": "API",
-"tags": "api",
-"keywords": "api",
-"url": "cnapi.html",
-"summary": "Micro的api就是api网关"
-}
-,
-
-
-
-{
 "title": "API Gateway",
 "tags": "api",
 "keywords": "api",
@@ -26,32 +15,10 @@
 
 
 {
-"title": "架构",
-"tags": "architecture架构",
-"keywords": "architecture,架构",
-"url": "cnarchitecture.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Architecture",
 "tags": "architecture",
 "keywords": "architecture",
 "url": "architecture.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "小机器人",
-"tags": "bot",
-"keywords": "bot",
-"url": "cnbot.html",
 "summary": ""
 }
 ,
@@ -73,29 +40,7 @@
 "title": "CLI",
 "tags": "cli",
 "keywords": "cli",
-"url": "cncli.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "CLI",
-"tags": "cli",
-"keywords": "cli",
 "url": "cli.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "调试信息",
-"tags": "debug",
-"keywords": "debug",
-"url": "cnenable-debug.html",
 "summary": ""
 }
 ,
@@ -114,32 +59,10 @@
 
 
 {
-"title": "使用Docker发布",
-"tags": "docker",
-"keywords": "docker",
-"url": "cndeploy-docker.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Docker Deployment",
 "tags": "docker",
 "keywords": "docker",
 "url": "deploy-docker.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "使用Kubernetes发布",
-"tags": "kubernetes",
-"keywords": "kubernetes",
-"url": "cndeploy-kubernetes.html",
 "summary": ""
 }
 ,
@@ -180,17 +103,6 @@
 
 
 {
-"title": "常见问题",
-"tags": "faq常见问题",
-"keywords": "faq,常见问题",
-"url": "cnfaq.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "FAQ",
 "tags": "faq",
 "keywords": "faq",
@@ -202,32 +114,10 @@
 
 
 {
-"title": "容错",
-"tags": "fault tolerance",
-"keywords": "容错",
-"url": "cnfault-tolerance.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Fault Tolerance",
 "tags": "fault tolerance",
 "keywords": "fault tolerance",
 "url": "fault-tolerance.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "特性",
-"tags": "features特性",
-"keywords": "features,特性",
-"url": "cnfeatures.html",
 "summary": ""
 }
 ,
@@ -273,30 +163,8 @@
 "title": "Go API",
 "tags": "go-micro",
 "keywords": "go-api",
-"url": "cngo-api.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "Go API",
-"tags": "go-micro",
-"keywords": "go-api",
 "url": "go-api.html",
 "summary": "a package for defining api routes and handlers"
-}
-,
-
-
-
-{
-"title": "Go Config配置库",
-"tags": "config",
-"keywords": "config",
-"url": "cngo-config.html",
-"summary": ""
 }
 ,
 
@@ -336,17 +204,6 @@
 
 
 {
-"title": "Go gRPC支持",
-"tags": "go-grpc",
-"keywords": "go-grpc",
-"url": "cngo-grpc.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "gRPC Service",
 "tags": "go-grpc",
 "keywords": "grpc",
@@ -374,28 +231,6 @@
 "keywords": "go-micro",
 "url": "go-internals.html",
 "summary": "A description of the go-micro internal features"
-}
-,
-
-
-
-{
-"title": "Go Micro 架构",
-"tags": "go-micro",
-"keywords": "go-micro",
-"url": "cngo-micro-internals.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "Go Micro",
-"tags": "go-micro",
-"keywords": "go-micro",
-"url": "cngo-micro.html",
-"summary": ""
 }
 ,
 
@@ -457,17 +292,6 @@
 
 
 {
-"title": "GRPC 网关",
-"tags": "grpcgrpc-gateway",
-"keywords": "grpc, grpc-gateway",
-"url": "cngrpc-gateway.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "GRPC Gateway",
 "tags": "grpcgrpc-gateway",
 "keywords": "grpc, grpc-gateway",
@@ -490,32 +314,10 @@
 
 
 {
-"title": "Micro文档",
-"tags": "introduction",
-"keywords": "homepage",
-"url": "cnindex.html",
-"summary": "简化微服务的开发。该文档可以帮助您快速编写新程序。"
-}
-,
-
-
-
-{
 "title": "Docs",
 "tags": "introduction",
 "keywords": "homepage",
 "url": "index.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "安装指导",
-"tags": "install",
-"keywords": "install",
-"url": "cninstall-guide.html",
 "summary": ""
 }
 ,
@@ -556,28 +358,6 @@
 
 
 {
-"title": "微服务",
-"tags": "intromicroservices",
-"keywords": "intro, microservices",
-"url": "cnmicroservices.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "Mission",
-"tags": "intromissionmicroservices",
-"keywords": "intro, mission, microservices",
-"url": "cnmission.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Scroll layout",
 "tags": "special_layouts",
 "keywords": "json, scrolling, scrollto, jquery plugin",
@@ -594,17 +374,6 @@
 "keywords": "network",
 "url": "network.html",
 "summary": "The micro network is a global microservices network"
-}
-,
-
-
-
-{
-"title": "新建模板",
-"tags": "new",
-"keywords": "new",
-"url": "cnnew.html",
-"summary": ""
 }
 ,
 
@@ -644,28 +413,6 @@
 
 
 {
-"title": "Go Micro插件",
-"tags": "plugins",
-"keywords": "plugins",
-"url": "cnplugins-go-micro.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "NATS",
-"tags": "pluginsnats",
-"keywords": "plugins, nats",
-"url": "cnplugins-nats.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "NATS",
 "tags": "pluginsnats",
 "keywords": "plugins, nats",
@@ -688,32 +435,10 @@
 
 
 {
-"title": "相关插件",
-"tags": "plugins",
-"keywords": "plugins",
-"url": "cnplugins.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Plugins",
 "tags": "plugins",
 "keywords": "plugins",
 "url": "plugins.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "Proxy",
-"tags": "proxy",
-"keywords": "proxy",
-"url": "cnproxy.html",
 "summary": ""
 }
 ,
@@ -732,32 +457,10 @@
 
 
 {
-"title": "相关资源",
-"tags": "resources",
-"keywords": "resources",
-"url": "cnresources.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Resources",
 "tags": "resources",
 "keywords": "resources",
 "url": "resources.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "项目开发进展",
-"tags": "roadmap",
-"keywords": "roadmap",
-"url": "cnroadmap.html",
 "summary": ""
 }
 ,
@@ -792,28 +495,6 @@
 "keywords": "run",
 "url": "run.html",
 "summary": ""
-}
-,
-
-
-
-{
-"title": "运行时插件",
-"tags": "plugins",
-"keywords": "plugins",
-"url": "cnruntime-plugins.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "Micro Runtime",
-"tags": "microruntime",
-"keywords": "runtime",
-"url": "cnruntime.html",
-"summary": "微服务运行时管理系统"
 }
 ,
 
@@ -872,33 +553,11 @@
 
 
 {
-"title": "相关用户",
-"tags": "users",
-"keywords": "users",
-"url": "cnusers.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Users",
 "tags": "users",
 "keywords": "users",
 "url": "users.html",
 "summary": ""
-}
-,
-
-
-
-{
-"title": "Web管理控制台",
-"tags": "web",
-"keywords": "web",
-"url": "cnweb.html",
-"summary": "Web管理控制台提供控制功能、服务查看支持"
 }
 ,
 
@@ -916,32 +575,10 @@
 
 
 {
-"title": "编写Golang Function",
-"tags": "development",
-"keywords": "development",
-"url": "cnwriting-a-go-function.html",
-"summary": ""
-}
-,
-
-
-
-{
 "title": "Writing a Go Function",
 "tags": "development",
 "keywords": "development",
 "url": "writing-a-go-function.html",
-"summary": ""
-}
-,
-
-
-
-{
-"title": "编写Golang服务",
-"tags": "development",
-"keywords": "development",
-"url": "cnwriting-a-go-service.html",
 "summary": ""
 }
 ,
