@@ -5,23 +5,22 @@ import (
 	"encoding/json"
 
 	"github.com/micro/go-micro/v2"
-	"github.com/micro/go-micro/v2/codec/proto"
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/services/update/api/update"
 )
 
 type Update struct{}
 
-func (u *Update) Info(ctx context.Context, req *proto.Message, rsp *proto.Message) error {
+func (u *Update) Info(ctx context.Context, req json.RawMessage, rsp *json.RawMessage) error {
 	// extract the data
 	v := update.Get()
 	b, _ := json.Marshal(v)
-	rsp.Data = b
+	*rsp = json.RawMessage(b)
 	return nil
 }
 
-func (u *Update) Event(ctx context.Context, req *proto.Message, rsp *proto.Message) error {
-	return update.Event(ctx, req.Data)
+func (u *Update) Event(ctx context.Context, req json.RawMessage, rsp json.RawMessage) error {
+	return update.Event(ctx, req)
 }
 
 func main() {
