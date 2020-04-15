@@ -9,7 +9,7 @@
 <meta name="keywords" content="platformM3O,  platform, M3O">
 
 
-<title>Getting Started | Micro</title>
+<title>Get Started | Micro</title>
 
 
 <link rel="stylesheet" href="/docs/css/syntax.css">
@@ -225,15 +225,8 @@
         
     
     <li class="list-group-item">
-        <a href="#" class="title">Guides</a>
+        <a href="#" class="title">Get Started</a>
         <ul>
-            
-            
-            
-            <li><a href="/docs/debugging.html">Debugging</a></li>
-            
-            
-            
             
             
             
@@ -372,7 +365,7 @@
             
             
             
-            <li class="active highlight"><a href="/docs/platform/getting-started.html">Getting Started</a></li>
+            <li class="active highlight"><a href="/docs/platform/getting-started.html">Get Started</a></li>
             
             
             
@@ -416,6 +409,13 @@
             
             
             <li><a href="/docs/web.html">Web Dashboard</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/debugging.html">Debugging</a></li>
             
             
             
@@ -539,7 +539,7 @@
                 <!-- Content Column -->
                 <div class="col-md-9">
                     <div class="post-header">
-   <h1 class="post-title-main">Getting Started</h1>
+   <h1 class="post-title-main">Get Started</h1>
 </div>
 
 
@@ -552,22 +552,7 @@
 
     
 
-  <h2 id="introduction">Introduction</h2>
-
-<p>M3O is a serverless platform for microservices development. A fully managed multi-cloud platform which enables developers 
-to focus on building services rather than managing infrastructure. We’re launching an invite only beta. A shared place 
-for the community to build together.</p>
-
-<p>The platform includes the following features:</p>
-
-<ul>
-  <li><strong>Managed services</strong> - Services will run in the cloud and managed by default.</li>
-  <li><strong>Auto configuration</strong> - Services will be auto configured with the required registry, broker, etc</li>
-  <li><strong>Simplified debugging</strong> - Stats, logs and tracing will be available in an easy and clean way for every service</li>
-  <li><strong>Connect from anywhere</strong> - Ability to connect and extend the network beyond the platform. Run services locally or in your own cloud.</li>
-</ul>
-
-<h2 id="getting-access">Getting Access</h2>
+  <h2 id="getting-access">Getting Access</h2>
 <p>M30 uses GitHub OAuth to login and verify users. While we’re in a closed beta, you must be invited to the Micro community team on GitHub in order to gain access. If you don’t have access to this team, please message us on the #platform channel on <a href="micro-services.slack.com" title="Slack">Slack</a>.</p>
 
 <h2 id="setup">Setup</h2>
@@ -576,7 +561,7 @@ for the community to build together.</p>
 go get github.com/micro/micro/v2@master
 </code></pre></div></div>
 <p>Next, let’s go to the <a href="https://micro.mu/platform/" title="Micro">Micro website</a> to get our login token. Press the “Sign in with GitHub button”, if you are successfully authenticated, you’ll be directed to the platform homepage where you’ll see a list of running services and a button to login with CLI. Press this button and copy the command you’re given, it will be in the format of:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro login $token
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro login --token $token
 </code></pre></div></div>
 
 <p>If the login was successful, you will see the following message: <code class="highlighter-rouge">You have been logged in</code>.</p>
