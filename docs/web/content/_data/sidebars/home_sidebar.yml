@@ -44,22 +44,6 @@ entries:
       url: /resources.html
       output: web, pdf
 
-  - title: Deployment
-    output: web, pdf
-    folderitems:
-
-    - title: Local
-      url: /deploy-local.html
-      output: web, pdf
-
-    - title: Docker
-      url: /deploy-docker.html
-      output: web, pdf
-
-    - title: Kubernetes
-      url: /deploy-kubernetes.html
-      output: web, pdf
-
   - title: Get Started
     output: web, pdf
     folderitems:
@@ -74,6 +58,22 @@ entries:
 
     - title: Everything as a Service
       url: /micro-service.html
+      output: web, pdf
+
+  - title: Deployment
+    output: web, pdf
+    folderitems:
+
+    - title: Local
+      url: /deploy-local.html
+      output: web, pdf
+
+    - title: Docker
+      url: /deploy-docker.html
+      output: web, pdf
+
+    - title: Kubernetes
+      url: /deploy-kubernetes.html
       output: web, pdf
 
   - title: Framework
