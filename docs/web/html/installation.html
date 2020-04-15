@@ -249,13 +249,6 @@
             
             
             
-            
-            
-            <li><a href="/docs/local-development.html">Local Development</a></li>
-            
-            
-            
-            
         </ul>
         
         
@@ -599,9 +592,14 @@ powershell -Command "iwr -useb https://raw.githubusercontent.com/micro/micro/mas
 
 <h3 id="usage">Usage</h3>
 
+<p>Start the server</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro server
+</code></pre></div></div>
+
 <p>Run the greeter service</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go get github.com/micro/examples/greeter/srv <span class="o">&amp;&amp;</span> srv
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro run github.com/micro/examples/greeter/srv
 </code></pre></div></div>
 
 <p>List services</p>

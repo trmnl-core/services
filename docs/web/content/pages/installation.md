@@ -58,10 +58,16 @@ powershell -Command "iwr -useb https://raw.githubusercontent.com/micro/micro/mas
 
 ### Usage
 
+Start the server
+
+```shell
+micro server
+```
+
 Run the greeter service
 
 ```shell
-go get github.com/micro/examples/greeter/srv && srv
+micro run github.com/micro/examples/greeter/srv
 ```
 
 List services

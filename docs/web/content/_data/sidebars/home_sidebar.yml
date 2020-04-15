@@ -76,10 +76,6 @@ entries:
       url: /micro-service.html
       output: web, pdf
 
-    - title: Local Development
-      url: /local-development.html
-      output: web, pdf
-
   - title: Framework
     output: web, pdf
     folderitems:
