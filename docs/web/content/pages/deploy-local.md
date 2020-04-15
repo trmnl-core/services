@@ -14,7 +14,7 @@ Micro is incredibly simple to spin up locally
 From source
 
 ```
-go get github.com/micro/micro
+go get github.com/micro/micro/v2
 ```
 
 Release binary
@@ -35,10 +35,11 @@ powershell -Command "iwr -useb https://raw.githubusercontent.com/micro/micro/mas
 Running micro is as simple as typing `micro`.
 
 ```
+# Display the commands
 micro
 ```
 
-To run the stack without connecting to the network
+To run the server
 
 ```
 micro server
