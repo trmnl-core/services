@@ -55,15 +55,6 @@ class EditProfile extends React.Component<Props, State> {
       <form className='EditProfile' onSubmit={this.onSubmit.bind(this)}>
         { this.state.error.length > 0 ? <p className='error'>{this.state.error}</p> : null }
 
-        { user.invite_verified ? null : <label>Invite Code *</label> }
-        { user.invite_verified ? null : <input
-          required
-          type='text'
-          name='invite_code'
-          value={user!.invite_code} 
-          disabled={this.state.saving}
-          onChange={this.onChange.bind(this)} /> }
-
         <label>First Name *</label>
         <input
           required
@@ -89,7 +80,16 @@ class EditProfile extends React.Component<Props, State> {
           type='email'
           value={user!.email}
           disabled={true} />
-        
+
+        { user.invite_verified ? null : <label>Invite Code *</label> }
+        { user.invite_verified ? null : <input
+          required
+          type='text'
+          name='invite_code'
+          value={user!.invite_code} 
+          disabled={this.state.saving}
+          onChange={this.onChange.bind(this)} /> }
+
         <input disabled={this.state.saving} type='submit' value={ saving ? 'Saving' : (this.props.buttonText || 'Save Changes') } />
       </form>
     );
