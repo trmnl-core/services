@@ -44,7 +44,7 @@ entries:
       url: /resources.html
       output: web, pdf
 
-  - title: Get Started
+  - title: Getting Started
     output: web, pdf
     folderitems:
 
