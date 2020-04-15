@@ -17,10 +17,12 @@ You will need protoc-gen-micro for code generation
 
 - [protoc-gen-micro](https://github.com/micro/protoc-gen-micro)
 
-### Install
+### Import
+
+Ensure you import go-micro v2
 
 ```
-go get github.com/micro/go-micro
+import "github.com/micro/go-micro/v2"
 ```
 
 ## Runtime
