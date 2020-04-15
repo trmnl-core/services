@@ -16,7 +16,7 @@ hassle of managing infrastructure and the complexity of cloud-native by providin
 
 The **M3O** platform will include the following features:
 
-- **Global service deployment** - Services will run globally by default in a multi-cloud environment
+- **Managed services** - Services will run in the cloud and managed by default.
 
 - **Auto configuration** - Services will be auto configured with the required registry, broker, etc
 

@@ -15,7 +15,7 @@ for the community to build together.
 
 The platform includes the following features:
 
-- **Global service deployment** - Services will run globally by default in a multi-cloud environment
+- **Managed services** - Services will run in the cloud and managed by default.
 - **Auto configuration** - Services will be auto configured with the required registry, broker, etc
 - **Simplified debugging** - Stats, logs and tracing will be available in an easy and clean way for every service
 - **Connect from anywhere** - Ability to connect and extend the network beyond the platform. Run services locally or in your own cloud.
