@@ -204,12 +204,8 @@ entries:
       url: /writing-a-go-service.html
       output: web, pdf
 
-    - title: Anything as a Service
+    - title: Everything as a Service
       url: /micro-service.html
-      output: web, pdf
-
-    - title: Fault Tolerance
-      url: /fault-tolerance.html
       output: web, pdf
 
     - title: Local Development

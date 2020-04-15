@@ -479,14 +479,7 @@
             
             
             
-            <li><a href="/docs/micro-service.html">Anything as a Service</a></li>
-            
-            
-            
-            
-            
-            
-            <li><a href="/docs/fault-tolerance.html">Fault Tolerance</a></li>
+            <li><a href="/docs/micro-service.html">Everything as a Service</a></li>
             
             
             
@@ -559,35 +552,23 @@
 
     
 
-  <p>The micro runtime provides a way to manage the lifecycle of services without the complexity of orchestration systems. 
-By default it provides a simple local process manager which starts your service, watches for changes and rebuilds 
-as required.</p>
+  <p>The micro runtime provides a way to manage the lifecycle of services without the complexity of orchestration systems.</p>
 
 <p>You can start the service with one command</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro run service
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro run [service]
 </code></pre></div></div>
 
 <h2 id="usage">Usage</h2>
 
 <p>To run and manage your service locally do the following.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cd to your service directory e.g examples/greeter/srv
-cd examples/greeter/srv
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Start the server
+micro server
 
 # run the service
-micro run service
-
-# edit a file
-sed -i '1 i\// Package main' main.go
+micro run --server examples/greeter/srv
 </code></pre></div></div>
-
-<p>Watch as your service is started, sees the file change, rebuilds and starts again.</p>
-
-<h2 id="todo">TODO</h2>
-
-<p>We’ll be adding the ability to send the command to run a service to the <code class="highlighter-rouge">micro runtime</code> service as well as 
-querying status, killing the service, etc.</p>
 
 
 
