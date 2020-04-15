@@ -60,13 +60,9 @@ entries:
       url: /deploy-kubernetes.html
       output: web, pdf
 
-  - title: Guides
+  - title: Get Started
     output: web, pdf
     folderitems:
-
-    - title: Debugging
-      url: /debugging.html
-      output: web, pdf
 
     - title: Installation
       url: /installation.html
@@ -144,7 +140,7 @@ entries:
       url: /platform.html
       output: web, pdf
 
-    - title: Getting Started
+    - title: Get Started
       url: /platform/getting-started.html
       output: web, pdf
 
@@ -170,6 +166,10 @@ entries:
 
     - title: Web Dashboard
       url: /web.html
+      output: web, pdf
+
+    - title: Debugging
+      url: /debugging.html
       output: web, pdf
 
     - title: Service Proxy

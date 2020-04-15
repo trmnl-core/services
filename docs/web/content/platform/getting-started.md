@@ -1,24 +1,11 @@
 ---
-title: Getting Started
+title: Get Started
 keywords: platform, M3O
 tags: [platform, M3O]
 sidebar: home_sidebar
 permalink: "/platform/getting-started.html"
 summary: M3O is a serverless microservices platform
 ---
-
-## Introduction
-
-M3O is a serverless platform for microservices development. A fully managed multi-cloud platform which enables developers 
-to focus on building services rather than managing infrastructure. We're launching an invite only beta. A shared place 
-for the community to build together.
-
-The platform includes the following features:
-
-- **Managed services** - Services will run in the cloud and managed by default.
-- **Auto configuration** - Services will be auto configured with the required registry, broker, etc
-- **Simplified debugging** - Stats, logs and tracing will be available in an easy and clean way for every service
-- **Connect from anywhere** - Ability to connect and extend the network beyond the platform. Run services locally or in your own cloud.
 
 ## Getting Access
 M30 uses GitHub OAuth to login and verify users. While we're in a closed beta, you must be invited to the Micro community team on GitHub in order to gain access. If you don't have access to this team, please message us on the #platform channel on [Slack](micro-services.slack.com "Slack"). 
@@ -31,7 +18,7 @@ go get github.com/micro/micro/v2@master
 ```
 Next, let's go to the [Micro website](https://micro.mu/platform/ "Micro") to get our login token. Press the "Sign in with GitHub button", if you are successfully authenticated, you'll be directed to the platform homepage where you'll see a list of running services and a button to login with CLI. Press this button and copy the command you're given, it will be in the format of:
 ```
-micro login $token
+micro login --token $token
 ```
 
 If the login was successful, you will see the following message: `You have been logged in`.
