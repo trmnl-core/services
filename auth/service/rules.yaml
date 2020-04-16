@@ -23,7 +23,7 @@
     name: "go.micro.api.platform"
     endpoint: "*"
 - access: granted
-  role: "user.*"
+  role: "user"
   priority: 2
   resource:
     namespace: "go.micro"
@@ -31,7 +31,7 @@
     name: "go.micro.web.platform"
     endpoint: "*"
 - access: granted
-  role: "user.*"
+  role: "user"
   priority: 2
   resource:
     namespace: "go.micro"
