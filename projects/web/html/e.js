@@ -47,7 +47,7 @@ function render(ul, v) {
 }
 
 function loadPinned() {
-    var url = window.location.href + "api/browse?s=stars";
+    var url = window.location.href + "/api/browse?s=stars";
 
     $.getJSON(url, function(data) {
         if (data.repos == undefined) {
