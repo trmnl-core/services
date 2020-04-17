@@ -15,8 +15,8 @@ import (
 
 	"github.com/google/go-github/github"
 	"github.com/micro/go-micro/v2/web"
+	elastic "github.com/olivere/elastic/v7"
 	"golang.org/x/oauth2"
-	elastic "gopkg.in/olivere/elastic.v5"
 )
 
 const (
@@ -76,7 +76,7 @@ func update(ctx context.Context, c *github.Client) map[string]bool {
 
 		for _, h := range s.Hits.Hits {
 			var r repo
-			if err := json.Unmarshal(*h.Source, &r); err != nil {
+			if err := json.Unmarshal(h.Source, &r); err != nil {
 				continue
 			}
 
