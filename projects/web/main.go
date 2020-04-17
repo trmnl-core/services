@@ -427,8 +427,12 @@ func main() {
 	service.HandleFunc("/api/search", searchHandler)
 
 	opts := service.Options().Service.Options()
+
 	// get id/secret
 	token := opts.Config.Get("micro.projects.github.token").String("")
+	if len(token) == 0 {
+		fmt.Println("Failed to load github token")
+	}
 
 	go run(token)
 
