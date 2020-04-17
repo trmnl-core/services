@@ -14,7 +14,6 @@ import (
 	"time"
 
 	"github.com/google/go-github/github"
-	"github.com/micro/go-micro/v2/config"
 	"github.com/micro/go-micro/v2/web"
 	"golang.org/x/oauth2"
 	elastic "gopkg.in/olivere/elastic.v5"
@@ -230,10 +229,7 @@ func getPageOffset(vars url.Values) (int, int) {
 }
 
 // get all the things
-func run() {
-	// get id/secret
-	token := config.Get("micro.projects.github.token").String("")
-
+func run(token string) {
 	ts := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: token},
 	)
@@ -418,8 +414,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	go run()
-
 	service := web.NewService(
 		web.Name("go.micro.web.projects"),
 	)
@@ -431,6 +425,12 @@ func main() {
 	service.HandleFunc("/api/browse", browseHandler)
 	service.HandleFunc("/api/recent", recentHandler)
 	service.HandleFunc("/api/search", searchHandler)
+
+	opts := service.Options().Service.Options()
+	// get id/secret
+	token := opts.Config.Get("micro.projects.github.token").String("")
+
+	go run(token)
 
 	// start the service
 	service.Run()
