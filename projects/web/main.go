@@ -56,7 +56,7 @@ func init() {
 		panic(err)
 	}
 	_, err = el.CreateIndex("micro").Do(context.Background())
-	if err != nil && !strings.Contains(err.Error(), "type=index_already_exists_exception") {
+	if err != nil && !strings.Contains(err.Error(), "type=resource_already_exists_exception") {
 		panic(err)
 	}
 	e = el
