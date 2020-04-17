@@ -16,8 +16,7 @@ import (
 	"github.com/google/go-github/github"
 	"github.com/micro/go-micro/v2/config"
 	"github.com/micro/go-micro/v2/web"
-	"golang.org/x/oauth2/clientcredentials"
-	gitoauth "golang.org/x/oauth2/github"
+	"golang.org/x/oauth2"
 	elastic "gopkg.in/olivere/elastic.v5"
 )
 
@@ -233,20 +232,15 @@ func getPageOffset(vars url.Values) (int, int) {
 // get all the things
 func run() {
 	// get id/secret
-	id := config.Get("micro.oauth.github.client_id").String("")
-	secret := config.Get("micro.oauth.github.client_secret").String("")
-	endpoint := gitoauth.Endpoint
+	token := config.Get("micro.projects.github.token").String("")
 
-	// create the config
-	c := &clientcredentials.Config{
-		ClientID:     id,
-		ClientSecret: secret,
-		TokenURL:     endpoint.TokenURL,
-	}
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: token},
+	)
 
 	// create http and github client
-	cli := c.Client(context.Background())
 	ctx := context.Background()
+	cli := oauth2.NewClient(ctx, ts)
 	client := github.NewClient(cli)
 
 	for {
