@@ -164,7 +164,7 @@ function loadRecent() {
 }
 
 function loadResults() {
-    var url = window.location.href.replace(/search.html/, "api/search");
+    var url = window.location.href.replace(/search.html/, "/api/search");
 
     $.getJSON(url, function(data) {
         if (data.repos == undefined) {
@@ -221,7 +221,7 @@ function loadListener() {
         if (window.location.pathname == "/projects/search.html") {
             window.location.search = "?q=" + q;
 	} else {
-            window.location = window.location.href + "search.html?q=" + q;
+            window.location = window.location.href + "/search.html?q=" + q;
         }
     });
 
