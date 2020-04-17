@@ -116,7 +116,7 @@ function loadPinned() {
 }
 
 function loadRecent() {
-    var url = window.location.href + "api/recent";
+    var url = window.location.href + "/api/recent";
 
     $.getJSON(url, function(data) {
         if (data.repos == undefined) {
