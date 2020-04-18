@@ -8,6 +8,14 @@ This repository serves as the home for the M3O platform and as a reference archi
 Those invited to use the platform will be added to the Community team and have the ability to create 
 and modify services here.
 
+## Design
+
+All services are Micro services written using the Go Micro framework without exception.
+
+- Services speak to each other via RPC
+- Messages are used for async eventing
+- Infrastructure usage occurs only through Micro
+
 ## Naming
 
 Directories are the domain boundary for a specific concern e.g user, account, payment. They act as the 
