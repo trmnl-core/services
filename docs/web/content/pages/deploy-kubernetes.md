@@ -16,10 +16,6 @@ This doc provides a guide to running micro on kubernetes.
 - [Install Micro](#install-micro)
 - [Writing a Service](#writing-a-service)
 - [Deploying a Service](#deploying-a-service)
-- [Healthchecking Sidecar](#healthchecking-sidecar)
-  - [Install healthchecker](#install-healthchecker)
-  - [Run healtchecker](#run-healtchecker)
-  - [K8s Deployment](#k8s-deployment)
 - [Micro API](#micro-api)
 - [Micro Web](#micro-web)
 - [Full Deployment](#full-deployment)
@@ -133,37 +129,6 @@ Deploy with kubectl
 kubectl apply -f greeter.yaml
 ```
 
-## Healthchecking Sidecar
-
-The healthchecking sidecar exposes `/health` as a http endpoint and calls the rpc endpoint `Debug.Health` on a service. 
-Every go-micro service has a built in Debug.Health endpoint.
-
-### Install healthchecker
-
-```
-go get github.com/micro/cmd/health
-```
-
-or
-
-```
-docker pull microhq/health
-```
-
-### Run healtchecker
-
-Run e.g healthcheck greeter service with address localhost:9091
-
-```
-health --server_name=greeter --server_address=localhost:9091
-```
-
-Call the healthchecker on localhost:8080
-
-```
-curl http://localhost:8080/health
-```
-
 ### K8s Deployment
 
 Add to a kubernetes deployment
@@ -207,20 +172,6 @@ spec:
             value: "etcd"
           - name: MICRO_REGISTRY_ADDRESS
             value: "etcd-cluster-client"
-        - name: health
-          command: [
-		"/health",
-                "--health_address=0.0.0.0:8081",
-		"--server_name=greeter",
-		"--server_address=0.0.0.0:8080"
-	  ]
-          image: microhq/health
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8081
-            initialDelaySeconds: 3
-            periodSeconds: 3
 ```
 
 ## Micro API

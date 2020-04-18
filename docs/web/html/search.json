@@ -303,17 +303,6 @@
 
 
 {
-"title": "Service Health",
-"tags": "health",
-"keywords": "health",
-"url": "health.html",
-"summary": "Micro health is a healthchecking sidecar"
-}
-,
-
-
-
-{
 "title": "Docs",
 "tags": "introduction",
 "keywords": "homepage",

@@ -545,13 +545,6 @@
   <li><a href="#install-micro">Install Micro</a></li>
   <li><a href="#writing-a-service">Writing a Service</a></li>
   <li><a href="#deploying-a-service">Deploying a Service</a></li>
-  <li><a href="#healthchecking-sidecar">Healthchecking Sidecar</a>
-    <ul>
-      <li><a href="#install-healthchecker">Install healthchecker</a></li>
-      <li><a href="#run-healtchecker">Run healtchecker</a></li>
-      <li><a href="#k8s-deployment">K8s Deployment</a></li>
-    </ul>
-  </li>
   <li><a href="#micro-api">Micro API</a></li>
   <li><a href="#micro-web">Micro Web</a></li>
   <li><a href="#full-deployment">Full Deployment</a></li>
@@ -660,33 +653,6 @@ spec:
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply -f greeter.yaml
 </code></pre></div></div>
 
-<h2 id="healthchecking-sidecar">Healthchecking Sidecar</h2>
-
-<p>The healthchecking sidecar exposes <code class="highlighter-rouge">/health</code> as a http endpoint and calls the rpc endpoint <code class="highlighter-rouge">Debug.Health</code> on a service. 
-Every go-micro service has a built in Debug.Health endpoint.</p>
-
-<h3 id="install-healthchecker">Install healthchecker</h3>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go get github.com/micro/cmd/health
-</code></pre></div></div>
-
-<p>or</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull microhq/health
-</code></pre></div></div>
-
-<h3 id="run-healtchecker">Run healtchecker</h3>
-
-<p>Run e.g healthcheck greeter service with address localhost:9091</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>health --server_name=greeter --server_address=localhost:9091
-</code></pre></div></div>
-
-<p>Call the healthchecker on localhost:8080</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://localhost:8080/health
-</code></pre></div></div>
-
 <h3 id="k8s-deployment">K8s Deployment</h3>
 
 <p>Add to a kubernetes deployment</p>
@@ -729,20 +695,6 @@ spec:
             value: "etcd"
           - name: MICRO_REGISTRY_ADDRESS
             value: "etcd-cluster-client"
-        - name: health
-          command: [
-		"/health",
-                "--health_address=0.0.0.0:8081",
-		"--server_name=greeter",
-		"--server_address=0.0.0.0:8080"
-	  ]
-          image: microhq/health
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8081
-            initialDelaySeconds: 3
-            periodSeconds: 3
 </code></pre></div></div>
 
 <h2 id="micro-api">Micro API</h2>
