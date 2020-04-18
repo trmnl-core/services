@@ -13,9 +13,7 @@ This doc provides a guide to running micro on kubernetes.
 ## Getting Started
 
 - [Dependencies](#dependencies)
-- [Install Micro](#install-micro)
-- [Writing a Service](#writing-a-service)
-- [Deploying a Service](#deploying-a-service)
+- [Service Deployment](#service-deployment)
 - [Micro API](#micro-api)
 - [Micro Web](#micro-web)
 
@@ -44,40 +42,7 @@ kubectl apply -f https://github.com/nats-io/nats-operator/releases/latest/downlo
 
 You should now have the required dependencies.
 
-## Install Micro
-
-
-Use the below docker image
-
-```
-micro/micro
-```
-
-Or use go-micro for development
-
-```
-github.com/micro/go-micro
-```
-
-## Writing a Service
-
-Write a service as you would any other [go-micro](https://github.com/micro/go-micro) service.
-
-```go
-import (
-	"github.com/micro/go-micro/v2"
-)
-
-func main() {
-	service := micro.NewService(
-		micro.Name("greeter")
-	)
-	service.Init()
-	service.Run()
-}
-```
-
-## Deploying a Service
+## Service Deployment
 
 Here's an example k8s deployment for a micro service
 
