@@ -57,6 +57,6 @@ If you're using Micro, feel free to add your company
 - [Volvo Cars](https://www.volvocars.com) - Car manufacturer
 - [VXLab](https://www.vxlab.com/) - Visual programming platform
 - [Wonderbly](https://www.wonderbly.com/) - Childrens book company
-- Top 20 Russian Bank - Under NDA until launch
+- [MTS Bank](https://www.mtsbank.ru/) - Top 20 Russian Bank 
 
 {% include links.html %}
