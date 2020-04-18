@@ -18,7 +18,6 @@ This doc provides a guide to running micro on kubernetes.
 - [Deploying a Service](#deploying-a-service)
 - [Micro API](#micro-api)
 - [Micro Web](#micro-web)
-- [Full Deployment](#full-deployment)
 
 ## Dependencies
 
@@ -327,13 +326,5 @@ spec:
         - containerPort: 443
           name: web-port
 ```
-
-## Full Deployment
-
-For the full deployment config used by [micro.mu](https://micro.mu) for the cloud platform see:
-
-[https://github.com/micro/micro/tree/master/network/config/kubernetes](https://github.com/micro/micro/tree/master/network/config/kubernetes)
-
-Some of this config is specific to the needs of Micro itself including the use of CloudFlare.
 
 {% include links.html %}
