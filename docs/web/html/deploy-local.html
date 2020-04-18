@@ -562,29 +562,12 @@ powershell -Command "iwr -useb https://raw.githubusercontent.com/micro/micro/mas
 <p>Running micro is as simple as typing <code class="highlighter-rouge">micro</code>.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Display the commands
-micro
+micro --help
 </code></pre></div></div>
 
 <p>To run the server</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro server
-</code></pre></div></div>
-
-<h2 id="verify">Verify</h2>
-
-<p>Check everythings working by using a few commands</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># list local services
-
-micro list services
-
-# list network nodes
-
-micro network nodes
-
-# call a service
-
-micro call go.micro.network Debug.Health
 </code></pre></div></div>
 
 

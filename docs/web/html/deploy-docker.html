@@ -538,10 +538,6 @@
 
   <p>Micro easily runs inside docker containers</p>
 
-<h2 id="prebuilt-images">Prebuilt Images</h2>
-
-<p>Prebuilt images are available on <a href="https://hub.docker.com/r/micro/">Docker Hub</a></p>
-
 <h3 id="install-micro">Install Micro</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull micro/micro
@@ -549,37 +545,14 @@
 
 <h2 id="compose">Compose</h2>
 
-<p>Run a local deployment using docker compose</p>
+<p>Run a local server using docker compose</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>consul:
-  command: -server -bootstrap -rejoin 
-  image: progrium/consul:latest
-  hostname: "registry"
-  ports:
-  - "8300:8300"
-  - "8400:8400"
-  - "8500:8500"
-  - "8600:53/udp"
-api:
-  command: --registry_address=registry:8500 --register_interval=5 --register_ttl=10 api
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server:
+  command: server
   build: .
-  links:
-  - consul
   ports:
   - "8080:8080"
-proxy:
-  command: --registry_address=registry:8500 --register_interval=5 --register_ttl=10 proxy
-  build: .
-  links:
-  - consul
-  ports:
   - "8081:8081"
-web:
-  command: --registry_address=registry:8500 --register_interval=5 --register_ttl=10 web
-  build: .
-  links:
-  - consul
-  ports:
   - "8082:8082"
 </code></pre></div></div>
 
@@ -587,22 +560,11 @@ web:
 
 <p>A Dockerfile is included in the repo</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM alpine:3.2
-RUN apk add --update ca-certificates &amp;&amp; \
-    rm -rf /var/cache/apk/* /tmp/*
-ADD micro /micro
-WORKDIR /
-ENTRYPOINT [ "/micro" ]
-</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## checkout the repo
+git clone https://github.com/micro/micro
 
-<h3 id="build-binary">Build Binary</h3>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-w' -i -o micro ./main.go 
-</code></pre></div></div>
-
-<h3 id="build-image">Build Image</h3>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build -t micro .
+## build the image
+cd micro &amp;&amp; docker build -t micro .
 </code></pre></div></div>
 
 

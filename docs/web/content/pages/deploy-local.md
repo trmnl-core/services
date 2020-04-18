@@ -36,31 +36,13 @@ Running micro is as simple as typing `micro`.
 
 ```
 # Display the commands
-micro
+micro --help
 ```
 
 To run the server
 
 ```
 micro server
-```
-
-## Verify
-
-Check everythings working by using a few commands
-
-```
-# list local services
-
-micro list services
-
-# list network nodes
-
-micro network nodes
-
-# call a service
-
-micro call go.micro.network Debug.Health
 ```
 
 {% include links.html %}
