@@ -639,7 +639,7 @@ provide concrete types for both the server and a client.</p>
 <ul>
   <li><a href="https://github.com/google/protobuf">protoc</a></li>
   <li><a href="https://github.com/golang/protobuf">protoc-gen-go</a></li>
-  <li><a href="https://github.com/micro/protoc-gen-micro">protoc-gen-micro</a></li>
+  <li><a href="https://github.com/micro/micro/tree/master/cmd/protoc-gen-micro">protoc-gen-micro</a></li>
 </ul>
 
 <p>We use protoc, protoc-gen-go and protoc-gen-micro to generate the concrete go implementation for this definition.</p>
@@ -647,7 +647,7 @@ provide concrete types for both the server and a client.</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go get github.com/golang/protobuf/<span class="o">{</span>proto,protoc-gen-go<span class="o">}</span>
 </code></pre></div></div>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go get github.com/micro/protoc-gen-micro
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go get github.com/micro/micro/v2/cmd/protoc-gen-micro@master
 </code></pre></div></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>protoc --proto_path=$GOPATH/src:. --micro_out=. --go_out=. greeter.proto
@@ -845,7 +845,7 @@ Service, a Client is included which matches the initialised packages used by the
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy; 2020 Micro Services, Inc.<br />
- Last generated: Apr 17, 2020 <br />
+ Last generated: Apr 18, 2020 <br />
                 </div>
             </div>
 </footer>

@@ -121,13 +121,13 @@ Protobuf is used for code generation. It reduces the amount of boilerplate code 
 brew install protobuf
 
 # install protoc-gen-go
-go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+go get github.com/golang/protobuf/{proto,protoc-gen-go}
 
 # install protoc-gen-micro
-go get -u github.com/micro/protoc-gen-micro/v2
+go get github.com/micro/micro/v2/cmd/protoc-gen-micro@master
 ```
 
-See [protoc-gen-micro](https://github.com/micro/protoc-gen-micro) for more details.
+See [protoc-gen-micro](https://github.com/micro/micro/tree/master/cmd/protoc-gen-micro) for more details.
 
 ## Writing a service
 

@@ -15,7 +15,7 @@ Go Micro is an RPC framework for development microservices in Go
 
 You will need protoc-gen-micro for code generation
 
-- [protoc-gen-micro](https://github.com/micro/protoc-gen-micro)
+- [protoc-gen-micro](https://github.com/micro/micro/tree/master/cmd/protoc-gen-micro)
 
 ### Import
 

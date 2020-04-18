@@ -115,7 +115,7 @@ You'll need the following to generate protobuf code
 
 - [protoc](https://github.com/google/protobuf)
 - [protoc-gen-go](https://github.com/golang/protobuf)
-- [protoc-gen-micro](https://github.com/micro/protoc-gen-micro)
+- [protoc-gen-micro](https://github.com/micro/micro/tree/master/cmd/protoc-gen-micro)
 
 We use protoc, protoc-gen-go and protoc-gen-micro to generate the concrete go implementation for this definition.
 
@@ -124,7 +124,7 @@ go get github.com/golang/protobuf/{proto,protoc-gen-go}
 ```
 
 ```shell
-go get github.com/micro/protoc-gen-micro
+go get github.com/micro/micro/v2/cmd/protoc-gen-micro@master
 ```
 
 ```
