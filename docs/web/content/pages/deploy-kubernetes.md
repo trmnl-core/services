@@ -13,7 +13,7 @@ This doc provides a guide to running micro on kubernetes.
 ## Getting Started
 
 - [Dependencies](#dependencies)
-- [Service Deployment](#service-deployment)
+- [Deployment](#deployment)
 - [Micro API](#micro-api)
 - [Micro Web](#micro-web)
 
@@ -21,28 +21,24 @@ This doc provides a guide to running micro on kubernetes.
 
 On kubernetes we would recommend running [etcd](https://github.com/etcd-io/etcd) and [nats](https://github.com/nats-io/nats-server).
 
-- Etcd is used for highly scalable service discovery
+- etcd is used for highly scalable service discovery
 - NATS is used for asynchronous messaging
 
 To install etcd ([instructions](https://github.com/helm/charts/tree/master/stable/etcd-operator))
 
 ```
 helm install --name my-release --set customResources.createEtcdClusterCRD=true stable/etcd-operator
-
-# to later uninstall etcd
-helm delete my-release
 ```
 
-To install nats ([instructions](https://github.com/nats-io/nats-operator))
+To install nats ([instructions](https://github.com/helm/charts/tree/master/stable/nats))
 
 ```
-kubectl apply -f https://github.com/nats-io/nats-operator/releases/latest/download/00-prereqs.yaml
-kubectl apply -f https://github.com/nats-io/nats-operator/releases/latest/download/10-deployment.yaml
+helm install my-release stable/nats
 ```
 
 You should now have the required dependencies.
 
-## Service Deployment
+## Deployment
 
 Here's an example k8s deployment for a micro service
 
@@ -69,7 +65,7 @@ spec:
           command: [
 		"/greeter-srv",
 	  ]
-          image: yourimage/yourservice
+          image: micro/go-micro
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
@@ -91,51 +87,6 @@ Deploy with kubectl
 
 ```
 kubectl apply -f greeter.yaml
-```
-
-### K8s Deployment
-
-Add to a kubernetes deployment
-
-```
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  namespace: default
-  name: greeter
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      name: greeter-srv
-      micro: service
-  template:
-    metadata:
-      labels:
-        name: greeter-srv
-        micro: service
-    spec:
-      containers:
-        - name: greeter
-          command: [
-		"/greeter-srv",
-	  ]
-          image: yourimage/yourservice
-          imagePullPolicy: Always
-          ports:
-          - containerPort: 8080
-            name: greeter-port
-          env:
-          - name: MICRO_SERVER_ADDRESS
-            value: "0.0.0.0:8080"
-          - name: MICRO_BROKER
-            value: "nats"
-          - name: MICRO_BROKER_ADDRESS
-            value: "nats-cluster"
-          - name: MICRO_REGISTRY
-            value: "etcd"
-          - name: MICRO_REGISTRY_ADDRESS
-            value: "etcd-cluster-client"
 ```
 
 ## Micro API
@@ -281,8 +232,6 @@ spec:
           value: "etcd-cluster-client"
         - name: MICRO_ENABLE_ACME
           value: "true"
-        - name: MICRO_ACME_PROVIDER
-          value: certmagic
         args:
         - web
         image: micro/micro

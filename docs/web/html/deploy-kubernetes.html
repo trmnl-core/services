@@ -542,7 +542,7 @@
 
 <ul>
   <li><a href="#dependencies">Dependencies</a></li>
-  <li><a href="#service-deployment">Service Deployment</a></li>
+  <li><a href="#deployment">Deployment</a></li>
   <li><a href="#micro-api">Micro API</a></li>
   <li><a href="#micro-web">Micro Web</a></li>
 </ul>
@@ -552,27 +552,23 @@
 <p>On kubernetes we would recommend running <a href="https://github.com/etcd-io/etcd">etcd</a> and <a href="https://github.com/nats-io/nats-server">nats</a>.</p>
 
 <ul>
-  <li>Etcd is used for highly scalable service discovery</li>
+  <li>etcd is used for highly scalable service discovery</li>
   <li>NATS is used for asynchronous messaging</li>
 </ul>
 
 <p>To install etcd (<a href="https://github.com/helm/charts/tree/master/stable/etcd-operator">instructions</a>)</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm install --name my-release --set customResources.createEtcdClusterCRD=true stable/etcd-operator
-
-# to later uninstall etcd
-helm delete my-release
 </code></pre></div></div>
 
-<p>To install nats (<a href="https://github.com/nats-io/nats-operator">instructions</a>)</p>
+<p>To install nats (<a href="https://github.com/helm/charts/tree/master/stable/nats">instructions</a>)</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply -f https://github.com/nats-io/nats-operator/releases/latest/download/00-prereqs.yaml
-kubectl apply -f https://github.com/nats-io/nats-operator/releases/latest/download/10-deployment.yaml
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm install my-release stable/nats
 </code></pre></div></div>
 
 <p>You should now have the required dependencies.</p>
 
-<h2 id="service-deployment">Service Deployment</h2>
+<h2 id="deployment">Deployment</h2>
 
 <p>Here’s an example k8s deployment for a micro service</p>
 
@@ -598,7 +594,7 @@ spec:
           command: [
 		"/greeter-srv",
 	  ]
-          image: yourimage/yourservice
+          image: micro/go-micro
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
@@ -619,50 +615,6 @@ spec:
 <p>Deploy with kubectl</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply -f greeter.yaml
-</code></pre></div></div>
-
-<h3 id="k8s-deployment">K8s Deployment</h3>
-
-<p>Add to a kubernetes deployment</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  namespace: default
-  name: greeter
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      name: greeter-srv
-      micro: service
-  template:
-    metadata:
-      labels:
-        name: greeter-srv
-        micro: service
-    spec:
-      containers:
-        - name: greeter
-          command: [
-		"/greeter-srv",
-	  ]
-          image: yourimage/yourservice
-          imagePullPolicy: Always
-          ports:
-          - containerPort: 8080
-            name: greeter-port
-          env:
-          - name: MICRO_SERVER_ADDRESS
-            value: "0.0.0.0:8080"
-          - name: MICRO_BROKER
-            value: "nats"
-          - name: MICRO_BROKER_ADDRESS
-            value: "nats-cluster"
-          - name: MICRO_REGISTRY
-            value: "etcd"
-          - name: MICRO_REGISTRY_ADDRESS
-            value: "etcd-cluster-client"
 </code></pre></div></div>
 
 <h2 id="micro-api">Micro API</h2>
@@ -804,8 +756,6 @@ spec:
           value: "etcd-cluster-client"
         - name: MICRO_ENABLE_ACME
           value: "true"
-        - name: MICRO_ACME_PROVIDER
-          value: certmagic
         args:
         - web
         image: micro/micro
