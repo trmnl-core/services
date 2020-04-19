@@ -1,0 +1,68 @@
+@import "../../global.scss";
+
+.PageLayout {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 300px auto;
+  
+  .sidebar {
+    padding: 0px 22px;
+    display: flex;
+    flex-direction: column;
+
+    .logo {
+      margin: 60px auto;
+      width: 60px;
+    }
+
+    nav {
+      a {
+        display: grid;
+        grid-template-columns: 40px auto;
+        text-decoration: none;
+        border-radius: 5px;
+        height: 40px;
+        margin-bottom: 12px;
+        padding: 5px 10px;
+
+        img {
+          max-height: 14px;
+          max-width: 14px;
+          margin: auto auto;
+          filter: $greyFilter;
+        }
+
+        p {
+          margin: auto 0px;
+          font-weight: 600;
+          font-size: 10pt;
+          color: $grey;
+        }
+
+        &:hover {
+          background-color: rgba($color: $grey, $alpha: 0.05);
+        }
+
+        &.active {
+          background-color: rgba($color: $green, $alpha: 0.2);
+
+          img {
+            filter: $greenFilter;
+          }
+
+          p {
+            color: $green;
+          }
+        }
+      }
+    }
+  }
+
+  .main {
+    background-color: white;
+    border-radius: 20px 0px 0px 20px;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.04);
+    z-index: 2;
+    padding: 50px;
+  }
+}
