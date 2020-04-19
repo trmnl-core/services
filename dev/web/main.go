@@ -10,7 +10,7 @@ import (
 func main() {
 	// create new web service
 	service := web.NewService(
-		web.Name("go.micro.web.home"),
+		web.Name("go.micro.web.dev"),
 		web.Version("latest"),
 	)
 

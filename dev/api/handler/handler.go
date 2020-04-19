@@ -8,11 +8,11 @@ import (
 	"github.com/micro/go-micro/v2/auth"
 
 	apps "github.com/micro/services/apps/service/proto/apps"
-	pb "github.com/micro/services/home/api/proto/home"
+	pb "github.com/micro/services/dev/api/proto/home"
 	users "github.com/micro/services/users/service/proto"
 )
 
-// Handler implements the home api interface
+// Handler implements the dev api interface
 type Handler struct {
 	name  string
 	apps  apps.AppsService

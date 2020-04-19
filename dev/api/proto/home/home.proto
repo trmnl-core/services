@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package go.micro.api.home;
+package go.micro.api.dev;
 
 service Home {
 	rpc ReadUser(ReadUserRequest) returns (ReadUserResponse);
