@@ -1,4 +1,4 @@
-module github.com/micro/services/home/api
+module github.com/micro/services/dev/api
 
 go 1.13
 
