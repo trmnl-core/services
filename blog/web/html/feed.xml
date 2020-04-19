@@ -5,8 +5,8 @@
     <description>The simplest way to build, share and collaborate on microservices</description>
     <link>https://micro.mu//blog/</link>
     <atom:link href="https://micro.mu//blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 Apr 2020 23:25:52 +0100</pubDate>
-    <lastBuildDate>Wed, 15 Apr 2020 23:25:52 +0100</lastBuildDate>
+    <pubDate>Sun, 19 Apr 2020 17:49:48 +0100</pubDate>
+    <lastBuildDate>Sun, 19 Apr 2020 17:49:48 +0100</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -859,7 +859,7 @@ this in a way that was true to go-micro itself. This led to the creation of &lt;
 the microservice toolkit. Micro provides an api gateway, web dashboard, cli, slack bot, service proxy and much more.&lt;/p&gt;
 
 &lt;center&gt;
-&lt;img src=&quot;https://micro.mu/runtime3.svg&quot; style=&quot;width: 80%; height: auto;&quot; /&gt;
+&lt;img src=&quot;https://micro.mu/blog/assets/images/runtime3.svg&quot; style=&quot;width: 80%; height: auto;&quot; /&gt;
 &lt;/center&gt;
 
 &lt;p&gt;The micro toolkit acted as interaction points via http api, browser, slack commands and command line interface. These 
