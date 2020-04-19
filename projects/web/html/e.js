@@ -35,7 +35,7 @@ function render(ul, v) {
       stars = (v.stars / 1000.0).toFixed(1) + "k";
     }
     if (v.lang == "Go") {
-	    ul.append('<li class="list-inline-item"><img src="https://micro.mu/images/logos/go.png" style="height: 14px; width: auto; margin-bottom: 2px;" /></li>');
+	    ul.append('<li class="list-inline-item"><img src="https://micro.mu/images/go.png" style="height: 14px; width: auto; margin-bottom: 2px;" /></li>');
     } else {
 	    ul.append('<li class="list-inline-item"><i class="fa fa-language" aria-hidden="true"></i> '+v.lang+'</li>');
     }
