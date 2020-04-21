@@ -136,7 +136,7 @@ class Login extends React.Component<Props, State> {
 
     return(
       <div className='inner'>
-        <h1>{ teamName? `Join the ${teamName} team` : 'Welcome back!'}</h1>
+        <h1>{ teamName? `Join the ${teamName} team` : 'Sign in'}</h1>
         <p className='subtitle'>To continue, log in with a Google or Micro account.</p>
 
         <div className='google oauth' onClick={() => this.redirectToOauth('google') }>
