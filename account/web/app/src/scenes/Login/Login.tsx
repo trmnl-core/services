@@ -22,10 +22,14 @@ interface State {
   loading: boolean;
   signup: boolean;
   error?: string;
+  teamName?: string;
+  inviteCode?: string;
 }
 
 interface Params {
   error?: string;
+  inviteCode?: string;
+  teamName?: string;
 }
 
 class Login extends React.Component<Props, State> {
@@ -33,13 +37,13 @@ class Login extends React.Component<Props, State> {
 
   componentDidMount() {
     const params: Params = queryString.parse(window.location.search);
-    if(params.error) this.setState({ error: params.error });
-  }
+    this.setState(params); // set inviteCode & teamName in the state
+    }
 
   async onSubmit(event) {
     event.preventDefault();
     
-    const { signup, email, password, passwordConfirmation } = this.state;
+    const { signup, email, password, passwordConfirmation, inviteCode, teamName } = this.state;
     if(signup && password !== passwordConfirmation) {
       this.setState({ error: 'Passwords must match' });
       return;
@@ -50,7 +54,9 @@ class Login extends React.Component<Props, State> {
     
     this.setState({ loading: true, error: undefined });
 
-    Call(signup ? 'Signup' : 'Login', { email, password })
+    const params = signup ? { email, password, invite_code: inviteCode, team_invite: !!teamName } : { email, password };
+
+    Call(signup ? 'Signup' : 'Login', params)
       .then((res) => {
         const user = new User(res.data.user);
         const token = new Token(res.data.token);
@@ -77,7 +83,10 @@ class Login extends React.Component<Props, State> {
         this.setState({ password: e.target.value })
         return
       case 'passwordConfirmation':
-        this.setState({ passwordConfirmation: e.target.value })
+        this.setState({ passwordConfirmation: e.target.value });
+        return
+      case 'inviteCode':
+        this.setState({ inviteCode: e.target.value });
         return
     }
   }
@@ -108,11 +117,11 @@ class Login extends React.Component<Props, State> {
   }
 
   renderLogin(): JSX.Element {
-    const { email, password, loading, error } = this.state;
+    const { email, password, loading, error, teamName } = this.state;
 
     return(
       <div className='inner'>
-        <h1>Welcome back!</h1>
+        <h1>{ teamName? `Join the ${teamName} team` : 'Welcome back!'}</h1>
         <p className='subtitle'>To continue, log in with a Google or Micro account.</p>
 
         <div className='google oauth' onClick={() => this.redirectToOauth('google') }>
@@ -129,12 +138,27 @@ class Login extends React.Component<Props, State> {
 
         <form onSubmit={this.onSubmit.bind(this)}>
           <label>Email *</label>
-          <input type='email' name='email' value={email} disabled={loading} onChange={this.onChange.bind(this)} />
+          <input
+            type='email'
+            name='email'
+            value={email}
+            autoFocus={!!teamName}
+            disabled={loading || !!teamName}
+            onChange={this.onChange.bind(this)} />
 
           <label>Password *</label>
-          <input type='password' name='password' value={password} disabled={loading} onChange={this.onChange.bind(this)} />
+          <input
+            type='password'
+            name='password'
+            value={password}
+            disabled={loading}
+            autoFocus={!teamName}
+            onChange={this.onChange.bind(this)} />
         
-          <input type='submit' value={loading ? 'Logging In' : 'Log in to your account'} disabled={loading} />
+          <input
+            type='submit'
+            disabled={loading}
+            value={loading ? 'Logging In' : 'Log in to your account'} />
         </form>
 
         <p className='signup'>Need an account? <span onClick={this.toggleSignup.bind(this)} className='link'>Create your Micro account.</span></p>
@@ -143,24 +167,48 @@ class Login extends React.Component<Props, State> {
   }
 
   renderSignup(): JSX.Element {
-    const { email, password, passwordConfirmation, loading, error } = this.state;
+    const { email, password, passwordConfirmation, loading, error, teamName, inviteCode } = this.state;
 
     return(
       <div className='inner'>
-        <h1>Signup</h1>
+        <h1>{ teamName? `Join the ${teamName} team` : 'Signup'}</h1>
         <p className='subtitle'>Enter your email and password below to signup for a Micro account.</p>
 
         { error ? <p className='error'>Error: {error}</p> : null }
 
         <form onSubmit={this.onSubmit.bind(this)}>
           <label>Email *</label>
-          <input type='email' name='email' value={email} disabled={loading} onChange={this.onChange.bind(this)} />
+          <input
+            type='email'
+            name='email'
+            value={email}
+            disabled={loading || !!teamName}
+            onChange={this.onChange.bind(this)} />
 
           <label>Password *</label>
-          <input type='password' name='password' value={password} disabled={loading} onChange={this.onChange.bind(this)} />
+          <input
+            type='password'
+            name='password'
+            value={password} 
+            disabled={loading}
+            onChange={this.onChange.bind(this)} />
 
           <label>Password Confirmation *</label>
-          <input type='password' name='passwordConfirmation' value={passwordConfirmation} disabled={loading} onChange={this.onChange.bind(this)} />
+          <input
+            type='password'
+            disabled={loading}
+            name='passwordConfirmation'
+            value={passwordConfirmation}
+            onChange={this.onChange.bind(this)} />
+
+          { teamName ? null : <label>Invite Code *</label> }
+          { teamName ? null : <input
+                                required
+                                type='text'
+                                name='inviteCode'
+                                disabled={loading}
+                                value={inviteCode}
+                                onChange={this.onChange.bind(this)} /> } 
 
           <input type='submit' value={loading ? 'Creating your account' : 'Create an account'} disabled={loading} />
         </form>
