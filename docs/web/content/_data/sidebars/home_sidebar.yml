@@ -168,10 +168,6 @@ entries:
       url: /proxy.html
       output: web, pdf
   
-    - title: Service Health
-      url: /health.html
-      output: web, pdf
-
     - title: Service Network
       url: /service-network.html
       output: web, pdf
