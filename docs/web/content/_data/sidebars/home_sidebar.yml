@@ -85,7 +85,7 @@ entries:
       output: web, pdf
 
     - title: Hello World
-      url: /go-helloworld.html
+      url: /helloworld.html
       output: web, pdf
 
     - title: Config
