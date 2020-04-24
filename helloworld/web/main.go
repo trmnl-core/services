@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/micro/go-micro/v2/web"
-	hello "github.com/micro/services/helloworld/proto/helloworld"
+	hello "github.com/micro/services/helloworld/proto"
 )
 
 var (
