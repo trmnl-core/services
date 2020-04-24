@@ -60,7 +60,7 @@ func (s *Secret) Create(ctx context.Context, req *pb.CreateRequest, rsp *pb.Crea
 				".dockerconfigjson": str,
 			},
 		},
-	})
+	}, k8s.CreateNamespace(req.Namespace))
 }
 
 func (s *Secret) validateGitHubToken(token string) error {
