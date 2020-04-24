@@ -250,7 +250,10 @@ github.com/micro/go-micro/v2 v2.5.0/go.mod h1:qz2UT4UFdFVs+qUGMuDK3xuHgude1Bgntq
 github.com/micro/go-micro/v2 v2.5.1-0.20200424102646-edee3b676527 h1:BWX7/YOQxlaNfOlTiXCSJfuqAexLjOWZm5d2hd70Tec=
 github.com/micro/go-micro/v2 v2.5.1-0.20200424102646-edee3b676527/go.mod h1:60HMKlDN4ShZDJRrlgdcAmkCWNhQbYv+CDG3r7iLE34=
 github.com/micro/services v0.0.0-20200424123117-8693b5da020a h1:XI4X9qozNp8oJOiNHVoYaLnGlOfg9OwHbs6bgTYcz2Q=
+github.com/micro/services v0.0.0-20200424130444-5e7802513f8a h1:SSz1Ma0ofxTSmRi6uleBPMgkqWpxP1a8QAwbBsAWVz4=
 github.com/micro/services/helloworld v0.0.0-20200424124633-df470128d86b h1:fQaAWJMF3I3WpwsMM6dcBQD2FCKiFsmBsimjUBu/gJE=
+github.com/micro/services/helloworld v0.0.0-20200424130444-5e7802513f8a h1:ka47ggL9GmEHRUeD05FuUii+e1O8XtJFHHAYc1mz5Io=
+github.com/micro/services/helloworld v0.0.0-20200424130444-5e7802513f8a/go.mod h1:U+vXJCC2t2jnjuvrijbGjIdj3Gyj+mF7Id1BFjdENEs=
 github.com/miekg/dns v1.1.15/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/miekg/dns v1.1.27 h1:aEH/kqUzUxGJ/UHcEKdJY+ugH6WEzsEBBSPa8zuy1aM=
 github.com/miekg/dns v1.1.27/go.mod h1:KNUDUusw/aVsxyTYZM1oqvCicbwhgbNgztCETuNZ7xM=

@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/micro/go-micro/v2"
-	proto "github.com/micro/services/helloworld/api/proto/hello"
-	hello "github.com/micro/services/helloworld/proto/helloworld"
+	proto "github.com/micro/services/helloworld/api/proto"
+	hello "github.com/micro/services/helloworld/proto"
 
 	"context"
 )
