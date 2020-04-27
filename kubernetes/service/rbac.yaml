@@ -1,42 +1,45 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: m3o-secret
+  name: kubernetes-srv
+imagePullSecrets:
+- name: regcred
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: m3o-secret
+  name: kubernetes-srv
 rules:
 - apiGroups:
   - ""
   resources:
   - secrets
   - namespaces
+  - serviceaccounts
   verbs:
   - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: m3o-secret
+  name: kubernetes-srv
 subjects:
 - kind: ServiceAccount
-  name: m3o-secret
+  name: kubernetes-srv
   namespace: default
 roleRef:
   kind: ClusterRole
-  name: m3o-secret
+  name: kubernetes-srv
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: m3o-secret
+  name: kubernetes-srv
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: m3o-secret
+  name: kubernetes-srv
 subjects:
 - kind: ServiceAccount
-  name: m3o-secret
+  name: kubernetes-srv

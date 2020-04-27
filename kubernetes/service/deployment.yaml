@@ -1,20 +1,20 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: m3o-secret-latest
+  name: kubernetes-service-latest
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
       micro: service
-      name: m3o-secret
+      name: kubernetes-service
       version: latest
   template:
     metadata:
       labels:
         micro: service
-        name: m3o-secret
+        name: kubernetes-service
         version: latest
     spec:
       containers:
@@ -55,14 +55,12 @@ spec:
           value: service
         - name: MICRO_LOG_LEVEL
           value: trace
-        image: docker.pkg.github.com/micro/services/m3o-secret
+        image: docker.pkg.github.com/micro/services/kubernetes-service
         imagePullPolicy: Always
-        name: m3o-secret
+        name: kubernetes-service
         ports:
         - containerPort: 8080
           name: service-port
           protocol: TCP
-      imagePullSecrets:
-      - name: regcred
-      serviceAccount: m3o-secret
-      serviceAccountName: m3o-secret
+      serviceAccount: kubernetes-srv
+      serviceAccountName: kubernetes-srv
