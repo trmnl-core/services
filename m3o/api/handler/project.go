@@ -183,8 +183,8 @@ func serializeProject(p *project.Project) *pb.Project {
 		Id:         p.Id,
 		Name:       p.Name,
 		Namespace:  p.Namespace,
-		ApiDomain:  p.ApiDomain,
 		WebDomain:  p.WebDomain,
+		ApiDomain:  p.ApiDomain,
 		Repository: p.Repository,
 	}
 }
