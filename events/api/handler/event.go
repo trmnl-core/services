@@ -141,7 +141,7 @@ func (h *Handler) updateRuntime(acc *auth.Account, evType event.EventType, md ma
 		if err := h.runtime.Update(service, runtime.UpdateContext(ctx)); err != nil {
 			logger.Warnf("Failed to update service %v/%v: %v", acc.Namespace, srvName, err)
 		} else {
-			logger.Warnf("Successfully updated service %v", srvName)
+			logger.Warnf("Successfully updated service %v/%v", acc.Namespace, srvName)
 		}
 		return
 	}
@@ -155,7 +155,7 @@ func (h *Handler) updateRuntime(acc *auth.Account, evType event.EventType, md ma
 	if err := h.runtime.Create(service, opts...); err != nil {
 		logger.Warnf("Failed to create service %v/%v: %v", acc.Namespace, srvName, err)
 	} else {
-		logger.Warnf("Successfully created service %v", srvName)
+		logger.Warnf("Successfully created service %v/%v", acc.Namespace, srvName)
 	}
 }
 
