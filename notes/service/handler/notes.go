@@ -6,8 +6,8 @@ import (
 	"io"
 	"time"
 
-	"github.com/micro/go-micro/v2/util/scope"
 	"github.com/micro/go-micro/v2/auth"
+	"github.com/micro/go-micro/v2/util/scope"
 	pb "github.com/micro/services/notes/service/proto"
 
 	"github.com/google/uuid"
@@ -33,9 +33,9 @@ type Handler struct {
 // Create inserts a new note in the store
 func (h *Handler) Create(ctx context.Context, req *pb.CreateNoteRequest, rsp *pb.CreateNoteResponse) error {
 	// get the user
-	user, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	user, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 
 	// generate a key (uuid v4)
@@ -70,9 +70,9 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateNoteRequest, rsp *pb
 // Update is a unary API which updates a note in the store
 func (h *Handler) Update(ctx context.Context, req *pb.UpdateNoteRequest, rsp *pb.UpdateNoteResponse) error {
 	// get the user
-	user, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	user, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 
 	// Validate the request
@@ -121,9 +121,9 @@ func (h *Handler) Update(ctx context.Context, req *pb.UpdateNoteRequest, rsp *pb
 // which are used to update the note in the store
 func (h *Handler) UpdateStream(ctx context.Context, stream pb.Notes_UpdateStreamStream) error {
 	// get the user
-	user, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	user, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 	s := scope.NewScope(h.store, user.ID)
 
@@ -180,9 +180,9 @@ func (h *Handler) UpdateStream(ctx context.Context, stream pb.Notes_UpdateStream
 // Delete removes the note from the store, looking up using ID
 func (h *Handler) Delete(ctx context.Context, req *pb.DeleteNoteRequest, rsp *pb.DeleteNoteResponse) error {
 	// get the user
-	user, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	user, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 
 	// Validate the request
@@ -198,9 +198,9 @@ func (h *Handler) Delete(ctx context.Context, req *pb.DeleteNoteRequest, rsp *pb
 // List returns all of the notes in the store
 func (h *Handler) List(ctx context.Context, req *pb.ListNotesRequest, rsp *pb.ListNotesResponse) error {
 	// get the user
-	user, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	user, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 	s := scope.NewScope(h.store, user.ID)
 
