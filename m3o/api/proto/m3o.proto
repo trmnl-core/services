@@ -34,6 +34,7 @@ message Project {
   string namespace = 3;
   string api_domain = 4;
   string web_domain = 5;
+  string repository = 6;
 }
 
 message CreateProjectRequest {

@@ -180,11 +180,12 @@ func (p *Project) userIDFromContext(ctx context.Context) (string, error) {
 
 func serializeProject(p *project.Project) *pb.Project {
 	return &pb.Project{
-		Id:        p.Id,
-		Name:      p.Name,
-		Namespace: p.Namespace,
-		ApiDomain: p.ApiDomain,
-		WebDomain: p.WebDomain,
+		Id:         p.Id,
+		Name:       p.Name,
+		Namespace:  p.Namespace,
+		ApiDomain:  p.ApiDomain,
+		WebDomain:  p.WebDomain,
+		Repository: p.Repository,
 	}
 }
 
