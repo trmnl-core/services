@@ -20,9 +20,9 @@ func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb
 	}
 
 	// Get the account
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 
 	// Serialize the User

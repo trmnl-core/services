@@ -37,9 +37,9 @@ func NewHandler(srv micro.Service) *Handler {
 
 func (h *Handler) userFromContext(ctx context.Context) (*users.User, error) {
 	// Identify the user
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return nil, err
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return nil, errors.Unauthorized(h.name, "account not found")
 	}
 	if len(acc.ID) == 0 {
 		return nil, errors.Unauthorized(h.name, "A valid auth token is required")
