@@ -68,9 +68,9 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateRequest, rsp *pb.Cre
 	}
 
 	// lookup the account
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 
 	// find the namespace the account belongs to
@@ -96,7 +96,7 @@ func (h *Handler) updateRuntime(acc *auth.Account, evType event.EventType, md ma
 	// with the account so that the downstream services
 	// (e.g. the runtime) will use the namespace only
 	// from the account
-	ctx, _ := auth.ContextWithAccount(context.Background(), acc)
+	ctx := auth.ContextWithAccount(context.Background(), acc)
 
 	// we only care about these two events with regards to the runtime
 	if evType != event.EventType_BuildFinished && evType != event.EventType_SourceDeleted {
