@@ -6,6 +6,7 @@ import (
 
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/auth"
+	"github.com/micro/go-micro/v2/errors"
 
 	apps "github.com/micro/services/apps/service/proto/apps"
 	pb "github.com/micro/services/dev/api/proto/home"
@@ -30,9 +31,9 @@ func NewHandler(srv micro.Service) *Handler {
 
 // ReadUser returns information about the user currently logged in
 func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb.ReadUserResponse) error {
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 
 	uRsp, err := h.users.Read(ctx, &users.ReadRequest{Id: acc.ID})
@@ -51,9 +52,9 @@ func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb
 
 // ListApps returns all the apps a user has access to
 func (h *Handler) ListApps(ctx context.Context, req *pb.ListAppsRequest, rsp *pb.ListAppsResponse) error {
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(h.name, "account not found")
 	}
 
 	aRsp, err := h.apps.List(ctx, &apps.ListRequest{OnlyActive: true})
