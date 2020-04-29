@@ -93,9 +93,9 @@ As part of the micro toolkit we attempt to define a set of design patterns for a
 
 ### API Services
 
-API services are served by the micro api with the default namespace go.micro.api. The micro api conforms to the API gateway pattern. 
-
-Learn more about it [here](https://github.com/micro/micro/tree/master/api)
+API services are a separate tier of services for serving your http/json API. This might be a public facing api or leveraged by your clients. API services 
+are served by the `micro api` and conform to an api gateway pattern. They are written as standard Go Micro services but use the namespace 
+`go.micro.api` to logically separate themselves.
 
 ### Web Services
 

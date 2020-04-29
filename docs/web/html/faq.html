@@ -620,9 +620,9 @@ can be joined and used by anyone. It’s a great way to unlock public collaborat
 
 <h3 id="api-services">API Services</h3>
 
-<p>API services are served by the micro api with the default namespace go.micro.api. The micro api conforms to the API gateway pattern.</p>
-
-<p>Learn more about it <a href="https://github.com/micro/micro/tree/master/api">here</a></p>
+<p>API services are a separate tier of services for serving your http/json API. This might be a public facing api or leveraged by your clients. API services 
+are served by the <code class="highlighter-rouge">micro api</code> and conform to an api gateway pattern. They are written as standard Go Micro services but use the namespace 
+<code class="highlighter-rouge">go.micro.api</code> to logically separate themselves.</p>
 
 <h3 id="web-services">Web Services</h3>
 
@@ -696,7 +696,7 @@ separately creating a WEB layer of microservices for web UIs.</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy; 2020 Micro Services, Inc.<br />
- Last generated: Apr 26, 2020 <br />
+ Last generated: Apr 29, 2020 <br />
                 </div>
             </div>
 </footer>
