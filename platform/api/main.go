@@ -120,9 +120,9 @@ func (h *Handler) ListServices(ctx context.Context, req *pb.ListServicesRequest,
 // ReadUser gets the current user
 func (h *Handler) ReadUser(ctx context.Context, req *pb.ReadUserRequest, rsp *pb.ReadUserResponse) error {
 	// Identify the user
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Forbidden("go.micro.api.platform", "Account required")
 	}
 	if len(acc.ID) == 0 {
 		return errors.Unauthorized("go.micro.api.platform", "A valid auth token is required")
