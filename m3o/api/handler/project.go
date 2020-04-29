@@ -165,9 +165,9 @@ func (p *Project) WebhookAPIKey(ctx context.Context, req *pb.WebhookAPIKeyReques
 }
 
 func (p *Project) userIDFromContext(ctx context.Context) (string, error) {
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return "", errors.InternalServerError(p.name, "Auth error: %v", err)
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return "", errors.Unauthorized(p.name, "Account Required")
 	}
 
 	uRsp, err := p.users.Read(ctx, &users.ReadRequest{Email: acc.ID})

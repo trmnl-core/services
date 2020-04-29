@@ -5,6 +5,7 @@ import (
 
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/auth"
+	"github.com/micro/go-micro/v2/errors"
 
 	pb "github.com/micro/services/m3o/api/proto"
 	users "github.com/micro/services/users/service/proto"
@@ -26,9 +27,9 @@ func NewAccount(service micro.Service) *Account {
 
 // Read the current users info
 func (a *Account) Read(ctx context.Context, req *pb.ReadAccountRequest, rsp *pb.ReadAccountResponse) error {
-	acc, err := auth.AccountFromContext(ctx)
-	if err != nil {
-		return err
+	acc, ok := auth.AccountFromContext(ctx)
+	if !ok {
+		return errors.Unauthorized(a.name, "Account Required")
 	}
 
 	uRsp, err := a.users.Read(ctx, &users.ReadRequest{Email: acc.ID})
