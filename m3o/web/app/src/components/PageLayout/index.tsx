@@ -13,10 +13,7 @@ import ProjectSwitcher from './components/ProjectSwitcher';
 // Styling
 import Logo from './assets/logo.png';
 import NavDashboard from './assets/nav-dashboard.png';
-import NavGettingStarted from './assets/nav-getting-started.png';
-import NavTeam from './assets/nav-team.png';
-import NavServices from './assets/nav-services.png';
-import NavConfiguration from './assets/nav-configuration.png';
+import NavProjects from './assets/nav-projects.png';
 import NavBilling from './assets/nav-billing.png';
 import NavSettings from './assets/nav-settings.png';
 import './style.scss';
@@ -28,6 +25,8 @@ interface Props {
 
 class PageLayout extends React.Component<Props> {
   render(): JSX.Element {
+    const { profile_picture_url, first_name, last_name } = this.props.user;
+
     return(
       <div className='PageLayout'>
         <div className='sidebar'>
@@ -39,24 +38,9 @@ class PageLayout extends React.Component<Props> {
               <p>Dashboard</p>
             </a>
 
-            <NavLink exact to='/'>
-              <img src={NavGettingStarted} alt='Getting Started' />
-              <p>Getting Started</p>
-            </NavLink>
-
-            <NavLink to='/team'>
-              <img src={NavTeam} alt='Team' />
-              <p>Team</p>
-            </NavLink>
-
-            <NavLink exact to='/configuration'>
-              <img src={NavConfiguration} alt='Configuration' />
-              <p>Configuration</p>
-            </NavLink>
-            
-            <NavLink exact to='/services'>
-              <img src={NavServices} alt='Services' />
-              <p>Services</p>
+            <NavLink to='/projects'>
+              <img src={NavProjects} alt='Projects' />
+              <p>Projects</p>
             </NavLink>
             
             <NavLink exact to='/billing'>
@@ -74,7 +58,9 @@ class PageLayout extends React.Component<Props> {
             <ProjectSwitcher />
 
             <a href='https://account.micro.mu' target='blank'>
-              <img className='account' src={this.props.user.profile_picture_url} alt='Your account' />
+              { profile_picture_url ? <img className='account' src={profile_picture_url} alt='Your account' /> : <div className='initials'>
+                <p>{first_name.slice(0,1)}{last_name.slice(0,1)}</p>
+              </div> }
             </a>
           </div>
         </div>

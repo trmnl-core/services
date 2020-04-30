@@ -41,7 +41,15 @@ const tutorials: Tutorial[] = [
   },
 ]
 
-export default class GettingStartedScene extends React.Component {
+interface Props {
+  history: any;
+}
+
+export default class GettingStartedScene extends React.Component<Props> {
+  componentDidMount(): void {
+    this.props.history.push('/projects');
+  }
+
   render(): JSX.Element {
     return(
       <PageLayout className='GettingStarted'>

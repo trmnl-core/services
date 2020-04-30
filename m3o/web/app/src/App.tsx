@@ -10,9 +10,9 @@ import * as API from './api';
 
 // Scenes
 import GettingStartedScene from './scenes/GettingStarted';
-import TeamScene from './scenes/Team';
-import EditTeamMemberScene from './scenes/Team/scenes/EditTeamMember';
-import InviteTeamMembersScene from './scenes/Team/scenes/InviteTeamMembers';
+import ProjectsScene from './scenes/Projects';
+import EditProjectScene from './scenes/Projects/scenes/EditProject';
+// import InviteTeamMembersScene from './scenes/Team/scenes/InviteTeamMembers';
 import ConfigurationScene from './scenes/Configuration';
 import EditConfigurationScene from './scenes/Configuration/scenes/EditConfiguration';
 import AddConfigurationScene from './scenes/Configuration/scenes/AddConfiguration';
@@ -48,9 +48,8 @@ class App extends React.Component<Props> {
     return (
       <BrowserRouter>
         <Route key='getting-started' exact path='/' component={GettingStartedScene} />
-        <Route key='team' exact path='/team' component={TeamScene} />
-        <Route key='edit-team-member' path='/team/members/:id/edit' component={EditTeamMemberScene} />
-        <Route key='invite-team-members' path='/team/members/invite' component={InviteTeamMembersScene} />
+        <Route key='projects' exact path='/projects' component={ProjectsScene} />
+        <Route key='edit-project' exact path='/projects/:id/edit' component={EditProjectScene} />
         <Route key='configuration' exact path='/configuration' component={ConfigurationScene} />
         <Route key='edit-configuration' path='/configuration/:service/:key/edit' component={EditConfigurationScene} />
         <Route key='add-configuration' path='/configuration/add' component={AddConfigurationScene} />

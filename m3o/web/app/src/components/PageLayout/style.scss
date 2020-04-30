@@ -24,7 +24,7 @@
         text-decoration: none;
         border-radius: 5px;
         height: 40px;
-        margin-bottom: 12px;
+        margin-bottom: 18px;
         padding: 5px 10px;
 
         img {
@@ -68,6 +68,28 @@
       a {
         display: flex;
         outline: none;
+
+        .initials {
+          height: 36px;
+          width: 36px;
+          margin-top: auto;
+          margin-bottom: auto;
+          border-radius: 50%;
+          background-color: #00000020;
+          position: relative;
+          cursor: pointer;
+
+          p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0px;
+            color: $grey;
+            font-weight: 500;
+            line-height: 0px;
+          }
+        }
 
         .account {
           margin-top: auto;

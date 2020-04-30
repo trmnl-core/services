@@ -3,32 +3,32 @@ import { connect } from 'react-redux';
 import PageLayout from '../../../../components/PageLayout';
 import * as API from '../../../../api';
 import { State as GlobalState } from '../../../../store';
-import { updateUser } from '../../../../store/Team';
+import { updateProject } from '../../../../store/Project';
 
 interface Props {
-  user: API.User;
-  updateUser: (user: API.User) => void;
+  project: API.Project;
+  updateProject: (project: API.Project) => void;
   match: any;
   history: any;
 }
 
 interface State {
-  user: API.User;
+  project: API.Project;
 }
 
-class EditTeamMemberScene extends React.Component<Props, State> {
+class EditProjectScene extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { user: props.user };
+    this.state = { project: props.project };
   }
 
   render(): JSX.Element {
-    const { user } = this.state;
+    const { project } = this.state;
     
     return(
       <PageLayout>
         <header>
-          <h1>Edit {user.first_name} {user.last_name}</h1>
+          <h1>Edit {project.name}</h1>
 
           <button className='btn danger' onClick={this.onCancel.bind(this)}>
             <p>Cancel</p>
@@ -40,28 +40,26 @@ class EditTeamMemberScene extends React.Component<Props, State> {
         </header>
 
         <form onSubmit={(e: any) => {e.preventDefault(); this.onSave()}}>
-          <label>First Name</label>
+          <label>Name</label>
           <input
             required
             type='text' 
-            name='first_name'
-            value={user.first_name}
+            name='name'
+            value={project.name}
             onChange={this.onChange.bind(this)} />
             
-          <label>Last Name</label>
+          <label>Web Domain</label>
           <input
-            required
             type='text' 
-            name='last_name'
-            value={user.last_name}
+            name='web_domain'
+            value={project.web_domain}
             onChange={this.onChange.bind(this)} />
           
-          <label>Email</label>
+          <label>API Domain</label>
           <input
-            required
-            type='email'
-            name='email' 
-            value={user.email}
+            type='text'
+            name='api_domain' 
+            value={project.api_domain}
             onChange={this.onChange.bind(this)} />
         </form>
       </PageLayout>
@@ -70,35 +68,35 @@ class EditTeamMemberScene extends React.Component<Props, State> {
 
   onChange(e: any): void {
     this.setState({
-      user: {
-        ...this.state.user,
+      project: {
+        ...this.state.project,
         [e.target.name]: e.target.value,
       },
     });
   }
 
   onSave(): void {
-    this.props.updateUser(this.state.user);
-    this.props.history.push('/team');
+    this.props.updateProject(this.state.project);
+    this.props.history.push('/projects');
   }
 
   onCancel(): void {
     // eslint-disable-next-line no-restricted-globals
     if (!confirm(`Are you sure you want to cancel? All your changes will be lost.`)) return;
-    this.props.history.push('/team');
+    this.props.history.push('/projects');
   }
 }
 
 function mapStateToProps(state: GlobalState, ownProps: Props): any {
   return({
-    user: state.team.users.find(u => u.id === ownProps.match.params.id),
+    project: state.project.projects.find(u => u.id === ownProps.match.params.id),
   });
 }
 
 function mapDispatchToProps(dispatch: Function): any {
   return({
-    updateUser: (user: API.User) => dispatch(updateUser(user)),
+    updateProject: (project: API.Project) => dispatch(updateProject(project)),
   })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditTeamMemberScene);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProjectScene);
