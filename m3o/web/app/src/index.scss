@@ -26,7 +26,7 @@ h1 {
 
 h2 {
   font-weight: 500;
-  font-size: 15pt;
+  font-size: 14pt;
   margin: 30px 0px 30px 0px;
 }
 
@@ -47,18 +47,6 @@ p {
   line-height: 1.7;
 }
 
-section {
-  background-color: $lightgrey;
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px 0px #00000010;
-  margin-bottom: 20px;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0px 2px 5px 0px #00000018;
-  }
-}
-
 header {
   min-height: 44px;
   padding: 20px 0px 40px 0px;
@@ -76,16 +64,20 @@ header {
 }
 
 .btn {
-  background-color: rgba($color: $blue, $alpha: 0.2);
+  background-color: rgba($color: $green, $alpha: 0.2);
   border: none;
   height: 44px;
-  border-radius: 22px;
-  color: $blue;
+  border-radius: 5px;
+  color: $green;
   display: flex;
   padding: 10px 30px;
   cursor: pointer;
   outline: none;
-  min-width: 120px;
+  width: fit-content;
+  font-weight: 600;
+  margin: 0px;
+  font-size: 9pt;
+
 
   img {
     height: 15px;
@@ -104,6 +96,11 @@ header {
   &.danger {
     background-color: rgba($color: $red, $alpha: 0.2);
     color: $red;
+  }
+
+  &.warning {
+    background-color: rgba($color: $orange, $alpha: 0.2);
+    color: $orange;
   }
 
   &.btn-small {
@@ -189,7 +186,6 @@ table {
 form {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
 
   label, input, select {
     font-size: 10pt;
@@ -198,6 +194,7 @@ form {
   label {
     font-weight: 500;
     line-height: 30px;
+    margin-bottom: 5px;
   }
 
   input, select {
@@ -205,10 +202,10 @@ form {
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px;
-    border: solid 1px #00000020;
+    border: solid 1px #00000010;
     outline: none;
     line-height: 1.6;
     background-color: transparent;
-    height: 44px;
+    height: 40px;
   }
 }

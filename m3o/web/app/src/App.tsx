@@ -9,13 +9,10 @@ import { setUser } from './store/Account';
 import * as API from './api';
 
 // Scenes
-import GettingStartedScene from './scenes/GettingStarted';
-import TeamScene from './scenes/Team';
-import EditTeamMemberScene from './scenes/Team/scenes/EditTeamMember';
-import InviteTeamMembersScene from './scenes/Team/scenes/InviteTeamMembers';
-import ConfigurationScene from './scenes/Configuration';
-import EditConfigurationScene from './scenes/Configuration/scenes/EditConfiguration';
-import AddConfigurationScene from './scenes/Configuration/scenes/AddConfiguration';
+import Notifications from './scenes/Notifications';
+import Enviroment from './scenes/Enviroment';
+import Project from './scenes/Project';
+import NewProject from './scenes/NewProject';
 
 // Styling
 import Logo from './components/PageLayout/assets/logo.png';
@@ -28,14 +25,16 @@ interface Props {
 
 class App extends React.Component<Props> {
   render(): JSX.Element {
-    if(this.props.user) return this.renderLoggedIn();
-    return this.renderLoading();
+    // if(this.props.user) return this.renderLoggedIn();
+    // return this.renderLoading();
+
+    return this.renderLoggedIn();
   }
 
   componentDidMount() {
     API.Call("AccountService/Read").then((res) => {
       this.props.setUser(res.data.user);
-    });
+    });  
   }
 
   renderLoading(): JSX.Element {
@@ -47,13 +46,10 @@ class App extends React.Component<Props> {
   renderLoggedIn(): JSX.Element {
     return (
       <BrowserRouter>
-        <Route key='getting-started' exact path='/' component={GettingStartedScene} />
-        <Route key='team' exact path='/team' component={TeamScene} />
-        <Route key='edit-team-member' path='/team/members/:id/edit' component={EditTeamMemberScene} />
-        <Route key='invite-team-members' path='/team/members/invite' component={InviteTeamMembersScene} />
-        <Route key='configuration' exact path='/configuration' component={ConfigurationScene} />
-        <Route key='edit-configuration' path='/configuration/:service/:key/edit' component={EditConfigurationScene} />
-        <Route key='add-configuration' path='/configuration/add' component={AddConfigurationScene} />
+        <Route key='notificiations' exact path='/' component={Notifications} />
+        <Route key='new-enviroment' exact path='/new/project' component={NewProject} />
+        <Route key='project' exact path='/projects/:project' component={Project} />
+        <Route key='enviroment' exact path='/projects/:project/:enviroment' component={Enviroment} />
       </BrowserRouter>
     );  
   }
