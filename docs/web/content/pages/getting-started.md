@@ -7,10 +7,6 @@ permalink: /getting-started.html
 summary: A getting started guide for Micro
 ---
 
-# Getting Started with Micro
-
-> 
-
 ## What is Micro?
 
 Micro is a system for building and managing distributed systems.
