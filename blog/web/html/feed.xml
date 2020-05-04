@@ -5,14 +5,14 @@
     <description>The simplest way to build, share and collaborate on microservices</description>
     <link>https://micro.mu//blog/</link>
     <atom:link href="https://micro.mu//blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 May 2020 13:02:02 +0100</pubDate>
-    <lastBuildDate>Mon, 04 May 2020 13:02:02 +0100</lastBuildDate>
+    <pubDate>Mon, 04 May 2020 22:05:37 +0100</pubDate>
+    <lastBuildDate>Mon, 04 May 2020 22:05:37 +0100</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>Introducing Micro Server</title>
         <description>&lt;p&gt;&lt;br /&gt;
-In 2016, &lt;code&gt;go-micro&lt;/code&gt;, a Go microservices framework was announced. Today we introduce the &lt;code&gt;micro server&lt;/code&gt;, which builds on top of &lt;code&gt;go-micro&lt;/code&gt;, and enables you to run and manage microservices with ease, both locally and across different environments.&lt;/p&gt;
+In 2015, &lt;code&gt;go-micro&lt;/code&gt;, a Go microservices framework was announced. Today we introduce the &lt;code&gt;micro server&lt;/code&gt;, which builds on top of &lt;code&gt;go-micro&lt;/code&gt;, and enables you to run and manage microservices with ease, both locally and across different environments.&lt;/p&gt;
 
 &lt;p&gt;Whether you are running the &lt;code&gt;micro server&lt;/code&gt; locally with zero dependencies (using memory or files), or on k8s (with highly available distributed systems and other third party tools), the &lt;code&gt;micro server&lt;/code&gt; and the micro cli should provide a straightforward and runtime agnostic experience that is the same across any environment.&lt;/p&gt;
 
@@ -22,6 +22,7 @@ In 2016, &lt;code&gt;go-micro&lt;/code&gt;, a Go microservices framework was ann
 &lt;div style=&quot;text-align: center; width: 100%;&quot;&gt;
   &lt;img src=&quot;https://micro.mu/images/runtime10.svg&quot; /&gt;
 &lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;combining-a-decade-of-research&quot;&gt;Combining a decade of research&lt;/h2&gt;
 
