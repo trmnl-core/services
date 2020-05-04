@@ -416,7 +416,13 @@ key: mykey, value: Hi there
 
 Nice! The example service read the value from the store successfully.
 
-## To end
+## Clients
+
+Beyond this we're working on multi-language clients which you can find and contribute to 
+on github at [github.com/micro/clients](https://github.com/micro/clients). We'd love to 
+discuss this further but it's not quite ready.
+
+## Further reading
 
 This is just a brief getting started guide for quickly getting up and running with Micro. 
 Come back from time to time to learn more as this guide gets continually upgraded. If you're 
