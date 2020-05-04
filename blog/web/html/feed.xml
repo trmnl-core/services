@@ -5,14 +5,16 @@
     <description>The simplest way to build, share and collaborate on microservices</description>
     <link>https://micro.mu//blog/</link>
     <atom:link href="https://micro.mu//blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 May 2020 12:57:50 +0100</pubDate>
-    <lastBuildDate>Mon, 04 May 2020 12:57:50 +0100</lastBuildDate>
+    <pubDate>Mon, 04 May 2020 13:02:02 +0100</pubDate>
+    <lastBuildDate>Mon, 04 May 2020 13:02:02 +0100</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>Introducing Micro Server</title>
         <description>&lt;p&gt;&lt;br /&gt;
-In 2016, &lt;code&gt;go-micro&lt;/code&gt;, a Go microservices framework was announced. Today we introduce the &lt;code&gt;micro server&lt;/code&gt;, which builds on top of &lt;code&gt;go-micro&lt;/code&gt;, and enables you to run and manage microservices with ease, both locally and across different environments. Whether you are running the &lt;code&gt;micro server&lt;/code&gt; locally with zero dependencies (using memory or files), or on k8s (with highly available distributed systems and other third party tools), the &lt;code&gt;micro server&lt;/code&gt; and the micro cli should provide a straightforward and runtime agnostic experience that is the same across any environment.&lt;/p&gt;
+In 2016, &lt;code&gt;go-micro&lt;/code&gt;, a Go microservices framework was announced. Today we introduce the &lt;code&gt;micro server&lt;/code&gt;, which builds on top of &lt;code&gt;go-micro&lt;/code&gt;, and enables you to run and manage microservices with ease, both locally and across different environments.&lt;/p&gt;
+
+&lt;p&gt;Whether you are running the &lt;code&gt;micro server&lt;/code&gt; locally with zero dependencies (using memory or files), or on k8s (with highly available distributed systems and other third party tools), the &lt;code&gt;micro server&lt;/code&gt; and the micro cli should provide a straightforward and runtime agnostic experience that is the same across any environment.&lt;/p&gt;
 
 &lt;p&gt;For those who prefer action to words, the &lt;a href=&quot;https://micro.mu/docs/getting-started.html&quot;&gt;getting started guide&lt;/a&gt;! can give a taste of what the &lt;code&gt;micro server&lt;/code&gt; is about or visit the project on &lt;a href=&quot;https://github.com/micro/micro&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;
 
