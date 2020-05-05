@@ -13,16 +13,16 @@ import (
 	users "github.com/micro/services/users/service/proto"
 )
 
-// Account implments the M3O account service proto
-type Account struct {
+// Accounts implments the M3O accounts proto
+type Accounts struct {
 	name    string
 	users   users.UsersService
 	payment payment.ProviderService
 }
 
-// NewAccount returns an initialised account handler
-func NewAccount(service micro.Service) *Account {
-	return &Account{
+// NewAccounts returns an initialised account handler
+func NewAccounts(service micro.Service) *Accounts {
+	return &Accounts{
 		name:    service.Name(),
 		users:   users.NewUsersService("go.micro.service.users", service.Client()),
 		payment: payment.NewProviderService("go.micro.service.payment.stripe", service.Client()),
@@ -30,7 +30,7 @@ func NewAccount(service micro.Service) *Account {
 }
 
 // Read the current users info
-func (a *Account) Read(ctx context.Context, req *pb.ReadAccountRequest, rsp *pb.ReadAccountResponse) error {
+func (a *Accounts) Read(ctx context.Context, req *pb.ReadAccountRequest, rsp *pb.ReadAccountResponse) error {
 	acc, ok := auth.AccountFromContext(ctx)
 	if !ok {
 		return errors.Unauthorized(a.name, "Account Required")
@@ -62,7 +62,7 @@ func (a *Account) Read(ctx context.Context, req *pb.ReadAccountRequest, rsp *pb.
 }
 
 // CreatePaymentMethod via the provider
-func (a *Account) CreatePaymentMethod(ctx context.Context, req *pb.CreatePaymentMethodRequest, rsp *pb.CreatePaymentMethodResponse) error {
+func (a *Accounts) CreatePaymentMethod(ctx context.Context, req *pb.CreatePaymentMethodRequest, rsp *pb.CreatePaymentMethodResponse) error {
 	// Validate the request
 	if len(req.Id) == 0 {
 		return errors.BadRequest(a.name, "Missing payment method ID")
@@ -111,7 +111,7 @@ func (a *Account) CreatePaymentMethod(ctx context.Context, req *pb.CreatePayment
 }
 
 // DefaultPaymentMethod sets a users default payment method
-func (a *Account) DefaultPaymentMethod(ctx context.Context, req *pb.DefaultPaymentMethodRequest, rsp *pb.DefaultPaymentMethodResponse) error {
+func (a *Accounts) DefaultPaymentMethod(ctx context.Context, req *pb.DefaultPaymentMethodRequest, rsp *pb.DefaultPaymentMethodResponse) error {
 	// Validate the request
 	if len(req.Id) == 0 {
 		return errors.BadRequest(a.name, "Missing payment method ID")
@@ -135,7 +135,7 @@ func (a *Account) DefaultPaymentMethod(ctx context.Context, req *pb.DefaultPayme
 }
 
 // DeletePaymentMethod via the provider
-func (a *Account) DeletePaymentMethod(ctx context.Context, req *pb.DeletePaymentMethodRequest, rsp *pb.DeletePaymentMethodResponse) error {
+func (a *Accounts) DeletePaymentMethod(ctx context.Context, req *pb.DeletePaymentMethodRequest, rsp *pb.DeletePaymentMethodResponse) error {
 	// Validate the request
 	if len(req.Id) == 0 {
 		return errors.BadRequest(a.name, "Missing payment method ID")

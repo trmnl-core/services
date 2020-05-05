@@ -15,8 +15,8 @@ func main() {
 	)
 	service.Init()
 
-	pb.RegisterAccountServiceHandler(service.Server(), handler.NewAccount(service))
-	pb.RegisterProjectServiceHandler(service.Server(), handler.NewProject(service))
+	pb.RegisterAccountsHandler(service.Server(), handler.NewAccounts(service))
+	pb.RegisterProjectsHandler(service.Server(), handler.NewProjects(service))
 
 	if err := service.Run(); err != nil {
 		logger.Fatal(err)

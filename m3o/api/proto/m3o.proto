@@ -2,19 +2,24 @@ syntax = "proto3";
 
 package go.micro.api.m3o;
 
-service AccountService {
+service Accounts {
   rpc Read(ReadAccountRequest) returns (ReadAccountResponse) {};
   rpc CreatePaymentMethod(CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse) {};
   rpc DeletePaymentMethod(DeletePaymentMethodRequest) returns (DeletePaymentMethodResponse) {};
   rpc DefaultPaymentMethod(DefaultPaymentMethodRequest) returns (DefaultPaymentMethodResponse) {};
 }
 
-service ProjectService {
-  rpc Create(CreateProjectRequest) returns (CreateProjectResponse) {};
-  rpc Update(UpdateProjectRequest) returns (UpdateProjectResponse) {};
-  rpc List(ListProjectsRequest) returns (ListProjectsResponse) {};
+service Projects {
   rpc VerifyGithubToken(VerifyGithubTokenRequest) returns (VerifyGithubTokenResponse) {};
   rpc WebhookAPIKey(WebhookAPIKeyRequest) returns (WebhookAPIKeyResponse) {};
+
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {};
+  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse) {};
+  rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse) {};
+
+  rpc CreateEnvironment(CreateEnvironmentRequest) returns (CreateEnvironmentResponse) {};
+  rpc UpdateEnvironment(UpdateEnvironmentRequest) returns (UpdateEnvironmentResponse) {};
+  rpc DeleteEnvironment(DeleteEnvironmentRequest) returns (DeleteEnvironmentRequest) {};
 }
 
 message User {
@@ -37,6 +42,7 @@ message Project {
   string name = 2;
   string description = 3;
   string repository = 4;
+  repeated Environment environments = 5;
 }
 
 message CreateProjectRequest {
@@ -115,3 +121,29 @@ message DefaultPaymentMethodRequest {
 
 message DefaultPaymentMethodResponse {}
 
+message Environment {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message CreateEnvironmentRequest {
+  Environment environment = 1;
+  string project_id = 2;
+}
+
+message CreateEnvironmentResponse {
+  Environment environment = 1;
+}
+
+message UpdateEnvironmentRequest {
+  Environment environment = 1;
+}
+
+message UpdateEnvironmentResponse {}
+
+message DeleteEnvironmentRequest {
+  string id = 1;
+}
+
+message DeleteEnvironmentResponse {}

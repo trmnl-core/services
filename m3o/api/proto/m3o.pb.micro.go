@@ -33,35 +33,35 @@ var _ context.Context
 var _ client.Option
 var _ server.Option
 
-// Api Endpoints for AccountService service
+// Api Endpoints for Accounts service
 
-func NewAccountServiceEndpoints() []*api.Endpoint {
+func NewAccountsEndpoints() []*api.Endpoint {
 	return []*api.Endpoint{}
 }
 
-// Client API for AccountService service
+// Client API for Accounts service
 
-type AccountService interface {
+type AccountsService interface {
 	Read(ctx context.Context, in *ReadAccountRequest, opts ...client.CallOption) (*ReadAccountResponse, error)
 	CreatePaymentMethod(ctx context.Context, in *CreatePaymentMethodRequest, opts ...client.CallOption) (*CreatePaymentMethodResponse, error)
 	DeletePaymentMethod(ctx context.Context, in *DeletePaymentMethodRequest, opts ...client.CallOption) (*DeletePaymentMethodResponse, error)
 	DefaultPaymentMethod(ctx context.Context, in *DefaultPaymentMethodRequest, opts ...client.CallOption) (*DefaultPaymentMethodResponse, error)
 }
 
-type accountService struct {
+type accountsService struct {
 	c    client.Client
 	name string
 }
 
-func NewAccountService(name string, c client.Client) AccountService {
-	return &accountService{
+func NewAccountsService(name string, c client.Client) AccountsService {
+	return &accountsService{
 		c:    c,
 		name: name,
 	}
 }
 
-func (c *accountService) Read(ctx context.Context, in *ReadAccountRequest, opts ...client.CallOption) (*ReadAccountResponse, error) {
-	req := c.c.NewRequest(c.name, "AccountService.Read", in)
+func (c *accountsService) Read(ctx context.Context, in *ReadAccountRequest, opts ...client.CallOption) (*ReadAccountResponse, error) {
+	req := c.c.NewRequest(c.name, "Accounts.Read", in)
 	out := new(ReadAccountResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -70,8 +70,8 @@ func (c *accountService) Read(ctx context.Context, in *ReadAccountRequest, opts 
 	return out, nil
 }
 
-func (c *accountService) CreatePaymentMethod(ctx context.Context, in *CreatePaymentMethodRequest, opts ...client.CallOption) (*CreatePaymentMethodResponse, error) {
-	req := c.c.NewRequest(c.name, "AccountService.CreatePaymentMethod", in)
+func (c *accountsService) CreatePaymentMethod(ctx context.Context, in *CreatePaymentMethodRequest, opts ...client.CallOption) (*CreatePaymentMethodResponse, error) {
+	req := c.c.NewRequest(c.name, "Accounts.CreatePaymentMethod", in)
 	out := new(CreatePaymentMethodResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -80,8 +80,8 @@ func (c *accountService) CreatePaymentMethod(ctx context.Context, in *CreatePaym
 	return out, nil
 }
 
-func (c *accountService) DeletePaymentMethod(ctx context.Context, in *DeletePaymentMethodRequest, opts ...client.CallOption) (*DeletePaymentMethodResponse, error) {
-	req := c.c.NewRequest(c.name, "AccountService.DeletePaymentMethod", in)
+func (c *accountsService) DeletePaymentMethod(ctx context.Context, in *DeletePaymentMethodRequest, opts ...client.CallOption) (*DeletePaymentMethodResponse, error) {
+	req := c.c.NewRequest(c.name, "Accounts.DeletePaymentMethod", in)
 	out := new(DeletePaymentMethodResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -90,8 +90,8 @@ func (c *accountService) DeletePaymentMethod(ctx context.Context, in *DeletePaym
 	return out, nil
 }
 
-func (c *accountService) DefaultPaymentMethod(ctx context.Context, in *DefaultPaymentMethodRequest, opts ...client.CallOption) (*DefaultPaymentMethodResponse, error) {
-	req := c.c.NewRequest(c.name, "AccountService.DefaultPaymentMethod", in)
+func (c *accountsService) DefaultPaymentMethod(ctx context.Context, in *DefaultPaymentMethodRequest, opts ...client.CallOption) (*DefaultPaymentMethodResponse, error) {
+	req := c.c.NewRequest(c.name, "Accounts.DefaultPaymentMethod", in)
 	out := new(DefaultPaymentMethodResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -100,109 +100,82 @@ func (c *accountService) DefaultPaymentMethod(ctx context.Context, in *DefaultPa
 	return out, nil
 }
 
-// Server API for AccountService service
+// Server API for Accounts service
 
-type AccountServiceHandler interface {
+type AccountsHandler interface {
 	Read(context.Context, *ReadAccountRequest, *ReadAccountResponse) error
 	CreatePaymentMethod(context.Context, *CreatePaymentMethodRequest, *CreatePaymentMethodResponse) error
 	DeletePaymentMethod(context.Context, *DeletePaymentMethodRequest, *DeletePaymentMethodResponse) error
 	DefaultPaymentMethod(context.Context, *DefaultPaymentMethodRequest, *DefaultPaymentMethodResponse) error
 }
 
-func RegisterAccountServiceHandler(s server.Server, hdlr AccountServiceHandler, opts ...server.HandlerOption) error {
-	type accountService interface {
+func RegisterAccountsHandler(s server.Server, hdlr AccountsHandler, opts ...server.HandlerOption) error {
+	type accounts interface {
 		Read(ctx context.Context, in *ReadAccountRequest, out *ReadAccountResponse) error
 		CreatePaymentMethod(ctx context.Context, in *CreatePaymentMethodRequest, out *CreatePaymentMethodResponse) error
 		DeletePaymentMethod(ctx context.Context, in *DeletePaymentMethodRequest, out *DeletePaymentMethodResponse) error
 		DefaultPaymentMethod(ctx context.Context, in *DefaultPaymentMethodRequest, out *DefaultPaymentMethodResponse) error
 	}
-	type AccountService struct {
-		accountService
+	type Accounts struct {
+		accounts
 	}
-	h := &accountServiceHandler{hdlr}
-	return s.Handle(s.NewHandler(&AccountService{h}, opts...))
+	h := &accountsHandler{hdlr}
+	return s.Handle(s.NewHandler(&Accounts{h}, opts...))
 }
 
-type accountServiceHandler struct {
-	AccountServiceHandler
+type accountsHandler struct {
+	AccountsHandler
 }
 
-func (h *accountServiceHandler) Read(ctx context.Context, in *ReadAccountRequest, out *ReadAccountResponse) error {
-	return h.AccountServiceHandler.Read(ctx, in, out)
+func (h *accountsHandler) Read(ctx context.Context, in *ReadAccountRequest, out *ReadAccountResponse) error {
+	return h.AccountsHandler.Read(ctx, in, out)
 }
 
-func (h *accountServiceHandler) CreatePaymentMethod(ctx context.Context, in *CreatePaymentMethodRequest, out *CreatePaymentMethodResponse) error {
-	return h.AccountServiceHandler.CreatePaymentMethod(ctx, in, out)
+func (h *accountsHandler) CreatePaymentMethod(ctx context.Context, in *CreatePaymentMethodRequest, out *CreatePaymentMethodResponse) error {
+	return h.AccountsHandler.CreatePaymentMethod(ctx, in, out)
 }
 
-func (h *accountServiceHandler) DeletePaymentMethod(ctx context.Context, in *DeletePaymentMethodRequest, out *DeletePaymentMethodResponse) error {
-	return h.AccountServiceHandler.DeletePaymentMethod(ctx, in, out)
+func (h *accountsHandler) DeletePaymentMethod(ctx context.Context, in *DeletePaymentMethodRequest, out *DeletePaymentMethodResponse) error {
+	return h.AccountsHandler.DeletePaymentMethod(ctx, in, out)
 }
 
-func (h *accountServiceHandler) DefaultPaymentMethod(ctx context.Context, in *DefaultPaymentMethodRequest, out *DefaultPaymentMethodResponse) error {
-	return h.AccountServiceHandler.DefaultPaymentMethod(ctx, in, out)
+func (h *accountsHandler) DefaultPaymentMethod(ctx context.Context, in *DefaultPaymentMethodRequest, out *DefaultPaymentMethodResponse) error {
+	return h.AccountsHandler.DefaultPaymentMethod(ctx, in, out)
 }
 
-// Api Endpoints for ProjectService service
+// Api Endpoints for Projects service
 
-func NewProjectsServiceEndpoints() []*api.Endpoint {
+func NewProjectsEndpoints() []*api.Endpoint {
 	return []*api.Endpoint{}
 }
 
-// Client API for ProjectService service
+// Client API for Projects service
 
-type ProjectService interface {
-	Create(ctx context.Context, in *CreateProjectRequest, opts ...client.CallOption) (*CreateProjectResponse, error)
-	Update(ctx context.Context, in *UpdateProjectRequest, opts ...client.CallOption) (*UpdateProjectResponse, error)
-	List(ctx context.Context, in *ListProjectsRequest, opts ...client.CallOption) (*ListProjectsResponse, error)
+type ProjectsService interface {
 	VerifyGithubToken(ctx context.Context, in *VerifyGithubTokenRequest, opts ...client.CallOption) (*VerifyGithubTokenResponse, error)
 	WebhookAPIKey(ctx context.Context, in *WebhookAPIKeyRequest, opts ...client.CallOption) (*WebhookAPIKeyResponse, error)
+	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...client.CallOption) (*CreateProjectResponse, error)
+	UpdateProject(ctx context.Context, in *UpdateProjectRequest, opts ...client.CallOption) (*UpdateProjectResponse, error)
+	ListProjects(ctx context.Context, in *ListProjectsRequest, opts ...client.CallOption) (*ListProjectsResponse, error)
+	CreateEnvironment(ctx context.Context, in *CreateEnvironmentRequest, opts ...client.CallOption) (*CreateEnvironmentResponse, error)
+	UpdateEnvironment(ctx context.Context, in *UpdateEnvironmentRequest, opts ...client.CallOption) (*UpdateEnvironmentResponse, error)
+	DeleteEnvironment(ctx context.Context, in *DeleteEnvironmentRequest, opts ...client.CallOption) (*DeleteEnvironmentRequest, error)
 }
 
-type projectService struct {
+type projectsService struct {
 	c    client.Client
 	name string
 }
 
-func NewProjectsService(name string, c client.Client) ProjectService {
-	return &projectService{
+func NewProjectsService(name string, c client.Client) ProjectsService {
+	return &projectsService{
 		c:    c,
 		name: name,
 	}
 }
 
-func (c *projectService) Create(ctx context.Context, in *CreateProjectRequest, opts ...client.CallOption) (*CreateProjectResponse, error) {
-	req := c.c.NewRequest(c.name, "ProjectService.Create", in)
-	out := new(CreateProjectResponse)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *projectService) Update(ctx context.Context, in *UpdateProjectRequest, opts ...client.CallOption) (*UpdateProjectResponse, error) {
-	req := c.c.NewRequest(c.name, "ProjectService.Update", in)
-	out := new(UpdateProjectResponse)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *projectService) List(ctx context.Context, in *ListProjectsRequest, opts ...client.CallOption) (*ListProjectsResponse, error) {
-	req := c.c.NewRequest(c.name, "ProjectService.List", in)
-	out := new(ListProjectsResponse)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *projectService) VerifyGithubToken(ctx context.Context, in *VerifyGithubTokenRequest, opts ...client.CallOption) (*VerifyGithubTokenResponse, error) {
-	req := c.c.NewRequest(c.name, "ProjectService.VerifyGithubToken", in)
+func (c *projectsService) VerifyGithubToken(ctx context.Context, in *VerifyGithubTokenRequest, opts ...client.CallOption) (*VerifyGithubTokenResponse, error) {
+	req := c.c.NewRequest(c.name, "Projects.VerifyGithubToken", in)
 	out := new(VerifyGithubTokenResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -211,8 +184,8 @@ func (c *projectService) VerifyGithubToken(ctx context.Context, in *VerifyGithub
 	return out, nil
 }
 
-func (c *projectService) WebhookAPIKey(ctx context.Context, in *WebhookAPIKeyRequest, opts ...client.CallOption) (*WebhookAPIKeyResponse, error) {
-	req := c.c.NewRequest(c.name, "ProjectService.WebhookAPIKey", in)
+func (c *projectsService) WebhookAPIKey(ctx context.Context, in *WebhookAPIKeyRequest, opts ...client.CallOption) (*WebhookAPIKeyResponse, error) {
+	req := c.c.NewRequest(c.name, "Projects.WebhookAPIKey", in)
 	out := new(WebhookAPIKeyResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -221,51 +194,129 @@ func (c *projectService) WebhookAPIKey(ctx context.Context, in *WebhookAPIKeyReq
 	return out, nil
 }
 
-// Server API for ProjectService service
+func (c *projectsService) CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...client.CallOption) (*CreateProjectResponse, error) {
+	req := c.c.NewRequest(c.name, "Projects.CreateProject", in)
+	out := new(CreateProjectResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
 
-type ProjectServiceHandler interface {
-	Create(context.Context, *CreateProjectRequest, *CreateProjectResponse) error
-	Update(context.Context, *UpdateProjectRequest, *UpdateProjectResponse) error
-	List(context.Context, *ListProjectsRequest, *ListProjectsResponse) error
+func (c *projectsService) UpdateProject(ctx context.Context, in *UpdateProjectRequest, opts ...client.CallOption) (*UpdateProjectResponse, error) {
+	req := c.c.NewRequest(c.name, "Projects.UpdateProject", in)
+	out := new(UpdateProjectResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectsService) ListProjects(ctx context.Context, in *ListProjectsRequest, opts ...client.CallOption) (*ListProjectsResponse, error) {
+	req := c.c.NewRequest(c.name, "Projects.ListProjects", in)
+	out := new(ListProjectsResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectsService) CreateEnvironment(ctx context.Context, in *CreateEnvironmentRequest, opts ...client.CallOption) (*CreateEnvironmentResponse, error) {
+	req := c.c.NewRequest(c.name, "Projects.CreateEnvironment", in)
+	out := new(CreateEnvironmentResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectsService) UpdateEnvironment(ctx context.Context, in *UpdateEnvironmentRequest, opts ...client.CallOption) (*UpdateEnvironmentResponse, error) {
+	req := c.c.NewRequest(c.name, "Projects.UpdateEnvironment", in)
+	out := new(UpdateEnvironmentResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectsService) DeleteEnvironment(ctx context.Context, in *DeleteEnvironmentRequest, opts ...client.CallOption) (*DeleteEnvironmentRequest, error) {
+	req := c.c.NewRequest(c.name, "Projects.DeleteEnvironment", in)
+	out := new(DeleteEnvironmentRequest)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for Projects service
+
+type ProjectsHandler interface {
 	VerifyGithubToken(context.Context, *VerifyGithubTokenRequest, *VerifyGithubTokenResponse) error
 	WebhookAPIKey(context.Context, *WebhookAPIKeyRequest, *WebhookAPIKeyResponse) error
+	CreateProject(context.Context, *CreateProjectRequest, *CreateProjectResponse) error
+	UpdateProject(context.Context, *UpdateProjectRequest, *UpdateProjectResponse) error
+	ListProjects(context.Context, *ListProjectsRequest, *ListProjectsResponse) error
+	CreateEnvironment(context.Context, *CreateEnvironmentRequest, *CreateEnvironmentResponse) error
+	UpdateEnvironment(context.Context, *UpdateEnvironmentRequest, *UpdateEnvironmentResponse) error
+	DeleteEnvironment(context.Context, *DeleteEnvironmentRequest, *DeleteEnvironmentRequest) error
 }
 
-func RegisterProjectServiceHandler(s server.Server, hdlr ProjectServiceHandler, opts ...server.HandlerOption) error {
-	type projectService interface {
-		Create(ctx context.Context, in *CreateProjectRequest, out *CreateProjectResponse) error
-		Update(ctx context.Context, in *UpdateProjectRequest, out *UpdateProjectResponse) error
-		List(ctx context.Context, in *ListProjectsRequest, out *ListProjectsResponse) error
+func RegisterProjectsHandler(s server.Server, hdlr ProjectsHandler, opts ...server.HandlerOption) error {
+	type projects interface {
 		VerifyGithubToken(ctx context.Context, in *VerifyGithubTokenRequest, out *VerifyGithubTokenResponse) error
 		WebhookAPIKey(ctx context.Context, in *WebhookAPIKeyRequest, out *WebhookAPIKeyResponse) error
+		CreateProject(ctx context.Context, in *CreateProjectRequest, out *CreateProjectResponse) error
+		UpdateProject(ctx context.Context, in *UpdateProjectRequest, out *UpdateProjectResponse) error
+		ListProjects(ctx context.Context, in *ListProjectsRequest, out *ListProjectsResponse) error
+		CreateEnvironment(ctx context.Context, in *CreateEnvironmentRequest, out *CreateEnvironmentResponse) error
+		UpdateEnvironment(ctx context.Context, in *UpdateEnvironmentRequest, out *UpdateEnvironmentResponse) error
+		DeleteEnvironment(ctx context.Context, in *DeleteEnvironmentRequest, out *DeleteEnvironmentRequest) error
 	}
-	type ProjectService struct {
-		projectService
+	type Projects struct {
+		projects
 	}
-	h := &projectServiceHandler{hdlr}
-	return s.Handle(s.NewHandler(&ProjectService{h}, opts...))
+	h := &projectsHandler{hdlr}
+	return s.Handle(s.NewHandler(&Projects{h}, opts...))
 }
 
-type projectServiceHandler struct {
-	ProjectServiceHandler
+type projectsHandler struct {
+	ProjectsHandler
 }
 
-func (h *projectServiceHandler) Create(ctx context.Context, in *CreateProjectRequest, out *CreateProjectResponse) error {
-	return h.ProjectServiceHandler.Create(ctx, in, out)
+func (h *projectsHandler) VerifyGithubToken(ctx context.Context, in *VerifyGithubTokenRequest, out *VerifyGithubTokenResponse) error {
+	return h.ProjectsHandler.VerifyGithubToken(ctx, in, out)
 }
 
-func (h *projectServiceHandler) Update(ctx context.Context, in *UpdateProjectRequest, out *UpdateProjectResponse) error {
-	return h.ProjectServiceHandler.Update(ctx, in, out)
+func (h *projectsHandler) WebhookAPIKey(ctx context.Context, in *WebhookAPIKeyRequest, out *WebhookAPIKeyResponse) error {
+	return h.ProjectsHandler.WebhookAPIKey(ctx, in, out)
 }
 
-func (h *projectServiceHandler) List(ctx context.Context, in *ListProjectsRequest, out *ListProjectsResponse) error {
-	return h.ProjectServiceHandler.List(ctx, in, out)
+func (h *projectsHandler) CreateProject(ctx context.Context, in *CreateProjectRequest, out *CreateProjectResponse) error {
+	return h.ProjectsHandler.CreateProject(ctx, in, out)
 }
 
-func (h *projectServiceHandler) VerifyGithubToken(ctx context.Context, in *VerifyGithubTokenRequest, out *VerifyGithubTokenResponse) error {
-	return h.ProjectServiceHandler.VerifyGithubToken(ctx, in, out)
+func (h *projectsHandler) UpdateProject(ctx context.Context, in *UpdateProjectRequest, out *UpdateProjectResponse) error {
+	return h.ProjectsHandler.UpdateProject(ctx, in, out)
 }
 
-func (h *projectServiceHandler) WebhookAPIKey(ctx context.Context, in *WebhookAPIKeyRequest, out *WebhookAPIKeyResponse) error {
-	return h.ProjectServiceHandler.WebhookAPIKey(ctx, in, out)
+func (h *projectsHandler) ListProjects(ctx context.Context, in *ListProjectsRequest, out *ListProjectsResponse) error {
+	return h.ProjectsHandler.ListProjects(ctx, in, out)
+}
+
+func (h *projectsHandler) CreateEnvironment(ctx context.Context, in *CreateEnvironmentRequest, out *CreateEnvironmentResponse) error {
+	return h.ProjectsHandler.CreateEnvironment(ctx, in, out)
+}
+
+func (h *projectsHandler) UpdateEnvironment(ctx context.Context, in *UpdateEnvironmentRequest, out *UpdateEnvironmentResponse) error {
+	return h.ProjectsHandler.UpdateEnvironment(ctx, in, out)
+}
+
+func (h *projectsHandler) DeleteEnvironment(ctx context.Context, in *DeleteEnvironmentRequest, out *DeleteEnvironmentRequest) error {
+	return h.ProjectsHandler.DeleteEnvironment(ctx, in, out)
 }
