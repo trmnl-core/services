@@ -63,6 +63,14 @@
         flex-direction: column;
         margin-top: 20px;
 
+        &:first-of-type {
+          a {
+            p {
+              text-transform: capitalize;
+            }
+          }
+        }
+
         a {
           display: grid;
           grid-template-columns: 22px auto;
@@ -116,6 +124,13 @@
             text-transform: none;
             margin: auto 0px;
             padding: 0px;
+            text-transform: lowercase;
+          }
+
+          &:last-of-type {
+            p {
+              text-transform: capitalize;
+            }
           }
 
           &.active {
@@ -137,6 +152,16 @@
 
     .main {
       overflow: scroll;
+
+      .code {
+        background-color:#EEEEEE;
+        font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
+        padding: 10px 15px;
+        border-radius: 4px;
+        line-height: 2;
+        margin-bottom: 30px;
+        font-size: 9pt;
+      }
 
       .center {
         width: 100%;

@@ -14,7 +14,7 @@ import (
 	"github.com/micro/go-micro/v2/errors"
 
 	pb "github.com/micro/services/m3o/api/proto"
-	project "github.com/micro/services/project/service/proto"
+	project "github.com/micro/services/projects/service/proto"
 	users "github.com/micro/services/users/service/proto"
 )
 
@@ -24,7 +24,7 @@ func NewProject(service micro.Service) *Project {
 		name:    service.Name(),
 		auth:    service.Options().Auth,
 		users:   users.NewUsersService("go.micro.service.users", service.Client()),
-		project: project.NewProjectService("go.micro.service.project", service.Client()),
+		project: project.NewProjectsService("go.micro.service.projects", service.Client()),
 	}
 }
 
@@ -33,7 +33,7 @@ type Project struct {
 	name    string
 	auth    auth.Auth
 	users   users.UsersService
-	project project.ProjectService
+	project project.ProjectsService
 }
 
 // Create a new project

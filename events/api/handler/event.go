@@ -13,7 +13,7 @@ import (
 
 	pb "github.com/micro/services/events/api/proto"
 	event "github.com/micro/services/events/service/proto"
-	project "github.com/micro/services/project/service/proto"
+	project "github.com/micro/services/projects/service/proto"
 )
 
 const (
@@ -27,7 +27,7 @@ type Handler struct {
 	auth    auth.Auth
 	runtime runtime.Runtime
 	event   event.EventsService
-	project project.ProjectService
+	project project.ProjectsService
 }
 
 // New returns an initialised handler
@@ -37,7 +37,7 @@ func New(service micro.Service) *Handler {
 		auth:    service.Options().Auth,
 		runtime: runtime.DefaultRuntime,
 		event:   event.NewEventsService("go.micro.service.events", service.Client()),
-		project: project.NewProjectService("go.micro.service.project", service.Client()),
+		project: project.NewProjectsService("go.micro.service.projects", service.Client()),
 	}
 }
 
@@ -49,46 +49,47 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateRequest, rsp *pb.Cre
 	}
 
 	// determine the event type
-	var evType event.EventType
-	switch req.Type {
-	case "build_started":
-		evType = event.EventType_BuildStarted
-	case "build_finished":
-		evType = event.EventType_BuildFinished
-	case "build_failed":
-		evType = event.EventType_BuildFailed
-	case "source_created":
-		evType = event.EventType_SourceCreated
-	case "source_updated":
-		evType = event.EventType_SourceUpdated
-	case "source_deleted":
-		evType = event.EventType_SourceDeleted
-	default:
-		return errors.BadRequest(h.name, "Invalid type")
-	}
+	// var evType event.EventType
+	// switch req.Type {
+	// case "build_started":
+	// 	evType = event.EventType_BuildStarted
+	// case "build_finished":
+	// 	evType = event.EventType_BuildFinished
+	// case "build_failed":
+	// 	evType = event.EventType_BuildFailed
+	// case "source_created":
+	// 	evType = event.EventType_SourceCreated
+	// case "source_updated":
+	// 	evType = event.EventType_SourceUpdated
+	// case "source_deleted":
+	// 	evType = event.EventType_SourceDeleted
+	// default:
+	// 	return errors.BadRequest(h.name, "Invalid type")
+	// }
 
 	// lookup the account
-	acc, ok := auth.AccountFromContext(ctx)
-	if !ok {
-		return errors.Unauthorized(h.name, "account not found")
-	}
+	// acc, ok := auth.AccountFromContext(ctx)
+	// if !ok {
+	// 	return errors.Unauthorized(h.name, "account not found")
+	// }
 
 	// find the namespace the account belongs to
-	pRsp, err := h.project.Read(ctx, &project.ReadRequest{Namespace: acc.Namespace})
-	if err != nil {
-		return err
-	}
+	// pRsp, err := h.project.Read(ctx, &project.ReadRequest{Namespace: acc.Namespace})
+	// if err != nil {
+	// 	return err
+	// }
 
 	// update the runtime
-	go h.updateRuntime(acc, evType, req.Metadata, pRsp.Project)
+	// go h.updateRuntime(acc, evType, req.Metadata, pRsp.Project)
 
 	// create the event
-	_, err = h.event.Create(ctx, &event.CreateRequest{
-		ProjectId: pRsp.Project.Id,
-		Metadata:  req.Metadata,
-		Type:      evType,
-	})
-	return err
+	// _, err = h.event.Create(ctx, &event.CreateRequest{
+	// 	ProjectId: pRsp.Project.Id,
+	// 	Metadata:  req.Metadata,
+	// 	Type:      evType,
+	// })
+	// return err
+	return nil
 }
 
 func (h *Handler) updateRuntime(acc *auth.Account, evType event.EventType, md map[string]string, project *project.Project) {
