@@ -5,8 +5,8 @@
     <description>The simplest way to build, share and collaborate on microservices</description>
     <link>https://micro.mu//blog/</link>
     <atom:link href="https://micro.mu//blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 05 May 2020 17:51:52 +0100</pubDate>
-    <lastBuildDate>Tue, 05 May 2020 17:51:52 +0100</lastBuildDate>
+    <pubDate>Tue, 05 May 2020 20:08:08 +0100</pubDate>
+    <lastBuildDate>Tue, 05 May 2020 20:08:08 +0100</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -67,6 +67,8 @@ Today we’re announcing M3O - a cloud native platform for Micro services develo
 &lt;p&gt;We try to make it so when someone learns how to use Micro locally, deploying to M3O will not be further away then a CLI command (assuming an account on M3O exists). This reuse of the well known and already useful things that are part of the daily workflow will hopefully provide the easiest way for developers to migrate from local to prod or vice versa.&lt;/p&gt;
 
 &lt;p&gt;We make a promise to you. We will never ask you to run or touch Kubernetes. You have our word. Because we also know that pain.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-m3o&quot;&gt;What is M3O?&lt;/h2&gt;
 
 &lt;p&gt;The M3O platform initially will be providing &lt;a href=&quot;https://github.com/micro/micro&quot;&gt;Micro&lt;/a&gt; as a Service. A hosted offering of the open source project which will be billed on a monthly subscription basis. We’ll build the platform so you can build the product. Rather than thinking about infrastructure management, we want you to focus on service development. You’ll never have to touch infrastructure ever again.&lt;/p&gt;
 

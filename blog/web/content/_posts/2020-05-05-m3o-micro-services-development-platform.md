@@ -60,6 +60,8 @@ We try to make it so when someone learns how to use Micro locally, deploying to 
 
 We make a promise to you. We will never ask you to run or touch Kubernetes. You have our word. Because we also know that pain.
 
+## What is M3O?
+
 The M3O platform initially will be providing [Micro](https://github.com/micro/micro) as a Service. A hosted offering of the open source project which will be billed on a monthly subscription basis. We'll build the platform so you can build the product. Rather than thinking about infrastructure management, we want you to focus on service development. You'll never have to touch infrastructure ever again.
 
 Later on we'll look to introduce collaboration features and value add services so you don't have to build them yourself. Email, sms, payments, user management, etc. We've got you covered.
