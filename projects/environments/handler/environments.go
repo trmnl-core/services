@@ -46,7 +46,7 @@ func (e *Environments) Create(ctx context.Context, req *pb.CreateRequest, rsp *p
 	// lookup the project
 	pRsp, err := e.projects.Read(ctx, &projects.ReadRequest{Id: req.Environment.ProjectId})
 	if err != nil {
-		return err
+		return errors.BadRequest(e.name, "Error finding project: %v", err)
 	}
 
 	// generate the namespace (projectName.EnvironmentName)
@@ -70,6 +70,9 @@ func (e *Environments) Create(ctx context.Context, req *pb.CreateRequest, rsp *p
 	if err := e.store.Write(&store.Record{Key: key, Value: bytes}); err != nil {
 		return errors.InternalServerError(e.name, "Error writing to store: %v", err)
 	}
+
+	// serialize the result
+	rsp.Environment = req.Environment
 	return nil
 }
 
