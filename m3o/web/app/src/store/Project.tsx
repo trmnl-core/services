@@ -83,8 +83,8 @@ export default function(state = defaultState, action: Action): State {
       return {
         ...state, projects: state.projects.map((p: API.Project): API.Project => {
           let project = { ...p };
-          if(p.id! === action.projectID!) {
-            project.environments = [...(project.environments || []), action.project!];
+          if(p.id === action.projectID!) {
+            project.environments = [...(project.environments || []), action.environment!];
           }
           return project;
         }),
