@@ -74,7 +74,7 @@ func (p *Projects) CreateProject(ctx context.Context, req *pb.CreateProjectReque
 	// create the project
 	cRsp, err := p.projects.Create(ctx, &projects.CreateRequest{
 		Project: &projects.Project{
-			Name:        strings.ToLower(req.Environment.Name),
+			Name:        strings.ToLower(req.Project.Name),
 			Description: req.Project.Description,
 			Repository:  req.Project.Repository,
 		},
