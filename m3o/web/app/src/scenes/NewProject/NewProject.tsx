@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 // Components
 import PageLayout from '../../components/PageLayout';
+import ValidatedInput from '../../components/ValidatedInput';
 import PaymentMethod from './components/PaymentMethod';
 
 // Utils
@@ -29,6 +30,7 @@ interface Repository {
 
 interface State {
   project: API.Project;
+  nameValid: boolean;
   token: string;
   tokenStatus: string;
   repos: Repository[];
@@ -40,6 +42,10 @@ interface State {
   paymentMethodDisabled: boolean;
 }
 
+// regex to check for specical chars
+var regex = /[^\w]|_/g
+
+
 class NewProject extends React.Component<Props, State> {
   readonly ref: React.RefObject<HTMLDivElement> = React.createRef();
 
@@ -49,20 +55,8 @@ class NewProject extends React.Component<Props, State> {
     tokenStatus: 'Waiting for token...',
     project: { name: '', description: '' },
     paymentMethodDisabled: false,
+    nameValid: false,
   };
-
-  onInputChange(e: any): void {
-    this.setState({ project: { ...this.state.project, [e.target.name]: e.target.value } });
-  }
-
-  onTokenChange(e: any): void {
-    if(this.state.repos.length > 0) return;
-    this.setState({ token: e.target.value, tokenStatus: "Validating token, please wait" });
-
-    API.Call("Projects/VerifyGithubToken", { token: e.target.value })
-      .then((res) => this.setState({ tokenStatus: "Token Valid. Please select a repository from the list below.", repos: res.data.repos }))
-      .catch((err) => this.setState({ tokenStatus: err.response.data.detail }));
-  }
 
   onRepositoryChange(e: any): void {
     const repoName: string = e.target.value;
@@ -85,7 +79,7 @@ class NewProject extends React.Component<Props, State> {
   }
   
   render(): JSX.Element {
-    const { repository, project, paymentPlan } = this.state;
+    const { repository, project, paymentPlan, nameValid } = this.state;
 
     return(
       <PageLayout className='NewProject' childRef={this.ref}>
@@ -95,7 +89,7 @@ class NewProject extends React.Component<Props, State> {
           </div>
 
           { this.renderProjectDetails() }
-          { project.name.length > 0 ? this.renderGithubToken() : null }
+          { nameValid ? this.renderGithubToken() : null }
           { repository ? this.renderPlans() : null }
           { paymentPlan ? this.renderPaymentMethod() : null }
           { project.id ? this.renderSecrets() : null }
@@ -105,7 +99,33 @@ class NewProject extends React.Component<Props, State> {
   }
 
   renderProjectDetails(): JSX.Element {
-    const { name, description } = this.state.project;
+    const { id, name, description } = this.state.project;
+
+    const validateName = async (name: string): Promise<string> => {      
+      return new Promise(async (resolve: Function, reject: Function) => {
+        if(name.length < 3) {
+          reject("Name must be at least 3 characters long");
+          return
+        }
+
+        if(regex.test(name)) {
+          reject("Name cannot contain any special characters");
+          return;
+        }
+
+        API.Call('Projects/VerifyProjectName', { name })
+          .then(() => resolve())
+          .catch(err => reject(err.response ? err.response.data.detail : err.message));
+      });
+    }
+
+    const setNameValid = () => this.setState({ nameValid: true });
+    const setNameInvalid = () => this.setState({ nameValid: false });
+    
+    const onChange = (key: string, value: string) => {
+      if(key === 'name') value = value.toLowerCase();
+      this.setState({ project: { ...this.state.project, [key]: value } });
+    };
 
     return(
       <section className='complete'>
@@ -115,12 +135,28 @@ class NewProject extends React.Component<Props, State> {
         <form>
           <div className='row'>
             <label>Name *</label>
-            <input autoFocus required type='text' value={name} placeholder='My Awesome Project' name='name' onChange={this.onInputChange.bind(this)} />
+
+            <ValidatedInput
+              autoFocus
+              name='name'
+              value={name}
+              disabled={!!id}
+              onChange={onChange}
+              onValid={setNameValid}
+              validate={validateName} 
+              onInvalid={setNameInvalid}
+              placeholder='helloworld' />
           </div>
           
           <div className='row'>
             <label>Description</label>
-            <input type='text' value={description} placeholder='' name='description'  onChange={this.onInputChange.bind(this)} />
+
+            <ValidatedInput
+              disabled={!!id}
+              name='description'
+              value={description}
+              onChange={onChange}
+              placeholder='My Awesome Project' />
           </div>
         </form>
       </section>
@@ -128,20 +164,35 @@ class NewProject extends React.Component<Props, State> {
   }
 
   renderGithubToken(): JSX.Element {
-    const { token, tokenStatus, repos } = this.state;
+    const { token, repos } = this.state;
     const { repository } = this.state.project;
+
+    const validateToken = (token: string): Promise<string> => {
+      return new Promise(async (resolve: Function, reject: Function) => {
+        API.Call("Projects/VerifyGithubToken", { token })
+          .then((res) => {
+            this.setState({ repos: res.data.repos });
+            resolve();
+          })
+          .catch(err => reject(err.response ? err.response.data.detail : err.message));
+      });
+    }
 
     return (
       <section>
         <h2>Connect to GitHub Repository</h2>
         <p>Enter a personal access token below. The token will need the <strong>repo</strong> and <strong>read:packages</strong> scopes. You can generate a new token at <a href='https://github.com/settings/tokens/new' target='blank'>this link</a>. Read more at the <a href='/todo'>docs</a>.</p>
 
-        <p className='status'>{tokenStatus}</p>
-
         <form>
           <div className='row'>
             <label>Token *</label>
-            <input required disabled={repos.length > 0} type='text' value={token} onChange={this.onTokenChange.bind(this)} />
+
+            <ValidatedInput
+              name='name'
+              value={token}
+              validate={validateToken} 
+              disabled={repos.length > 0}
+              onChange={((_, token: string) => this.setState({ token }))} />
           </div>
 
           <div className='row'>
@@ -232,7 +283,7 @@ class NewProject extends React.Component<Props, State> {
         },
       };
 
-      API.Call("Projects/Create", params)
+      API.Call("Projects/CreateProject", params)
         .then(res => {
           this.setState({ 
             project: res.data.project,
@@ -299,7 +350,7 @@ class NewProject extends React.Component<Props, State> {
 
   done(): void {
     this.props.createProject(this.state.project);
-    this.props.history.push(`/projects/${this.state.project.name}/production`);
+    this.props.history.push(`/projects/${this.state.project.name}`);
   }
 
   scrollToBottom(): void {
