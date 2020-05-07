@@ -27,6 +27,7 @@ func NewProjects(service micro.Service) *Projects {
 		name:         service.Name(),
 		auth:         service.Options().Auth,
 		users:        users.NewUsersService("go.micro.service.users", service.Client()),
+		invites:      invites.NewInviteService("go.micro.service.projects.invite", service.Client()),
 		projects:     projects.NewProjectsService("go.micro.service.projects", service.Client()),
 		kubernetes:   kubernetes.NewKubernetesService("go.micro.service.kubernetes", service.Client()),
 		environments: environments.NewEnvironmentsService("go.micro.service.projects.environments", service.Client()),
