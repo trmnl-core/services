@@ -59,8 +59,13 @@ func (p *Project) Read(ctx context.Context, req *pb.ReadRequest, rsp *pb.ReadRes
 	}
 	rsp.Project.Members = make([]*pb.Member, 0, len(recs))
 	for _, r := range recs {
+		var m *membership
+		if err := json.Unmarshal(r.Value, &m); err != nil {
+			return errors.BadRequest(p.name, "Error unmarshaling json: %v", err)
+		}
+
 		rsp.Project.Members = append(rsp.Project.Members, &pb.Member{
-			Id: string(r.Value),
+			Id: m.MemberID, Type: m.MemberType, Role: m.Role,
 		})
 	}
 
