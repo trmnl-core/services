@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
-    content="A description of the go-micro internal features">
-<meta name="keywords" content="go-micro,  go-micro">
+    content="A description of the go-micro interfaces">
+<meta name="keywords" content="go-microinterfaces,  go-micro, interfaces">
 
 
-<title>Internals | Micro</title>
+<title>Interfaces | Micro</title>
 
 
 <link rel="stylesheet" href="/docs/css/syntax.css">
@@ -308,7 +308,7 @@
             
             
             
-            <li class="active highlight"><a href="/docs/go-internals.html">Internals</a></li>
+            <li class="active highlight"><a href="/docs/go-interfaces.html">Interfaces</a></li>
             
             
             
@@ -532,7 +532,7 @@
                 <!-- Content Column -->
                 <div class="col-md-9">
                     <div class="post-header">
-   <h1 class="post-title-main">Internals</h1>
+   <h1 class="post-title-main">Interfaces</h1>
 </div>
 
 
@@ -540,63 +540,84 @@
 <div class="post-content">
 
    
-    <div class="summary">A description of the go-micro internal features</div>
+    <div class="summary">A description of the go-micro interfaces</div>
    
 
     
 
-  <p>Go Micro is a framework for microservices development. It provides pluggable abstractions via the use of Go interfaces.</p>
+  <p>Go Micro is a pluggable framework which makes use of interfaces for its abstractions and building blocks. This enables 
+us to create strongly defined abstractions for underlying distributed systems concepts for which the implementations 
+can be swapped out.</p>
 
 <p align="center">
   <img src="images/go-micro.svg" />
 </p>
 
-<h2 id="features">Features</h2>
+<h2 id="interfaces">Interfaces</h2>
 
-<p>Go Micro abstracts away the details of distributed systems. Here are the main features.</p>
-
-<ul>
-  <li><strong>Service Discovery</strong> - Automatic registration and name resolution with service discovery</li>
-  <li><strong>Load Balancing</strong> - Smart client side load balancing of services built on discovery</li>
-  <li><strong>Synchronous Comms</strong> - RPC based communication with support for bidirectional streaming</li>
-  <li><strong>Asynchronous Comms</strong> - PubSub interface built in for event driven architectures</li>
-  <li><strong>Message Encoding</strong> - Dynamic encoding based on content-type with protobuf and json out of the box</li>
-  <li><strong>Service Interface</strong> - All features are packaged in a simple high level interface for developing microservices</li>
-</ul>
-
-<p>Go Micro supports a services programming model for building distributed systems.</p>
-
-<h2 id="plugins">Plugins</h2>
-
-<p>Go Micro makes use of the Go interface for it’s abstractions. Because of this the underlying implementation can be swapped out.</p>
-
-<p>We provide sane defaults out of the box:</p>
+<p>Go micro is composed of the following list of interfaces;</p>
 
 <ul>
-  <li>mDNS for zeroconf service discovery</li>
-  <li>Random hashed client side load balancing</li>
-  <li>json and protobuf encoding based on Content-Type</li>
-  <li>RPC over http synchronous communication</li>
-  <li>HTTP point-to-point pubsub for asynchronous communication</li>
-</ul>
-
-<h2 id="packages">Packages</h2>
-
-<p>Go micro is composed of a number of packages:</p>
-
-<ul>
-  <li><strong>transport</strong> for sync messaging</li>
-  <li><strong>broker</strong> for async messaging</li>
-  <li><strong>codec</strong> for message encoding</li>
-  <li><strong>registry</strong> for service discovery</li>
-  <li><strong>selector</strong> for load balancing</li>
-  <li><strong>client</strong> for making requests</li>
-  <li><strong>server</strong> for handling requests</li>
-  <li><strong>store</strong> for key-value storage</li>
+  <li><strong>auth</strong> - for authentication and authorization</li>
+  <li><strong>broker</strong> for asynchronous messaging</li>
+  <li><strong>client</strong> for high level requests/response and notification</li>
   <li><strong>config</strong> for dynamic configuration</li>
+  <li><strong>codec</strong> for message encoding</li>
+  <li><strong>debug</strong> for debugging; logs, trace, stats</li>
+  <li><strong>network</strong> for multi-cloud networking</li>
+  <li><strong>registry</strong> for service discovery</li>
+  <li><strong>runtime</strong> - for running services</li>
+  <li><strong>selector</strong> for load balancing</li>
+  <li><strong>server</strong> for handling requests and notifications</li>
+  <li><strong>store</strong> for data storage</li>
+  <li><strong>sync</strong> for synchronisation, locking and leadership election</li>
+  <li><strong>transport</strong> for synchronous communication</li>
+  <li><strong>tunnel</strong> for establishing vpn tunnels</li>
 </ul>
 
-<p>Further details are below</p>
+<p>An explanation for each interface can be found below</p>
+
+<p>TODO: fill the blanks</p>
+
+<h3 id="broker">Broker</h3>
+
+<p>The broker provides an interface to a message broker for asynchronous pub/sub communication. This is one of the fundamental requirements of an event 
+driven architecture and microservices. By default we use an inbox style point to point HTTP system to minimise the number of dependencies required 
+to get started. However there are many message broker implementations available in go-plugins e.g RabbitMQ, NATS, NSQ, Google Cloud Pub Sub.</p>
+
+<h3 id="client">Client</h3>
+
+<p>The client provides an interface to make requests to services. Again like the server, it builds on the other packages to provide a unified interface 
+for finding services by name using the registry, load balancing using the selector, making synchronous requests with the transport and asynchronous 
+messaging using the broker.</p>
+
+<p>The  above components are combined at the top-level of micro as a <strong>Service</strong>.</p>
+
+<p>We additionally provide some other components for distributed systems development:</p>
+
+<h3 id="codec">Codec</h3>
+
+<p>The codec is used for encoding and decoding messages before transporting them across the wire. This could be json, protobuf, bson, msgpack, etc. 
+Where this differs from most other codecs is that we actually support the RPC format here as well. So we have JSON-RPC, PROTO-RPC, BSON-RPC, etc. 
+It separates encoding from the client/server and provides a powerful method for integrating other systems such as gRPC, Vanadium, etc.</p>
+
+<h3 id="config">Config</h3>
+
+<p>Config is an interface for dynamic config loading from any number of sources which can be combined and merged. Most systems actively require configuration 
+that changes independent of the code. Having a config interface which can dynamically load these values as needed is powerful. It supports 
+many different configuration formats also.</p>
+
+<h3 id="server">Server</h3>
+
+<p>The server is the building block for writing a service. Here you can name your service, register request handlers, add middeware, etc. The service 
+builds on the above packages to provide a unified interface for serving requests. The built in server is an RPC system. In the future there maybe 
+other implementations. The server also allows you to define multiple codecs to serve different encoded messages.</p>
+
+<h3 id="store">Store</h3>
+
+<p>The store is a simple key-value storage interface used to abstract away lightweight data storage. We’re not trying to implement a full blown sql dialect 
+or storage, just simply the ability to hold state that would otherwise be lost in stateless services. They store interface will become a building block 
+for all forms of storage in the future.</p>
 
 <h3 id="registry">Registry</h3>
 
@@ -616,50 +637,12 @@ will use the selector rather than the registry as it provides that built in mech
 a higher level abstraction which allows us to switch out communication mechanisms e.g http, rabbitmq, websockets, NATS. The transport also 
 supports bidirectional streaming. This is powerful for client side push to the server.</p>
 
-<h3 id="broker">Broker</h3>
-
-<p>The broker provides an interface to a message broker for asynchronous pub/sub communication. This is one of the fundamental requirements of an event 
-driven architecture and microservices. By default we use an inbox style point to point HTTP system to minimise the number of dependencies required 
-to get started. However there are many message broker implementations available in go-plugins e.g RabbitMQ, NATS, NSQ, Google Cloud Pub Sub.</p>
-
-<h3 id="codec">Codec</h3>
-
-<p>The codec is used for encoding and decoding messages before transporting them across the wire. This could be json, protobuf, bson, msgpack, etc. 
-Where this differs from most other codecs is that we actually support the RPC format here as well. So we have JSON-RPC, PROTO-RPC, BSON-RPC, etc. 
-It separates encoding from the client/server and provides a powerful method for integrating other systems such as gRPC, Vanadium, etc.</p>
-
-<h3 id="server">Server</h3>
-
-<p>The server is the building block for writing a service. Here you can name your service, register request handlers, add middeware, etc. The service 
-builds on the above packages to provide a unified interface for serving requests. The built in server is an RPC system. In the future there maybe 
-other implementations. The server also allows you to define multiple codecs to serve different encoded messages.</p>
-
-<h3 id="client">Client</h3>
-
-<p>The client provides an interface to make requests to services. Again like the server, it builds on the other packages to provide a unified interface 
-for finding services by name using the registry, load balancing using the selector, making synchronous requests with the transport and asynchronous 
-messaging using the broker.</p>
-
-<p>The  above components are combined at the top-level of micro as a <strong>Service</strong>.</p>
-
-<p>We additionally provide some other components for distributed systems development:</p>
-
-<h3 id="store">Store</h3>
-
-<p>The store is a simple key-value storage interface used to abstract away lightweight data storage. We’re not trying to implement a full blown sql dialect 
-or storage, just simply the ability to hold state that would otherwise be lost in stateless services. They store interface will become a building block 
-for all forms of storage in the future.</p>
-
-<h3 id="config">Config</h3>
-
-<p>Config is an interface for dynamic config loading from any number of sources which can be combined and merged. Most systems actively require configuration 
-that changes independent of the code. Having a config interface which can dynamically load these values as needed is powerful. It supports 
-many different configuration formats also.</p>
-
 
 
 <!--
     <div class="tags">
+        
+        
         
         
         

@@ -226,11 +226,11 @@
 
 
 {
-"title": "Internals",
-"tags": "go-micro",
-"keywords": "go-micro",
-"url": "go-internals.html",
-"summary": "A description of the go-micro internal features"
+"title": "Interfaces",
+"tags": "go-microinterfaces",
+"keywords": "go-micro, interfaces",
+"url": "go-interfaces.html",
+"summary": "A description of the go-micro interfaces"
 }
 ,
 
