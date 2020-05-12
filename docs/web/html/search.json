@@ -248,6 +248,17 @@
 
 
 {
+"title": "Options",
+"tags": "go-microframework",
+"keywords": "go-micro, framework",
+"url": "go-options.html",
+"summary": "Setting and using Go Micro options"
+}
+,
+
+
+
+{
 "title": "Plugins",
 "tags": "go-microframeworkplugins",
 "keywords": "go-micro, framework, plugins",

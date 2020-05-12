@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
-    content="Go Micro builds in PubSub for event driven microservices">
-<meta name="keywords" content="go-microframeworkpubsub,  go-micro, framework, pubsub">
+    content="Setting and using Go Micro options">
+<meta name="keywords" content="go-microframework,  go-micro, framework">
 
 
-<title>PubSub | Micro</title>
+<title>Options | Micro</title>
 
 
 <link rel="stylesheet" href="/docs/css/syntax.css">
@@ -315,7 +315,7 @@
             
             
             
-            <li><a href="/docs/go-options.html">Options</a></li>
+            <li class="active highlight"><a href="/docs/go-options.html">Options</a></li>
             
             
             
@@ -329,7 +329,7 @@
             
             
             
-            <li class="active highlight"><a href="/docs/go-pubsub.html">Pub Sub</a></li>
+            <li><a href="/docs/go-pubsub.html">Pub Sub</a></li>
             
             
             
@@ -532,7 +532,7 @@
                 <!-- Content Column -->
                 <div class="col-md-9">
                     <div class="post-header">
-   <h1 class="post-title-main">PubSub</h1>
+   <h1 class="post-title-main">Options</h1>
 </div>
 
 
@@ -540,54 +540,86 @@
 <div class="post-content">
 
    
-    <div class="summary">Go Micro builds in PubSub for event driven microservices</div>
+    <div class="summary">Setting and using Go Micro options</div>
    
 
     
 
-  <h1 id="overview">Overview</h1>
+  <p>Go Micro uses a variadic options model for the design of passing arguments for the creation and initialisation of 
+packages and also as optional params for methods. This offers flexibility in power for extending our option usage 
+across plugins.</p>
 
-<p>Microservices is an event driven architecture patterna and so Go Micro builds in the concept of asynchronous messaging 
-using a message broker interface. It seamlessly operates on protobuf types for you. Automatically encoding and decoding 
-messages as they are sent and received from the broker.</p>
+<h2 id="overview">Overview</h2>
 
-<p>By default go-micro includes a point-to-point http broker but this can be swapped out via <a href="https://github.com/micro/go-plugins">go-plugins</a>.</p>
+<p>When create a new service you have option of passing additional parameters such as setting the name, version, 
+the message broker, registry or store to use along with all the other internals.</p>
 
-<h3 id="publish-message">Publish Message</h3>
+<p>Options are normally defined as follows</p>
 
-<p>Create a new publisher with a <code class="highlighter-rouge">topic</code> name and service client</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type Options struct {
+  Name string
+  Version string
+  Broker broker.Broker
+  Registry registry.Registry
+}
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">NewEvent</span><span class="p">(</span><span class="s">"events"</span><span class="p">,</span><span class="x"> </span><span class="n">service</span><span class="o">.</span><span class="n">Client</span><span class="p">())</span><span class="x">
-</span></code></pre></div></div>
+type Option func(*Options)
 
-<p>Publish a proto message</p>
+// set the name
+func Name(n string) Option {
+	return func(o *Options) {
+		o.Name = n
+	}
+}
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span><span class="o">.</span><span class="n">Publish</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">TODO</span><span class="p">(),</span><span class="x"> </span><span class="o">&amp;</span><span class="n">proto</span><span class="o">.</span><span class="n">Event</span><span class="p">{</span><span class="n">Name</span><span class="o">:</span><span class="x"> </span><span class="s">"event"</span><span class="p">})</span><span class="x">
-</span></code></pre></div></div>
+// set the broker
+func Broker(b broker.Broker) Option {
+	return func(o *Options) {
+		o.Broker = b
+	}
+}
+</code></pre></div></div>
 
-<h3 id="subscribe">Subscribe</h3>
+<p>These can then be set as follows</p>
 
-<p>Create a message handler. It’s signature should be <code class="highlighter-rouge">func(context.Context, v interface{}) error</code>.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service := micro.NewService(
+	micro.Name("foobar"),
+	micro.Broker(broker),
+)
+</code></pre></div></div>
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span><span class="x"> </span><span class="n">ProcessEvent</span><span class="p">(</span><span class="n">ctx</span><span class="x"> </span><span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span><span class="x"> </span><span class="n">event</span><span class="x"> </span><span class="o">*</span><span class="n">proto</span><span class="o">.</span><span class="n">Event</span><span class="p">)</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
-	</span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Got event %+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">event</span><span class="p">)</span><span class="x">
-	</span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre></div></div>
+<h2 id="service-options">Service Options</h2>
 
-<p>Register the message handler with a <code class="highlighter-rouge">topic</code></p>
+<p>Within Go Micro we have a number of options that can be set including the underlying packages that will be used 
+for things such as authentication, configuration and storage. You can use <code class="highlighter-rouge">service.Options()</code> to access these.</p>
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">micro</span><span class="o">.</span><span class="n">RegisterSubscriber</span><span class="p">(</span><span class="s">"events"</span><span class="p">,</span><span class="x"> </span><span class="n">ProcessEvent</span><span class="p">)</span><span class="x">
-</span></code></pre></div></div>
+<p>The packages such as auth, config, registry, store, etc will default to our zero dep plugins. Where you want 
+to configure them via env vars or flags you can specify <code class="highlighter-rouge">service.Init()</code> to parse them.</p>
 
-<p>See <a href="https://github.com/micro/examples/tree/master/pubsub">examples/pubsub</a> for a complete example.</p>
+<p>For example, if you replace the memory store to use a file store it can be done as follows</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## as an env var
+MICRO_STORE=file go run main.go
+
+## or as a flag
+go run main.go --store=file
+</code></pre></div></div>
+
+<p>Internally the store is then accessible via the options</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service := micro.NewService(
+	micro.Name("foobar"),
+)
+
+service.Init()
+
+store := service.Options().Store
+</code></pre></div></div>
 
 
 
 <!--
     <div class="tags">
-        
-        
         
         
         

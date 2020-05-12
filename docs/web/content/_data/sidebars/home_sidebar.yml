@@ -112,6 +112,10 @@ entries:
       url: /go-internals.html
       output: web, pdf
 
+    - title: Options
+      url: /go-options.html
+      output: web, pdf
+
     - title: Plugins
       url: /go-plugins.html
       output: web, pdf
