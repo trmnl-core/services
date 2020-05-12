@@ -166,10 +166,13 @@ func (h *Handler) updateRuntime(evType event.EventType, md map[string]string, pr
 		logger.Warnf("Successfully updated service %v/%v", env.Namespace, srvName)
 	}
 
+	image := path.Join(githubPkgBase, project.Repository, srvName)
+	logger.Infof("Namespace: %v; Image: %v\n", env.Namespace, image)
+
 	// the service doesn't exist, we must create it
 	opts := []runtime.CreateOption{
+		runtime.CreateImage(image),
 		runtime.CreateType(typeFromServiceName(srvName)),
-		runtime.CreateImage(path.Join(githubPkgBase, project.Repository, srvName)),
 		runtime.CreateNamespace(env.Namespace),
 	}
 	if err := h.runtime.Create(service, opts...); err != nil {
