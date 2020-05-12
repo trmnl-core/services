@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
-    content="Go Web provides an interface for micro web apps">
-<meta name="keywords" content="go-web,  go-web">
+    content="A description of the go-micro interfaces">
+<meta name="keywords" content="go-microinterfaces,  go-micro, interfaces">
 
 
-<title>Go Web | Micro</title>
+<title>Interfaces | Micro</title>
 
 
 <link rel="stylesheet" href="/docs/css/syntax.css">
@@ -301,7 +301,7 @@
             
             
             
-            <li><a href="/docs/go-interfaces.html">Interfaces</a></li>
+            <li class="active highlight"><a href="/docs/go-interfaces.html">Interfaces</a></li>
             
             
             
@@ -329,7 +329,7 @@
             
             
             
-            <li class="active highlight"><a href="/docs/go-web.html">Web Service</a></li>
+            <li><a href="/docs/go-web.html">Web Service</a></li>
             
             
             
@@ -532,7 +532,7 @@
                 <!-- Content Column -->
                 <div class="col-md-9">
                     <div class="post-header">
-   <h1 class="post-title-main">Go Web</h1>
+   <h1 class="post-title-main">Interfaces</h1>
 </div>
 
 
@@ -540,120 +540,109 @@
 <div class="post-content">
 
    
-    <div class="summary">Go Web provides an interface for micro web apps</div>
+    <div class="summary">A description of the go-micro interfaces</div>
    
 
     
 
-  <h1 id="overview">Overview</h1>
+  <p>Go Micro is a pluggable framework which makes use of interfaces for its abstractions and building blocks. This enables 
+us to create strongly defined abstractions for underlying distributed systems concepts for which the implementations 
+can be swapped out.</p>
 
-<p>Go Web provides a tiny HTTP web server library which leverages <a href="https://github.com/micro/go-micro">go-micro</a> to create 
-micro web services as first class citizens in a microservice world. It wraps go-micro to give you service discovery, 
-heartbeating and the ability to create web apps as microservices.</p>
+<p align="center">
+  <img src="images/go-micro.svg" />
+</p>
 
-<h2 id="features">Features</h2>
+<h2 id="interfaces">Interfaces</h2>
 
-<ul>
-  <li>
-    <p><strong>Service Discovery</strong> - Services are automatically registered in service discovery on startup. Go Web includes 
-a http.Client with pre-initialised roundtripper which makes use of service discovery so you can use service names.</p>
-  </li>
-  <li>
-    <p><strong>Heartbeating</strong> - Go Web apps will periodically heartbeat with service discovery to provide liveness updates. 
-In the event a service fails it will be removed from the registry after a pre-defined expiry time.</p>
-  </li>
-  <li>
-    <p><strong>Custom Handlers</strong> - Specify your own http router for handling requests. This allows you to maintain full 
-control over how you want to route to internal handlers.</p>
-  </li>
-  <li>
-    <p><strong>Static Serving</strong> - Go Web automatically detects a local static <code class="highlighter-rouge">html</code> dir and serves files if no route handler 
-is specified. A quick solution for those who want to write JS web apps as microservices.</p>
-  </li>
-</ul>
-
-<h2 id="getting-started">Getting Started</h2>
+<p>Go micro is composed of the following list of interfaces;</p>
 
 <ul>
-  <li><a href="#dependencies">Dependencies</a></li>
-  <li><a href="#usage">Usage</a></li>
-  <li><a href="#set-handler">Set Handler</a></li>
-  <li><a href="#call-service">Call Service</a></li>
-  <li><a href="#static-files">Static Files</a></li>
+  <li><strong>auth</strong> - for authentication and authorization</li>
+  <li><strong>broker</strong> for asynchronous messaging</li>
+  <li><strong>client</strong> for high level requests/response and notification</li>
+  <li><strong>config</strong> for dynamic configuration</li>
+  <li><strong>codec</strong> for message encoding</li>
+  <li><strong>debug</strong> for debugging; logs, trace, stats</li>
+  <li><strong>network</strong> for multi-cloud networking</li>
+  <li><strong>registry</strong> for service discovery</li>
+  <li><strong>runtime</strong> - for running services</li>
+  <li><strong>selector</strong> for load balancing</li>
+  <li><strong>server</strong> for handling requests and notifications</li>
+  <li><strong>store</strong> for data storage</li>
+  <li><strong>sync</strong> for synchronisation, locking and leadership election</li>
+  <li><strong>transport</strong> for synchronous communication</li>
+  <li><strong>tunnel</strong> for establishing vpn tunnels</li>
 </ul>
 
-<h2 id="dependencies">Dependencies</h2>
+<p>An explanation for each interface can be found below</p>
 
-<p>Go Web makes use of Go Micro which means it needs service discovery</p>
+<p>TODO: fill the blanks</p>
 
-<p>See the <a href="https://github.com/micro/go-micro#service-discovery">go-micro</a> for install instructions</p>
+<h3 id="broker">Broker</h3>
 
-<h2 id="usage">Usage</h2>
+<p>The broker provides an interface to a message broker for asynchronous pub/sub communication. This is one of the fundamental requirements of an event 
+driven architecture and microservices. By default we use an inbox style point to point HTTP system to minimise the number of dependencies required 
+to get started. However there are many message broker implementations available in go-plugins e.g RabbitMQ, NATS, NSQ, Google Cloud Pub Sub.</p>
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">web</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
-	</span><span class="n">web</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">),</span><span class="x">
-</span><span class="p">)</span><span class="x">
+<h3 id="client">Client</h3>
 
-</span><span class="n">service</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/foo"</span><span class="p">,</span><span class="x"> </span><span class="n">fooHandler</span><span class="p">)</span><span class="x">
+<p>The client provides an interface to make requests to services. Again like the server, it builds on the other packages to provide a unified interface 
+for finding services by name using the registry, load balancing using the selector, making synchronous requests with the transport and asynchronous 
+messaging using the broker.</p>
 
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">service</span><span class="o">.</span><span class="n">Init</span><span class="p">();</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-	</span><span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
-</span><span class="p">}</span><span class="x">
+<p>The  above components are combined at the top-level of micro as a <strong>Service</strong>.</p>
 
-</span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">service</span><span class="o">.</span><span class="n">Run</span><span class="p">();</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
-	</span><span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
-</span><span class="p">}</span><span class="x">
-</span></code></pre></div></div>
+<p>We additionally provide some other components for distributed systems development:</p>
 
-<h2 id="set-handler">Set Handler</h2>
+<h3 id="codec">Codec</h3>
 
-<p>You might have a preference for a HTTP handler, so use something else. This loses the ability to register endpoints in discovery 
-but we’ll fix that soon.</p>
+<p>The codec is used for encoding and decoding messages before transporting them across the wire. This could be json, protobuf, bson, msgpack, etc. 
+Where this differs from most other codecs is that we actually support the RPC format here as well. So we have JSON-RPC, PROTO-RPC, BSON-RPC, etc. 
+It separates encoding from the client/server and provides a powerful method for integrating other systems such as gRPC, Vanadium, etc.</p>
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span><span class="x"> </span><span class="s">"github.com/gorilla/mux"</span><span class="x">
+<h3 id="config">Config</h3>
 
-</span><span class="n">r</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">mux</span><span class="o">.</span><span class="n">NewRouter</span><span class="p">()</span><span class="x">
-</span><span class="n">r</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span><span class="x"> </span><span class="n">indexHandler</span><span class="p">)</span><span class="x">
-</span><span class="n">r</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/objects/{object}"</span><span class="p">,</span><span class="x"> </span><span class="n">objectHandler</span><span class="p">)</span><span class="x">
+<p>Config is an interface for dynamic config loading from any number of sources which can be combined and merged. Most systems actively require configuration 
+that changes independent of the code. Having a config interface which can dynamically load these values as needed is powerful. It supports 
+many different configuration formats also.</p>
 
-</span><span class="n">service</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">web</span><span class="o">.</span><span class="n">NewService</span><span class="p">(</span><span class="x">
-	</span><span class="n">web</span><span class="o">.</span><span class="n">Handler</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="x">
-</span><span class="p">)</span><span class="x">
-</span></code></pre></div></div>
+<h3 id="server">Server</h3>
 
-<h2 id="call-service">Call Service</h2>
+<p>The server is the building block for writing a service. Here you can name your service, register request handlers, add middeware, etc. The service 
+builds on the above packages to provide a unified interface for serving requests. The built in server is an RPC system. In the future there maybe 
+other implementations. The server also allows you to define multiple codecs to serve different encoded messages.</p>
 
-<p>Go-web includes a http.Client with a custom http.RoundTripper that uses service discovery</p>
+<h3 id="store">Store</h3>
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">c</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">service</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span><span class="x">
+<p>The store is a simple key-value storage interface used to abstract away lightweight data storage. We’re not trying to implement a full blown sql dialect 
+or storage, just simply the ability to hold state that would otherwise be lost in stateless services. They store interface will become a building block 
+for all forms of storage in the future.</p>
 
-</span><span class="n">rsp</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">c</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"http://example.com/foo"</span><span class="p">)</span><span class="x">
-</span></code></pre></div></div>
+<h3 id="registry">Registry</h3>
 
-<p>This will lookup service discovery for the service <code class="highlighter-rouge">example.com</code> and route to one of the available nodes.</p>
+<p>The registry provides a service discovery mechanism to resolve names to addresses. It can be backed by consul, etcd, zookeeper, dns, gossip, etc. 
+Services should register using the registry on startup and deregister on shutdown. Services can optionally provide an expiry TTL and reregister 
+on an interval to ensure liveness and that the service is cleaned up if it dies.</p>
 
-<h2 id="static-files">Static Files</h2>
+<h3 id="selector">Selector</h3>
 
-<p>Go web was always meant as a way to register web apps where the majority of the code would be written in JS. To enable that by default, if no handler is registered on “/” and we find a local “html” directory then static files will be served.</p>
+<p>The selector is a load balancing abstraction which builds on the registry. It allows services to be “filtered” using filter functions and “selected” 
+using a choice of algorithms such as random, roundrobin, leastconn, etc. The selector is leveraged by the Client when making requests. The client 
+will use the selector rather than the registry as it provides that built in mechanism of load balancing.</p>
 
-<p>You will see a log output like so.</p>
+<h3 id="transport">Transport</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2019/05/12 14:55:47 Enabling static file serving from /tmp/foo/html
-</code></pre></div></div>
-
-<p>If you want to set this path manually use the StaticDir option. If a relative path is specified we will use os.Getwd() and prefix this.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service := web.NewService(
-	web.Name("example.com"),
-	web.StaticDir("/tmp/example.com/html"),
-)
-
-</code></pre></div></div>
+<p>The transport is the interface for synchronous request/response communication between services. It’s akin to the golang net package but provides 
+a higher level abstraction which allows us to switch out communication mechanisms e.g http, rabbitmq, websockets, NATS. The transport also 
+supports bidirectional streaming. This is powerful for client side push to the server.</p>
 
 
 
 <!--
     <div class="tags">
+        
+        
         
         
         

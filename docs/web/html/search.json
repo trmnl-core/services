@@ -226,11 +226,11 @@
 
 
 {
-"title": "Internals",
-"tags": "go-micro",
-"keywords": "go-micro",
-"url": "go-internals.html",
-"summary": "A description of the go-micro internal features"
+"title": "Interfaces",
+"tags": "go-microinterfaces",
+"keywords": "go-micro, interfaces",
+"url": "go-interfaces.html",
+"summary": "A description of the go-micro interfaces"
 }
 ,
 
@@ -242,6 +242,17 @@
 "keywords": "",
 "url": "go-micro.html",
 "summary": ""
+}
+,
+
+
+
+{
+"title": "Options",
+"tags": "go-microframework",
+"keywords": "go-micro, framework",
+"url": "go-options.html",
+"summary": "Setting and using Go Micro options"
 }
 ,
 
@@ -586,7 +597,7 @@
 
 
 {
-"title": "Writing a Go Service",
+"title": "Writing a Service",
 "tags": "development",
 "keywords": "development",
 "url": "writing-a-go-service.html",

@@ -215,7 +215,7 @@
             
             
             
-            <li><a href="/docs/writing-a-go-service.html">Writing a Go Service</a></li>
+            <li><a href="/docs/helloworld.html">Hello World</a></li>
             
             
             
@@ -273,13 +273,6 @@
             
             
             
-            <li><a href="/docs/helloworld.html">Hello World</a></li>
-            
-            
-            
-            
-            
-            
             <li><a href="/docs/go-config.html">Config</a></li>
             
             
@@ -308,7 +301,14 @@
             
             
             
-            <li><a href="/docs/go-internals.html">Internals</a></li>
+            <li><a href="/docs/go-interfaces.html">Interfaces</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/go-options.html">Options</a></li>
             
             
             
@@ -337,6 +337,13 @@
             
             
             <li><a href="/docs/go-wrappers.html">Wrappers</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/writing-a-go-service.html">Writing a Service</a></li>
             
             
             
@@ -576,6 +583,8 @@ powershell <span class="nt">-Command</span> <span class="s2">"iwr -useb https://
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro server
 </code></pre></div></div>
+
+<p>If all goes well you’ll see log output from the various services initialising; this terminal will continue to output logs as we go through the rest of the tutorial so keep it running.</p>
 
 <p>To talk to this server, we just have to tell Micro CLI to address our server instead of using the default implementations - micro can work without a server too, but <a href="#-environments">more about that later</a>.</p>
 
@@ -888,7 +897,7 @@ First let’s create an entry that our service can read. This time we will speci
 
 <p>Now since the example service is running (can be easily verified by <code class="highlighter-rouge">micro status</code>), we should not use <code class="highlighter-rouge">micro run</code>, but rather <code class="highlighter-rouge">micro update</code> to deploy it.</p>
 
-<p>We can simply issue</p>
+<p>We can simply issue the update command (remember to switch back to the root directory of the example service first)</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micro update .
 </code></pre></div></div>
@@ -963,7 +972,7 @@ interested in learning more Micro magic, have a look at the following sources:</
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy; 2020 Micro Services, Inc.<br />
- Last generated: May 6, 2020 <br />
+ Last generated: May 12, 2020 <br />
                 </div>
             </div>
 </footer>

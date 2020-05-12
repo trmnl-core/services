@@ -9,7 +9,7 @@
 <meta name="keywords" content="development,  development">
 
 
-<title>Writing a Go Service | Micro</title>
+<title>Writing a Service | Micro</title>
 
 
 <link rel="stylesheet" href="/docs/css/syntax.css">
@@ -215,7 +215,7 @@
             
             
             
-            <li class="active highlight"><a href="/docs/writing-a-go-service.html">Writing a Go Service</a></li>
+            <li><a href="/docs/helloworld.html">Hello World</a></li>
             
             
             
@@ -273,13 +273,6 @@
             
             
             
-            <li><a href="/docs/helloworld.html">Hello World</a></li>
-            
-            
-            
-            
-            
-            
             <li><a href="/docs/go-config.html">Config</a></li>
             
             
@@ -308,7 +301,14 @@
             
             
             
-            <li><a href="/docs/go-internals.html">Internals</a></li>
+            <li><a href="/docs/go-interfaces.html">Interfaces</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/docs/go-options.html">Options</a></li>
             
             
             
@@ -337,6 +337,13 @@
             
             
             <li><a href="/docs/go-wrappers.html">Wrappers</a></li>
+            
+            
+            
+            
+            
+            
+            <li class="active highlight"><a href="/docs/writing-a-go-service.html">Writing a Service</a></li>
             
             
             
@@ -525,7 +532,7 @@
                 <!-- Content Column -->
                 <div class="col-md-9">
                     <div class="post-header">
-   <h1 class="post-title-main">Writing a Go Service</h1>
+   <h1 class="post-title-main">Writing a Service</h1>
 </div>
 
 
@@ -536,14 +543,8 @@
 
     
 
-  <p>This is a guide to getting started with go-micro.</p>
-
-<p>If you prefer a higher level overview of the toolkit first, checkout the introductory blog post <a href="https://micro.mu/blog/2016/03/20/micro.html">https://micro.mu/blog/2016/03/20/micro.html</a>.</p>
-
-<h2 id="writing-a-service">Writing a Service</h2>
-
-<p>The top level <a href="https://pkg.go.dev/github.com/micro/go-micro/v2#Service">Service</a> interface is the main component for 
-building a service. It wraps all the underlying packages of Go Micro into a single convenient interface.</p>
+  <p>This is a more detailed guide to writing a service and the internals related to it. The top level <a href="https://pkg.go.dev/github.com/micro/go-micro/v2#Service">Service</a> 
+interface is the main component for building a service. It wraps all the underlying packages of Go Micro into a single convenient interface.</p>
 
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span><span class="x"> </span><span class="n">Service</span><span class="x"> </span><span class="k">interface</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">Init</span><span class="p">(</span><span class="o">...</span><span class="n">Option</span><span class="p">)</span><span class="x">
@@ -845,7 +846,7 @@ Service, a Client is included which matches the initialised packages used by the
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy; 2020 Micro Services, Inc.<br />
- Last generated: May 6, 2020 <br />
+ Last generated: May 12, 2020 <br />
                 </div>
             </div>
 </footer>

@@ -130,13 +130,19 @@
   
   
   <url>
-    <loc>https://micro.mu/docs/go-internals.html</loc>
+    <loc>https://micro.mu/docs/go-interfaces.html</loc>
   </url>
   
   
   
   <url>
     <loc>https://micro.mu/docs/go-micro.html</loc>
+  </url>
+  
+  
+  
+  <url>
+    <loc>https://micro.mu/docs/go-options.html</loc>
   </url>
   
   
