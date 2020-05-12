@@ -103,16 +103,18 @@ func (h *Handler) Create(ctx context.Context, req *pb.CreateRequest, rsp *pb.Cre
 			return err
 		}
 
-		go h.updateRuntime(evType, req.Metadata, pRsp.Project, env)
+		if err := h.updateRuntime(evType, req.Metadata, pRsp.Project, env); err != nil {
+			return err
+		}
 	}
 
 	return nil
 }
 
-func (h *Handler) updateRuntime(evType event.EventType, md map[string]string, project *project.Project, env *environments.Environment) {
+func (h *Handler) updateRuntime(evType event.EventType, md map[string]string, project *project.Project, env *environments.Environment) error {
 	// we only care about these two events with regards to the runtime
 	if evType != event.EventType_BuildFinished && evType != event.EventType_SourceDeleted {
-		return
+		return nil
 	}
 
 	// construct the service object
@@ -137,11 +139,9 @@ func (h *Handler) updateRuntime(evType event.EventType, md map[string]string, pr
 
 		if err := h.runtime.Delete(service, opts...); err != nil {
 			logger.Warnf("Failed to delete service %v/%v: %v", env.Namespace, srvName, err)
-		} else {
-			logger.Infof("Successfully deleted service %v/%v: %v", env.Namespace, srvName, err)
+			return err
 		}
-
-		return
+		logger.Infof("Successfully deleted service %v/%v", env.Namespace, srvName)
 	}
 
 	// check if the service is already running, if it is we'll just update it
@@ -151,7 +151,7 @@ func (h *Handler) updateRuntime(evType event.EventType, md map[string]string, pr
 	)
 	if err != nil {
 		logger.Warnf("Failed to read service %v/%v: %v", env.Namespace, srvName, err)
-		return
+		return err
 	}
 	if len(srvs) > 0 {
 		opts := []runtime.UpdateOption{
@@ -161,10 +161,9 @@ func (h *Handler) updateRuntime(evType event.EventType, md map[string]string, pr
 		// the service already exists, we just need to update it
 		if err := h.runtime.Update(service, opts...); err != nil {
 			logger.Warnf("Failed to update service %v/%v: %v", env.Namespace, srvName, err)
-		} else {
-			logger.Warnf("Successfully updated service %v/%v", env.Namespace, srvName)
+			return err
 		}
-		return
+		logger.Warnf("Successfully updated service %v/%v", env.Namespace, srvName)
 	}
 
 	// the service doesn't exist, we must create it
@@ -175,9 +174,11 @@ func (h *Handler) updateRuntime(evType event.EventType, md map[string]string, pr
 	}
 	if err := h.runtime.Create(service, opts...); err != nil {
 		logger.Warnf("Failed to create service %v/%v: %v", env.Namespace, srvName, err)
-	} else {
-		logger.Warnf("Successfully created service %v/%v", env.Namespace, srvName)
+		return err
 	}
+	logger.Warnf("Successfully created service %v/%v", env.Namespace, srvName)
+
+	return nil
 }
 
 func typeFromServiceName(name string) string {
