@@ -56,7 +56,7 @@ func (k *Kubernetes) CreateImagePullSecret(ctx context.Context, req *pb.CreateIm
 	secret := map[string]interface{}{
 		"auths": map[string]interface{}{
 			"docker.pkg.github.com": map[string]string{
-				"Username": "",
+				"Username": "username",
 				"Password": req.Token,
 			},
 		},
