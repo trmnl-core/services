@@ -49,7 +49,7 @@ it's requests across them. It will also cache the proxy addresses locally.
 If you would rather send requests through a single proxy specify it's address like so.
 
 ```
-MICRO_PROXY_ADDRESS=localhost:9090 go run main.go
+MICRO_PROXY=localhost:9090 go run main.go
 ```
 
 Ensure the proxy is running on the address specified.
@@ -58,13 +58,13 @@ Ensure the proxy is running on the address specified.
 MICRO_SERVER_ADDRESS=localhost:9090 micro proxy
 ```
 
-## Single Backend
+## Single Endpoint
 
-Use the proxy as a front proxy for a single backend
+Use the proxy as a front proxy for a single endpoint
 
 ```
 MICRO_SERVER_NAME=helloworld \
-MICRO_PROXY_BACKEND=localhost:10001 \
+MICRO_PROXY_ENDPOINT=localhost:10001 \
 micro proxy
 ```
 

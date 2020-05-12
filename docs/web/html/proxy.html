@@ -582,7 +582,7 @@ it’s requests across them. It will also cache the proxy addresses locally.</p>
 
 <p>If you would rather send requests through a single proxy specify it’s address like so.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MICRO_PROXY_ADDRESS=localhost:9090 go run main.go
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MICRO_PROXY=localhost:9090 go run main.go
 </code></pre></div></div>
 
 <p>Ensure the proxy is running on the address specified.</p>
@@ -590,12 +590,12 @@ it’s requests across them. It will also cache the proxy addresses locally.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MICRO_SERVER_ADDRESS=localhost:9090 micro proxy
 </code></pre></div></div>
 
-<h2 id="single-backend">Single Backend</h2>
+<h2 id="single-endpoint">Single Endpoint</h2>
 
-<p>Use the proxy as a front proxy for a single backend</p>
+<p>Use the proxy as a front proxy for a single endpoint</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MICRO_SERVER_NAME=helloworld \
-MICRO_PROXY_BACKEND=localhost:10001 \
+MICRO_PROXY_ENDPOINT=localhost:10001 \
 micro proxy
 </code></pre></div></div>
 
