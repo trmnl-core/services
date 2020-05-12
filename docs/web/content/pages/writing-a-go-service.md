@@ -1,5 +1,5 @@
 ---
-title: Writing a Go Service
+title: Writing a Service
 keywords: development
 tags: [development]
 sidebar: home_sidebar
@@ -7,14 +7,8 @@ permalink: writing-a-go-service.html
 summary: 
 ---
 
-This is a guide to getting started with go-micro.
-
-If you prefer a higher level overview of the toolkit first, checkout the introductory blog post [https://micro.mu/blog/2016/03/20/micro.html](https://micro.mu/blog/2016/03/20/micro.html).
-
-## Writing a Service
-
-The top level [Service](https://pkg.go.dev/github.com/micro/go-micro/v2#Service) interface is the main component for 
-building a service. It wraps all the underlying packages of Go Micro into a single convenient interface.
+This is a more detailed guide to writing a service and the internals related to it. The top level [Service](https://pkg.go.dev/github.com/micro/go-micro/v2#Service) 
+interface is the main component for building a service. It wraps all the underlying packages of Go Micro into a single convenient interface.
 
 ```go
 type Service interface {

@@ -56,8 +56,8 @@ entries:
       url: /installation.html
       output: web, pdf
 
-    - title: Writing a Go Service
-      url: /writing-a-go-service.html
+    - title: Hello World
+      url: /helloworld.html
       output: web, pdf
 
     - title: Everything as a Service
@@ -86,10 +86,6 @@ entries:
 
     - title: Overview
       url: /framework.html
-      output: web, pdf
-
-    - title: Hello World
-      url: /helloworld.html
       output: web, pdf
 
     - title: Config
@@ -130,6 +126,10 @@ entries:
 
     - title: Wrappers
       url: /go-wrappers.html
+      output: web, pdf
+
+    - title: Writing a Service
+      url: /writing-a-go-service.html
       output: web, pdf
 
   - title: Platform
