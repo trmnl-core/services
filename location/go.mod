@@ -3,8 +3,8 @@ module github.com/micro/services/location
 go 1.13
 
 require (
-	github.com/golang/protobuf v1.3.5
+	github.com/golang/protobuf v1.4.0
 	github.com/hailocab/go-geoindex v0.0.0-20160127134810-64631bfe9711
-	github.com/micro/go-micro/v2 v2.6.1-0.20200506095814-5387f73b5d8e
+	github.com/micro/go-micro/v2 v2.6.1-0.20200514130055-b4c022474659
 	golang.org/x/net v0.0.0-20200301022130-244492dfa37a
 )

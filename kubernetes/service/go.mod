@@ -4,5 +4,5 @@ go 1.13
 
 require (
 	github.com/golang/protobuf v1.4.0
-	github.com/micro/go-micro/v2 v2.6.1-0.20200512132130-5494e935f498
+	github.com/micro/go-micro/v2 v2.6.1-0.20200514130055-b4c022474659
 )

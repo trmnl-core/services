@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/golang/protobuf v1.4.1
-	github.com/micro/go-micro/v2 v2.6.1-0.20200508093103-d61df6363b34
+	github.com/micro/go-micro/v2 v2.6.1-0.20200514130055-b4c022474659
 	github.com/micro/services/kubernetes/service v0.0.0-20200505140906-ca5cb95fe360
 	github.com/micro/services/payments/provider v0.0.0-20200505140906-ca5cb95fe360
 	github.com/micro/services/projects/environments v0.0.0-20200505140906-ca5cb95fe360
