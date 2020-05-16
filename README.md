@@ -1,6 +1,6 @@
 # Services
 
-This is the home of Micro Services.
+This is the home of the Micro Services Network.
 
 ## Overview
 
