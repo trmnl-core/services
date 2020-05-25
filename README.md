@@ -4,8 +4,7 @@ This is the home of the Micro Services.
 
 ## Overview
 
-This repository serves as the home for the M3O platform. Those invited to develop the platform will be added to the 
-Community team and have the ability to create and modify services here.
+This repository serves as the home for the M3O platform and related services. Those invited to develop the platform will be added to the Community team and have the ability to create and modify services here.
 
 ## Design
 
