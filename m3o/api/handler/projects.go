@@ -421,7 +421,7 @@ func (p *Projects) generateCreds(projectID, projectName string) (string, string,
 	id := fmt.Sprintf("%v-webhook-%v", projectName, time.Now().Unix())
 	md := map[string]string{"project-id": projectID}
 
-	acc, err := p.auth.Generate(id, auth.WithRoles("webhook"), auth.WithMetadata(md))
+	acc, err := p.auth.Generate(id, auth.WithScopes("webhook"), auth.WithMetadata(md))
 	if err != nil {
 		return "", "", err
 	}
