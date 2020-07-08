@@ -14,11 +14,13 @@ import (
 	"github.com/google/uuid"
 	"github.com/micro/go-micro/v2/auth"
 	"github.com/micro/go-micro/v2/config"
+	merrors "github.com/micro/go-micro/v2/errors"
 	logger "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/store"
 
 	signup "github.com/micro/services/signup/proto/signup"
 
+	inviteproto "github.com/micro/services/account/invite/proto"
 	paymentsproto "github.com/micro/services/payments/provider/proto"
 )
 
@@ -34,6 +36,7 @@ type tokenToEmail struct {
 
 type Signup struct {
 	paymentService     paymentsproto.ProviderService
+	inviteService      inviteproto.InviteService
 	store              store.Store
 	auth               auth.Auth
 	sendgridTemplateID string
@@ -44,6 +47,7 @@ type Signup struct {
 }
 
 func NewSignup(paymentService paymentsproto.ProviderService,
+	inviteService inviteproto.InviteService,
 	store store.Store,
 	config config.Config,
 	auth auth.Auth) *Signup {
@@ -65,6 +69,7 @@ func NewSignup(paymentService paymentsproto.ProviderService,
 	}
 	return &Signup{
 		paymentService:     paymentService,
+		inviteService:      inviteService,
 		store:              store,
 		auth:               auth,
 		sendgridAPIKey:     apiKey,
@@ -110,6 +115,10 @@ func (e *Signup) SendVerificationEmail(ctx context.Context,
 	rsp *signup.SendVerificationEmailResponse) error {
 	logger.Info("Received Signup.SendVerificationEmail request")
 
+	if !e.isAllowedToSignup(ctx, req.Email) {
+		return merrors.Forbidden("go.micro.service.signup.notallowed", "user has not been invited to sign up")
+	}
+
 	k := randStringBytesMaskImprSrc(8)
 	tok := &tokenToEmail{
 		Token: k,
@@ -139,6 +148,13 @@ func (e *Signup) SendVerificationEmail(ctx context.Context,
 	}
 
 	return nil
+}
+
+func (e *Signup) isAllowedToSignup(ctx context.Context, email string) bool {
+	// for now we're checking the invite service before allowing signup
+	// TODO check for a valid invite code rather than just the email
+	_, err := e.inviteService.Validate(ctx, &inviteproto.ValidateRequest{Email: email})
+	return err == nil
 }
 
 // Lifted  from the invite service https://github.com/micro/services/blob/master/projects/invite/handler/invite.go#L187
@@ -173,16 +189,21 @@ func (e *Signup) sendEmail(email, token string) error {
 
 	req.Header.Set("Authorization", "Bearer "+e.sendgridAPIKey)
 	req.Header.Set("Content-Type", "application/json")
-
-	if rsp, err := new(http.Client).Do(req); err != nil {
+	rsp, err := new(http.Client).Do(req)
+	if err != nil {
 		logger.Infof("Could not send email to %v, error: %v", email, err)
 		return err
-	} else if rsp.StatusCode != 202 {
+	}
+	defer rsp.Body.Close()
+
+	if rsp.StatusCode < 200 || rsp.StatusCode > 299 {
 		bytes, err := ioutil.ReadAll(rsp.Body)
 		if err != nil {
-			logger.Infof("Could not send email to %v, error: %v", email, string(bytes))
+			logger.Errorf("Could not send email to %v, error: %v", email, err.Error())
 			return err
 		}
+		logger.Errorf("Could not send email to %v, error: %v", email, string(bytes))
+		return merrors.InternalServerError("go.micro.service.signup.sendemail", "error sending email")
 	}
 	return nil
 }
@@ -194,9 +215,9 @@ func (e *Signup) Verify(ctx context.Context,
 
 	recs, err := e.store.Read(req.Email)
 	if err == store.ErrNotFound {
-		return errors.New("Can't verify: record not found")
+		return errors.New("can't verify: record not found")
 	} else if err != nil {
-		return fmt.Errorf("Email verification error: %v", err)
+		return fmt.Errorf("email verification error: %v", err)
 	}
 
 	tok := &tokenToEmail{}
@@ -210,7 +231,7 @@ func (e *Signup) Verify(ctx context.Context,
 
 	secret, err := e.getAccountSecret(req.Email)
 	if err != store.ErrNotFound && err != nil {
-		return fmt.Errorf("Can't get account secret: %v", err)
+		return fmt.Errorf("can't get account secret: %v", err)
 	}
 	// If the user has a secret it means the account is ready
 	// to be used, so we log them in.
@@ -244,7 +265,7 @@ func (e *Signup) CompleteSignup(ctx context.Context,
 
 	recs, err := e.store.Read(req.Email)
 	if err == store.ErrNotFound {
-		return errors.New("Can't verify: record not found")
+		return errors.New("can't verify: record not found")
 	} else if err != nil {
 		return err
 	}
@@ -254,7 +275,7 @@ func (e *Signup) CompleteSignup(ctx context.Context,
 		return err
 	}
 	if tok.Token != req.Token {
-		return errors.New("Invalid token")
+		return errors.New("invalid token")
 	}
 
 	_, err = e.paymentService.CreatePaymentMethod(ctx, &paymentsproto.CreatePaymentMethodRequest{
