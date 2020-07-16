@@ -241,11 +241,12 @@ func (e *Signup) Verify(ctx context.Context,
 	if err != store.ErrNotFound && err != nil {
 		return fmt.Errorf("can't get account secret: %v", err)
 	}
+
 	// If the user has a secret it means the account is ready
 	// to be used, so we log them in.
 	if len(secret) > 0 {
 		ns, err := e.getNamespace(req.Email)
-		if err != store.ErrNotFound {
+		if err != nil && err != store.ErrNotFound {
 			return err
 		}
 		token, err := e.auth.Token(auth.WithCredentials(req.Email, secret), auth.WithTokenIssuer(ns))
