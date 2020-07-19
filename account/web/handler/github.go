@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/micro/go-micro/v2/auth"
-	"github.com/micro/go-micro/v2/auth/provider"
+	"github.com/micro/services/account/web/provider"
 	invite "github.com/micro/services/projects/invite/proto"
 	users "github.com/micro/services/users/service/proto"
 )

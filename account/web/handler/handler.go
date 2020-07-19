@@ -9,8 +9,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/auth"
-	"github.com/micro/go-micro/v2/auth/provider"
-	"github.com/micro/go-micro/v2/auth/provider/oauth"
+	"github.com/micro/services/account/web/provider"
+	"github.com/micro/services/account/web/provider/oauth"
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/store"
 

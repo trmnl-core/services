@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/micro/go-micro/v2/auth/provider"
+	"github.com/micro/services/account/web/provider"
 
 	"github.com/micro/go-micro/v2/auth"
 	invite "github.com/micro/services/projects/invite/proto"
