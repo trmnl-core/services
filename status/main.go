@@ -4,8 +4,8 @@ import (
 	"github.com/micro/go-micro/v2"
 	log "github.com/micro/go-micro/v2/logger"
 
-	"github.com/micro/services/status/handler"
-	status "github.com/micro/services/status/proto/status"
+	"github.com/m3o/services/status/handler"
+	status "github.com/m3o/services/status/proto/status"
 )
 
 func main() {

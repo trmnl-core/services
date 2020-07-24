@@ -55,7 +55,7 @@ function build {
     cp $rootDir/dumb-init/dumb-init dumb-init
 
     # build the docker image
-    tag=docker.pkg.github.com/micro/services/$(echo $dir | tr / -)
+    tag=docker.pkg.github.com/m3o/services/$(echo $dir | tr / -)
     docker build . -t $tag -f $rootDir/.github/workflows/Dockerfile
 
     if [ -n "$1" ] && [ "$BRANCH" = "refs/heads/master" ]; then

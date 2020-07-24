@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/micro/services/account/web/handler"
+	"github.com/m3o/services/account/web/handler"
 
 	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/web"

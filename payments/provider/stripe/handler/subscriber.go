@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	pb "github.com/micro/services/payments/provider/proto"
-	users "github.com/micro/services/users/service/proto"
+	pb "github.com/m3o/services/payments/provider/proto"
+	users "github.com/m3o/services/users/service/proto"
 )
 
 // HandleUserEvent handles the events published by the uses service

@@ -14,7 +14,7 @@ import (
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/store"
 
-	pb "github.com/micro/services/secrets/service/proto"
+	pb "github.com/m3o/services/secrets/service/proto"
 )
 
 // New returns an initialised handler

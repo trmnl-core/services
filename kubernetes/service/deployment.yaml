@@ -55,7 +55,7 @@ spec:
           value: service
         - name: MICRO_LOG_LEVEL
           value: trace
-        image: docker.pkg.github.com/micro/services/kubernetes-service
+        image: docker.pkg.github.com/m3o/services/kubernetes-service
         imagePullPolicy: Always
         name: kubernetes-service
         ports:

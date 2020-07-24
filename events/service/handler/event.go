@@ -10,7 +10,7 @@ import (
 	"github.com/micro/go-micro/v2/errors"
 	"github.com/micro/go-micro/v2/store"
 
-	pb "github.com/micro/services/events/service/proto"
+	pb "github.com/m3o/services/events/service/proto"
 )
 
 // Events implement the event service interface

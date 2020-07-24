@@ -11,7 +11,7 @@ import (
 	"github.com/micro/go-micro/v2/errors"
 	"github.com/micro/go-micro/v2/store"
 
-	pb "github.com/micro/services/projects/service/proto"
+	pb "github.com/m3o/services/projects/service/proto"
 )
 
 // Project implements the project service interface

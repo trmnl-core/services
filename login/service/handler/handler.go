@@ -10,8 +10,8 @@ import (
 	"github.com/micro/go-micro/v2/errors"
 	"github.com/micro/go-micro/v2/store"
 
-	pb "github.com/micro/services/login/service/proto/login"
-	users "github.com/micro/services/users/service/proto"
+	pb "github.com/m3o/services/login/service/proto/login"
+	users "github.com/m3o/services/users/service/proto"
 )
 
 // Handler implements the login service interface

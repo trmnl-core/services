@@ -5,8 +5,8 @@ import (
 	"github.com/micro/go-micro/v2/auth"
 	log "github.com/micro/go-micro/v2/logger"
 
-	"github.com/micro/services/users/api/handler"
-	pb "github.com/micro/services/users/api/proto"
+	"github.com/m3o/services/users/api/handler"
+	pb "github.com/m3o/services/users/api/proto"
 )
 
 func main() {

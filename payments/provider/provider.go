@@ -6,7 +6,7 @@ import (
 	"github.com/micro/go-micro/v2/client"
 	"github.com/micro/go-micro/v2/registry"
 
-	pb "github.com/micro/services/payments/provider/proto"
+	pb "github.com/m3o/services/payments/provider/proto"
 )
 
 // Provider is an alias type so clients don't need to also import the pb

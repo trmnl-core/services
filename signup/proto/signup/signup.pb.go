@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.22.0
 // 	protoc        v3.11.4
-// source: github.com/micro/services/signup/proto/signup/signup.proto
+// source: github.com/m3o/services/signup/proto/signup/signup.proto
 
 package go_micro_service_signup
 

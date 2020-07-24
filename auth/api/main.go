@@ -8,7 +8,7 @@ import (
 	"github.com/micro/go-micro/v2/auth"
 	"github.com/micro/go-micro/v2/logger"
 
-	pb "github.com/micro/services/auth/api/proto"
+	pb "github.com/m3o/services/auth/api/proto"
 )
 
 func main() {

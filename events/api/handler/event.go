@@ -11,10 +11,10 @@ import (
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/runtime"
 
-	pb "github.com/micro/services/events/api/proto"
-	event "github.com/micro/services/events/service/proto"
-	environments "github.com/micro/services/projects/environments/proto"
-	project "github.com/micro/services/projects/service/proto"
+	pb "github.com/m3o/services/events/api/proto"
+	event "github.com/m3o/services/events/service/proto"
+	environments "github.com/m3o/services/projects/environments/proto"
+	project "github.com/m3o/services/projects/service/proto"
 )
 
 const (

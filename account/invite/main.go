@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/m3o/services/account/invite/handler"
+	pb "github.com/m3o/services/account/invite/proto"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/logger"
-	"github.com/micro/services/account/invite/handler"
-	pb "github.com/micro/services/account/invite/proto"
 )
 
 func main() {

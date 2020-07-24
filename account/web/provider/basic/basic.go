@@ -1,7 +1,7 @@
 package basic
 
 import (
-	"github.com/micro/services/account/web/provider"
+	"github.com/m3o/services/account/web/provider"
 )
 
 // NewProvider returns an initialised basic provider

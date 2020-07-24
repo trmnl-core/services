@@ -8,7 +8,7 @@ import (
 	"github.com/micro/go-micro/v2"
 	k8s "github.com/micro/go-micro/v2/util/kubernetes/client"
 
-	pb "github.com/micro/services/kubernetes/service/proto"
+	pb "github.com/m3o/services/kubernetes/service/proto"
 )
 
 // Kubernetes implements the kubernetes service interface

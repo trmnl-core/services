@@ -4,8 +4,8 @@ import (
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/logger"
 
-	"github.com/micro/services/projects/environments/handler"
-	pb "github.com/micro/services/projects/environments/proto"
+	"github.com/m3o/services/projects/environments/handler"
+	pb "github.com/m3o/services/projects/environments/proto"
 )
 
 func main() {

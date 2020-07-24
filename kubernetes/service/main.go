@@ -4,8 +4,8 @@ import (
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/logger"
 
-	"github.com/micro/services/kubernetes/service/handler"
-	pb "github.com/micro/services/kubernetes/service/proto"
+	"github.com/m3o/services/kubernetes/service/handler"
+	pb "github.com/m3o/services/kubernetes/service/proto"
 )
 
 func main() {

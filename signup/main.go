@@ -1,14 +1,14 @@
 package main
 
 import (
+	"github.com/m3o/services/signup/handler"
 	"github.com/micro/go-micro/v2"
 	log "github.com/micro/go-micro/v2/logger"
-	"github.com/micro/services/signup/handler"
 
-	inviteproto "github.com/micro/services/account/invite/proto"
-	k8sproto "github.com/micro/services/kubernetes/service/proto"
-	paymentsproto "github.com/micro/services/payments/provider/proto"
-	signup "github.com/micro/services/signup/proto/signup"
+	inviteproto "github.com/m3o/services/account/invite/proto"
+	k8sproto "github.com/m3o/services/kubernetes/service/proto"
+	paymentsproto "github.com/m3o/services/payments/provider/proto"
+	signup "github.com/m3o/services/signup/proto/signup"
 )
 
 func main() {

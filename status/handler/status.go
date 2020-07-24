@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
+	status "github.com/m3o/services/status/proto/status"
 	api "github.com/micro/go-micro/v2/api/proto"
 	"github.com/micro/go-micro/v2/client"
 	proto "github.com/micro/go-micro/v2/debug/service/proto"
-	status "github.com/micro/services/status/proto/status"
 )
 
 var (

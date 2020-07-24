@@ -7,16 +7,16 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/m3o/services/account/web/provider"
+	"github.com/m3o/services/account/web/provider/oauth"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/auth"
-	"github.com/micro/services/account/web/provider"
-	"github.com/micro/services/account/web/provider/oauth"
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/store"
 
-	login "github.com/micro/services/login/service/proto/login"
-	invite "github.com/micro/services/projects/invite/proto"
-	users "github.com/micro/services/users/service/proto"
+	login "github.com/m3o/services/login/service/proto/login"
+	invite "github.com/m3o/services/projects/invite/proto"
+	users "github.com/m3o/services/users/service/proto"
 )
 
 // NewHandler returns an initialised handler

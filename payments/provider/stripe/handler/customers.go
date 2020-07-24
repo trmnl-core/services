@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 
+	pb "github.com/m3o/services/payments/provider/proto"
 	"github.com/micro/go-micro/v2/errors"
-	pb "github.com/micro/services/payments/provider/proto"
 	stripe "github.com/stripe/stripe-go"
 )
 

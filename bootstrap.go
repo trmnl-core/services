@@ -16,7 +16,7 @@ const (
 	// serviceRootFile is the file which a directory must contain to be considered a service
 	serviceRootFile = "main.go"
 	// source is the repository containing the source code
-	source = "github.com/micro/services"
+	source = "github.com/m3o/services"
 )
 
 func main() {
@@ -44,7 +44,7 @@ func main() {
 		err := srv.Options().Runtime.Create(
 			&runtime.Service{Name: name, Source: source},
 			runtime.CreateNamespace("platform"),
-			runtime.CreateImage("docker.pkg.github.com/micro/services/"+strings.ReplaceAll(name, "/", "-")),
+			runtime.CreateImage("docker.pkg.github.com/m3o/services/"+strings.ReplaceAll(name, "/", "-")),
 		)
 
 		if err != nil {

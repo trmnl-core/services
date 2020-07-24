@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 
+	pb "github.com/m3o/services/account/invite/proto"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/errors"
 	"github.com/micro/go-micro/v2/store"
-	pb "github.com/micro/services/account/invite/proto"
 )
 
 type invite struct {

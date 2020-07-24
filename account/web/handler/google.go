@@ -7,11 +7,11 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/micro/services/account/web/provider"
+	"github.com/m3o/services/account/web/provider"
 
+	invite "github.com/m3o/services/projects/invite/proto"
+	users "github.com/m3o/services/users/service/proto"
 	"github.com/micro/go-micro/v2/auth"
-	invite "github.com/micro/services/projects/invite/proto"
-	users "github.com/micro/services/users/service/proto"
 )
 
 // HandleGoogleOauthLogin redirects the user to begin the oauth flow

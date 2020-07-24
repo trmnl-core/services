@@ -10,10 +10,10 @@ import (
 
 	"github.com/google/uuid"
 
+	pb "github.com/m3o/services/users/service/proto"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/errors"
 	"github.com/micro/go-micro/v2/store"
-	pb "github.com/micro/services/users/service/proto"
 )
 
 var (

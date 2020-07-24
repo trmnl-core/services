@@ -8,7 +8,7 @@ import (
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/client"
 
-	pb "github.com/micro/services/payments/provider/proto"
+	pb "github.com/m3o/services/payments/provider/proto"
 )
 
 type testprovider struct{}

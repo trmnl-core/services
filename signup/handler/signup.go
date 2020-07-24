@@ -21,11 +21,11 @@ import (
 	"github.com/micro/go-micro/v2/store"
 	"github.com/sethvargo/go-diceware/diceware"
 
-	signup "github.com/micro/services/signup/proto/signup"
+	signup "github.com/m3o/services/signup/proto/signup"
 
-	inviteproto "github.com/micro/services/account/invite/proto"
-	k8sproto "github.com/micro/services/kubernetes/service/proto"
-	paymentsproto "github.com/micro/services/payments/provider/proto"
+	inviteproto "github.com/m3o/services/account/invite/proto"
+	k8sproto "github.com/m3o/services/kubernetes/service/proto"
+	paymentsproto "github.com/m3o/services/payments/provider/proto"
 )
 
 const (
@@ -166,7 +166,7 @@ func (e *Signup) isAllowedToSignup(ctx context.Context, email string) bool {
 	return err == nil
 }
 
-// Lifted  from the invite service https://github.com/micro/services/blob/master/projects/invite/handler/invite.go#L187
+// Lifted  from the invite service https://github.com/m3o/services/blob/master/projects/invite/handler/invite.go#L187
 // sendEmailInvite sends an email invite via the sendgrid API using the
 // predesigned email template. Docs: https://bit.ly/2VYPQD1
 func (e *Signup) sendEmail(email, token string) error {
@@ -373,7 +373,7 @@ func (e *Signup) CompleteSignup(ctx context.Context, req *signup.CompleteSignupR
 	return nil
 }
 
-// lifted from https://github.com/micro/services/blob/550220a6eff2604b3e6d58d09db2b4489967019c/account/web/handler/handler.go#L114
+// lifted from https://github.com/m3o/services/blob/550220a6eff2604b3e6d58d09db2b4489967019c/account/web/handler/handler.go#L114
 func (e *Signup) setAccountSecret(id, secret string) error {
 	key := storePrefixAccountSecrets + id
 	return e.store.Write(&store.Record{Key: key, Value: []byte(secret)})

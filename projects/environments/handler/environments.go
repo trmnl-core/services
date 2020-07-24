@@ -10,8 +10,8 @@ import (
 	"github.com/micro/go-micro/v2/errors"
 	"github.com/micro/go-micro/v2/store"
 
-	pb "github.com/micro/services/projects/environments/proto"
-	projects "github.com/micro/services/projects/service/proto"
+	pb "github.com/m3o/services/projects/environments/proto"
+	projects "github.com/m3o/services/projects/service/proto"
 )
 
 // NewEnvironments returns an initialised Environments handler

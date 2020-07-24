@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/micro/services/account/web/provider"
+	"github.com/m3o/services/account/web/provider"
 )
 
 // NewProvider returns an initialised oauth provider

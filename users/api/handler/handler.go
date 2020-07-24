@@ -3,11 +3,11 @@ package handler
 import (
 	"context"
 
+	pb "github.com/m3o/services/users/api/proto"
+	users "github.com/m3o/services/users/service/proto"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/auth"
 	"github.com/micro/go-micro/v2/errors"
-	pb "github.com/micro/services/users/api/proto"
-	users "github.com/micro/services/users/service/proto"
 )
 
 // Handler implements the users api interface

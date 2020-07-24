@@ -4,7 +4,7 @@ set -x
 set -e
 
 SOURCE=$1
-REPO=github.com/micro/services
+REPO=github.com/m3o/services
 
 # clone the repo
 echo "Cloning $REPO"

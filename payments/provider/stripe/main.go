@@ -5,9 +5,9 @@ import (
 	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/server"
 
-	"github.com/micro/services/payments/provider"
-	pb "github.com/micro/services/payments/provider/proto"
-	"github.com/micro/services/payments/provider/stripe/handler"
+	"github.com/m3o/services/payments/provider"
+	pb "github.com/m3o/services/payments/provider/proto"
+	"github.com/m3o/services/payments/provider/stripe/handler"
 )
 
 func main() {

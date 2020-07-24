@@ -17,9 +17,9 @@ import (
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/store"
 
-	pb "github.com/micro/services/projects/invite/proto"
-	project "github.com/micro/services/projects/service/proto"
-	users "github.com/micro/services/users/service/proto"
+	pb "github.com/m3o/services/projects/invite/proto"
+	project "github.com/m3o/services/projects/service/proto"
+	users "github.com/m3o/services/users/service/proto"
 )
 
 var (
