@@ -1,55 +1,15 @@
 # Client Service
 
-This is the Client service
+The Client api manages all inbound api requests for m3o client libraries.
 
-Generated with
+## Overview
 
-```
-micro new api --namespace=go.micro --alias=client --type=api
-```
-
-## Getting Started
-
-- [Configuration](#configuration)
-- [Dependencies](#dependencies)
-- [Usage](#usage)
-
-## Configuration
-
-- FQDN: go.micro.api.client
-- Type: api
-- Alias: client
-
-## Dependencies
-
-Micro services depend on service discovery. The default is multicast DNS, a zeroconf system.
-
-In the event you need a resilient multi-host setup we recommend etcd.
-
-```
-# install etcd
-brew install etcd
-
-# run etcd
-etcd
-```
+The micro api provides a public entrypoint mapping http/json requests to backend rpc service calls. 
+This is great because /foo/bar translates to the foo service with endpoint Foo.Bar but building 
+clients against this in the long term means we have to bake in a lot of things into the API. 
+Instead writing a client api service lets us manage all api access for clients in one place.
 
 ## Usage
 
-A Makefile is included for convenience
-
-Build the binary
-
-```
-make build
-```
-
-Run the service
-```
-./client-api
-```
-
-Build a docker image
-```
-make docker
-```
+Clients are the m3o-{node, angular, java, ...} client libraries written to execute against 
+the endpoint api.m3o.com/client or localhost:8080/api/client, whichever is preferrable.
