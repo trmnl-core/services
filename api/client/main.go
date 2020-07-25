@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/micro/services/api/client/handler"
-	client "github.com/micro/services/api/client/proto/client"
+	"github.com/m3o/services/api/client/handler"
+	client "github.com/m3o/services/api/client/proto/client"
 
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/api"

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/m3o/services/notifications/service/dao"
+	nproto "github.com/m3o/services/notifications/service/proto/notifications"
 	"github.com/micro/go-micro/v2/auth"
 	"github.com/micro/go-micro/v2/errors"
 	"github.com/micro/go-micro/v2/store"
-	"github.com/micro/services/notifications/service/dao"
-	nproto "github.com/micro/services/notifications/service/proto/notifications"
 )
 
 type Notifications struct {

@@ -1,13 +1,13 @@
 package main
 
 import (
+	"github.com/m3o/services/notifications/service/dao"
+	"github.com/m3o/services/notifications/service/handler"
+	"github.com/m3o/services/notifications/service/subscriber"
 	"github.com/micro/go-micro/v2"
 	log "github.com/micro/go-micro/v2/logger"
-	"github.com/micro/services/notifications/service/dao"
-	"github.com/micro/services/notifications/service/handler"
-	"github.com/micro/services/notifications/service/subscriber"
 
-	notifications "github.com/micro/services/notifications/service/proto/notifications"
+	notifications "github.com/m3o/services/notifications/service/proto/notifications"
 )
 
 func main() {

@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/m3o/services/notifications/service/dao"
 	"github.com/micro/go-micro/v2/store/memory"
-	"github.com/micro/services/notifications/service/dao"
 
 	"github.com/stretchr/testify/assert"
 )

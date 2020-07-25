@@ -3,7 +3,7 @@ package subscriber
 import (
 	"context"
 
-	nproto "github.com/micro/services/notifications/service/proto/notifications"
+	nproto "github.com/m3o/services/notifications/service/proto/notifications"
 )
 
 type Subscriber struct {

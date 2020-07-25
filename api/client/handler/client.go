@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"io"
 
+	pb "github.com/m3o/services/api/client/proto/client"
 	"github.com/micro/go-micro/v2/client"
 	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/metadata"
-	pb "github.com/micro/services/api/client/proto/client"
 )
 
 type Client struct {
