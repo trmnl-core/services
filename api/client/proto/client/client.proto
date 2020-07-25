@@ -9,6 +9,7 @@ service Client {
 	// Stream is a bidirectional stream
 	rpc Stream(stream Request) returns (stream Response) {};
 	// Publish publishes a message and returns an empty Message
+	// TODO; implement the endpoint
 	//rpc Publish(Message) returns (Message) {};
 }
 
