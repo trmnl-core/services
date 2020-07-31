@@ -5,8 +5,8 @@ go 1.14
 require (
 	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v1.1.1
-	github.com/micro/go-micro/v3 v3.0.0-alpha.0.20200729124150-006bbefaf3ee
-	github.com/micro/micro/v3 v3.0.0-20200730101154-cc2a2ab5232b
+	github.com/micro/go-micro/v3 v3.0.0-alpha.0.20200731140532-31ed4aa0e8d3
+	github.com/micro/micro/v3 v3.0.0-20200731144910-3f9b7db90720
 	github.com/sethvargo/go-diceware v0.2.0
 	github.com/slack-go/slack v0.6.5
 	github.com/stretchr/testify v1.5.1
@@ -17,7 +17,3 @@ require (
 )
 
 replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
-
-replace github.com/micro/micro/v3 => github.com/micro/micro/v3 v3.0.0-20200730122401-c9a81fcbb742
-
-replace github.com/micro/go-micro/v3 => github.com/micro/go-micro/v3 v3.0.0-alpha.0.20200729124150-006bbefaf3ee
