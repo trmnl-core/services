@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/micro/micro/v3/test"
 	"github.com/micro/micro/v3/client/cli/namespace"
+	"github.com/micro/micro/v3/test"
 	"github.com/stripe/stripe-go/v71"
 	stripe_client "github.com/stripe/stripe-go/v71/client"
 )
@@ -29,7 +29,7 @@ func TestM3oSignupFlow(t *testing.T) {
 func testM3oSignupFlow(t *test.T) {
 	t.Parallel()
 
-	serv := test.NewServer(t)
+	serv := test.NewServer(t, test.WithLogin())
 	defer serv.Close()
 	if err := serv.Run(); err != nil {
 		return
@@ -55,19 +55,19 @@ func testM3oSignupFlow(t *test.T) {
 		}
 	}
 
-	outp, err := exec.Command("micro", serv.EnvFlag(), "run", getSrcString("M3O_INVITE_SVC", "github.com/m3o/services/account/invite")).CombinedOutput()
+	outp, err := exec.Command("micro", serv.EnvFlag(), "run", getSrcString("M3O_INVITE_SVC", "../../../account/invite")).CombinedOutput()
 	if err != nil {
 		t.Fatal(string(outp))
 		return
 	}
 
-	outp, err = exec.Command("micro", serv.EnvFlag(), "run", getSrcString("M3O_SIGNUP_SVC", "github.com/m3o/services/signup")).CombinedOutput()
+	outp, err = exec.Command("micro", serv.EnvFlag(), "run", getSrcString("M3O_SIGNUP_SVC", "../../../signup")).CombinedOutput()
 	if err != nil {
 		t.Fatal(string(outp))
 		return
 	}
 
-	outp, err = exec.Command("micro", serv.EnvFlag(), "run", getSrcString("M3O_STRIPE_SVC", "github.com/m3o/services/payments/provider/stripe")).CombinedOutput()
+	outp, err = exec.Command("micro", serv.EnvFlag(), "run", getSrcString("M3O_STRIPE_SVC", "../../../payments/provider/stripe")).CombinedOutput()
 	if err != nil {
 		t.Fatal(string(outp))
 		return
@@ -82,7 +82,7 @@ func testM3oSignupFlow(t *test.T) {
 			return outp, errors.New("Can't find signup or stripe or invite in list")
 		}
 		return outp, err
-	}, 70*time.Second); err != nil {
+	}, 180*time.Second); err != nil {
 		return
 	}
 
@@ -182,7 +182,7 @@ func testM3oSignupFlow(t *test.T) {
 
 	code := ""
 	if err := test.Try("Find verification token in logs", t, func() ([]byte, error) {
-		psCmd := exec.Command("micro", serv.EnvFlag(), "logs", "-n", "100", "m3o/services/signup")
+		psCmd := exec.Command("micro", serv.EnvFlag(), "logs", "-n", "100", "signup")
 		outp, err = psCmd.CombinedOutput()
 		if err != nil {
 			return outp, err
