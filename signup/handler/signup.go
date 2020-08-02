@@ -24,8 +24,8 @@ import (
 
 	signup "github.com/m3o/services/signup/proto/signup"
 
-	inviteproto "github.com/m3o/services/account/invite/proto"
-	k8sproto "github.com/m3o/services/kubernetes/service/proto"
+	inviteproto "github.com/m3o/services/invite/proto"
+	k8sproto "github.com/m3o/services/kubernetes/proto"
 	paymentsproto "github.com/m3o/services/payments/provider/proto"
 )
 
