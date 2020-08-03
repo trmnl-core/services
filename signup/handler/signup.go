@@ -52,6 +52,12 @@ type Signup struct {
 	testMode           bool
 }
 
+var (
+	// TODO: move this message to a better location
+	// Message is a predefined message returned during signup
+	Message = "Please go to https://m3o.com/subscribe?email=%s and paste the acquired payment method id here: "
+)
+
 func NewSignup(paymentService paymentsproto.ProviderService,
 	inviteService inviteproto.InviteService,
 	k8sService k8sproto.KubernetesService, auth auth.Auth) *Signup {
@@ -213,9 +219,7 @@ func (e *Signup) sendEmail(email, token string) error {
 	return nil
 }
 
-func (e *Signup) Verify(ctx context.Context,
-	req *signup.VerifyRequest,
-	rsp *signup.VerifyResponse) error {
+func (e *Signup) Verify(ctx context.Context, req *signup.VerifyRequest, rsp *signup.VerifyResponse) error {
 	logger.Info("Received Signup.Verify request")
 
 	recs, err := mstore.Read(req.Email)
@@ -261,6 +265,9 @@ func (e *Signup) Verify(ctx context.Context,
 		rsp.Namespace = ns
 		return nil
 	}
+
+	// set the response message
+	rsp.Message = fmt.Sprintf(Message, req.Email)
 
 	// Otherwisewe just return without an error but with no token
 	_, err = e.paymentService.CreateCustomer(ctx, &paymentsproto.CreateCustomerRequest{
