@@ -3,10 +3,12 @@ syntax = "proto3";
 package go.micro.service.signup;
 
 service Signup {
-   rpc SendVerificationEmail(SendVerificationEmailRequest) returns (SendVerificationEmailResponse);
-   rpc Verify(VerifyRequest) returns (VerifyResponse);
-   // Creates a subscription and an account
-   rpc CompleteSignup(CompleteSignupRequest) returns (CompleteSignupResponse);
+	// Sends the verification email to the user
+	rpc SendVerificationEmail(SendVerificationEmailRequest) returns (SendVerificationEmailResponse);
+	// Verify kicks off the process of verification
+	rpc Verify(VerifyRequest) returns (VerifyResponse);
+	// Creates a subscription and an account
+	rpc CompleteSignup(CompleteSignupRequest) returns (CompleteSignupResponse);
 }
 
 message SendVerificationEmailRequest {
@@ -33,8 +35,10 @@ message VerifyResponse {
 	// acquire a payment method, see `micro login` flow for more.
 	// @todo this is likely not needed
 	string customerID = 2;
-	// Namesp
+	// Namespace to use
 	string namespace = 3;
+	// Message to display to the user
+	string message = 4;
 }
 
 message CompleteSignupRequest {

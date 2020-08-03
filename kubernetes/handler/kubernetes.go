@@ -5,8 +5,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 
-	k8s "github.com/micro/go-micro/v3/util/kubernetes/client"
 	pb "github.com/m3o/services/kubernetes/proto"
+	k8s "github.com/micro/go-micro/v3/util/kubernetes/client"
 	"github.com/micro/micro/v3/service"
 )
 
