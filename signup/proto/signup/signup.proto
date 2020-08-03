@@ -39,7 +39,10 @@ message VerifyResponse {
 	string namespace = 3;
 	// Message to display to the user
 	string message = 4;
+	// Whether payment is required or not
+	bool payment_required = 5;
 }
+
 
 message CompleteSignupRequest {
 	string email = 1;

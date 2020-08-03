@@ -268,6 +268,9 @@ func (e *Signup) Verify(ctx context.Context, req *signup.VerifyRequest, rsp *sig
 
 	// set the response message
 	rsp.Message = fmt.Sprintf(Message, req.Email)
+	// we require payment for any signup
+	// if not set the CLI will try complete signup without payment id
+	rsp.PaymentRequired = true
 
 	// Otherwisewe just return without an error but with no token
 	_, err = e.paymentService.CreateCustomer(ctx, &paymentsproto.CreateCustomerRequest{
