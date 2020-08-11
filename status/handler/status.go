@@ -7,9 +7,9 @@ import (
 
 	status "github.com/m3o/services/status/proto/status"
 	api "github.com/micro/go-micro/v3/api/proto"
-	proto "github.com/micro/go-micro/v3/debug/service/proto"
 	"github.com/micro/go-micro/v3/errors"
 	"github.com/micro/micro/v3/service/client"
+	proto "github.com/micro/micro/v3/service/debug/proto"
 )
 
 var (
