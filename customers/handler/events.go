@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"time"
 
+	mevents "github.com/micro/micro/v3/service/events"
+
 	"github.com/micro/go-micro/v3/events"
 	"github.com/micro/go-micro/v3/logger"
-	mevents "github.com/micro/micro/v3/service/events"
 )
 
 type CustomerEvent struct {
@@ -37,44 +38,47 @@ type SubscriptionModel struct {
 
 func ConsumeEvents() {
 	go func() {
-		var events <-chan events.Event
+		var evs <-chan events.Event
 		start := time.Now()
 		for {
 			var err error
-			events, err = mevents.Subscribe("subscriptions")
+			evs, err = mevents.Subscribe("subscriptions",
+				events.WithAutoAck(false, 30*time.Second),
+				events.WithRetryLimit(10)) // 10 retries * 30 secs ackWait gives us 5 mins of tolerance for issues
 			if err == nil {
 				break
 			}
 			// TODO fix me
 			if time.Since(start) > 2*time.Minute {
-				logger.Fatalf("Failed to subscribe to subscriptions topic %s", err) // TODO should be fatal
+				logger.Fatalf("Failed to subscribe to subscriptions topic %s", err)
 			}
-			logger.Warnf("Unable to subscribe to events %s. Will retru in 20 secs", err)
+			logger.Warnf("Unable to subscribe to evs %s. Will retry in 20 secs", err)
 			time.Sleep(20 * time.Second)
 		}
-		go processSubscriptionEvents(events)
+		go processSubscriptionEvents(evs)
 
 	}()
 
 }
 
 func processSubscriptionEvents(ch <-chan events.Event) {
-	// TODO need a mechanism to return the message to the queue for retry
 	for ev := range ch {
 		sub := &SubscriptionEvent{}
 		if err := json.Unmarshal(ev.Payload, sub); err != nil {
+			ev.Nack()
 			logger.Errorf("Error unmarshalling subscription event: $s", err)
 			continue
 		}
 		switch sub.Type {
 		case "subscriptions.created":
 			if _, err := updateCustomerStatus(sub.Subscription.CustomerID, statusActive); err != nil {
+				ev.Nack()
 				logger.Errorf("Error updating customers status for customers %s. %s", sub.Subscription.CustomerID, err)
 				continue
 			}
 			logger.Infof("Updated customer status to active from subscriptions.created event %+v", sub)
 		}
-
+		ev.Ack()
 	}
 	// TODO what do you do if the channel closes
 }
