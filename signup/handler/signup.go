@@ -15,6 +15,7 @@ import (
 	cproto "github.com/m3o/services/customers/proto"
 	inviteproto "github.com/m3o/services/invite/proto"
 	nproto "github.com/m3o/services/namespaces/proto"
+	pproto "github.com/m3o/services/payments/provider/proto"
 	signup "github.com/m3o/services/signup/proto/signup"
 	sproto "github.com/m3o/services/subscriptions/proto"
 	"github.com/patrickmn/go-cache"
@@ -29,7 +30,8 @@ import (
 )
 
 const (
-	expiryDuration = 5 * time.Minute
+	expiryDuration      = 5 * time.Minute
+	prefixPaymentMethod = "payment-method/"
 )
 
 type tokenToEmail struct {
@@ -44,6 +46,7 @@ type Signup struct {
 	customerService     cproto.CustomersService
 	namespaceService    nproto.NamespacesService
 	subscriptionService sproto.SubscriptionsService
+	paymentService      pproto.ProviderService
 	auth                auth.Auth
 	sendgridTemplateID  string
 	recoverTemplateID   string
@@ -57,14 +60,15 @@ type Signup struct {
 var (
 	// TODO: move this message to a better location
 	// Message is a predefined message returned during signup
-	Message = "Please complete signup at https://m3o.com/subscribe?email=%s and enter the generated token ID: "
+	Message = "Please complete signup at https://m3o.com/subscribe?email=%s. This command will now wait for you to finish."
 )
 
 func NewSignup(inviteService inviteproto.InviteService,
 	customerService cproto.CustomersService,
 	namespaceService nproto.NamespacesService,
 	subscriptionService sproto.SubscriptionsService,
-	auth auth.Auth) *Signup {
+	auth auth.Auth,
+	paymentService pproto.ProviderService) *Signup {
 
 	apiKey := mconfig.Get("micro", "signup", "sendgrid", "api_key").String("")
 	templateID := mconfig.Get("micro", "signup", "sendgrid", "template_id").String("")
@@ -84,6 +88,7 @@ func NewSignup(inviteService inviteproto.InviteService,
 		customerService:     customerService,
 		namespaceService:    namespaceService,
 		subscriptionService: subscriptionService,
+		paymentService:      paymentService,
 		auth:                auth,
 		sendgridAPIKey:      apiKey,
 		sendgridTemplateID:  templateID,
@@ -157,6 +162,14 @@ func (e *Signup) SendVerificationEmail(ctx context.Context,
 
 	if err := mstore.Write(&store.Record{
 		Key:   req.Email,
+		Value: bytes,
+	}); err != nil {
+		return err
+	}
+	// HasPaymentMethod needs to resolve email from token, so we save the
+	// same record under a token too
+	if err := mstore.Write(&store.Record{
+		Key:   tok.Token,
 		Value: bytes,
 	}); err != nil {
 		return err
@@ -319,7 +332,11 @@ func (e *Signup) CompleteSignup(ctx context.Context, req *signup.CompleteSignupR
 			return err
 		}
 	} else {
-		newNs, err := e.signupWithNewNamespace(ctx, tok.CustomerID, tok.Email, req.PaymentMethodID)
+		pm, err := getPaymentMethod(tok.Email)
+		if err != nil || len(pm) == 0 {
+			return merrors.InternalServerError("signup.CompleteSignup", "Error getting payment method: %v", err)
+		}
+		newNs, err := e.signupWithNewNamespace(ctx, tok.CustomerID, tok.Email, pm)
 		if err != nil {
 			return err
 		}
@@ -396,6 +413,58 @@ func (e *Signup) Recover(ctx context.Context, req *signup.RecoverRequest, rsp *s
 	}
 	return err
 }
+
+func (e *Signup) SetPaymentMethod(ctx context.Context, req *signup.SetPaymentMethodRequest, rsp *signup.SetPaymentMethodResponse) error {
+	if len(req.Email) == 0 {
+		return merrors.BadRequest("signup.SetPaymentMethod", "No email provided")
+	}
+	if len(req.PaymentMethod) == 0 {
+		return merrors.BadRequest("signup.SetPaymentMethod", "No payment method provided")
+	}
+
+	_, err := e.paymentService.VerifyPaymentMethod(ctx, &pproto.VerifyPaymentMethodRequest{
+		PaymentMethod: req.PaymentMethod,
+	}, client.WithAuthToken())
+	if err != nil {
+		return err
+	}
+	return savePaymentMethod(req.Email, req.PaymentMethod)
+}
+
+func (e *Signup) HasPaymentMethod(ctx context.Context, req *signup.HasPaymentMethodRequest, rsp *signup.HasPaymentMethodResponse) error {
+	recs, err := mstore.Read(req.Token)
+	if err != nil {
+		return err
+	}
+
+	tok := &tokenToEmail{}
+	if err := json.Unmarshal(recs[0].Value, tok); err != nil {
+		return err
+	}
+
+	pm, err := getPaymentMethod(tok.Email)
+	rsp.Has = err == nil && len(pm) > 0
+	return nil
+}
+
+func savePaymentMethod(email, pm string) error {
+	return mstore.Write(&store.Record{
+		Key:   prefixPaymentMethod + email,
+		Value: []byte(pm),
+	})
+}
+
+func getPaymentMethod(email string) (string, error) {
+	recs, err := mstore.Read(prefixPaymentMethod + email)
+	if err != nil {
+		return "", err
+	}
+	if err == nil && len(recs) > 0 {
+		return string(recs[0].Value), nil
+	}
+	return "", errors.New("Can't find payment method")
+}
+
 
 func (e *Signup) signupWithNewNamespace(ctx context.Context, customerID, email, paymentMethodID string) (string, error) {
 	// TODO fix type to be more than just developer
