@@ -1077,3 +1077,130 @@ func testInviteEmailValidation(t *test.T) {
 	}
 
 }
+
+func TestSubCancellation(t *testing.T) {
+	test.TrySuite(t, testSubCancellation, retryCount)
+}
+
+func testSubCancellation(t *test.T) {
+	t.Parallel()
+
+	serv := test.NewServer(t, test.WithLogin())
+	defer serv.Close()
+	if err := serv.Run(); err != nil {
+		return
+	}
+
+	setupM3Tests(serv, t)
+	email := testEmail(0)
+	password := "PassWord1@"
+
+	test.Try("Send invite", t, func() ([]byte, error) {
+		return serv.Command().Exec("invite", "user", "--email="+email)
+	}, 5*time.Second)
+
+	signup(serv, t, email, password, signupOptions{isInvitedToNamespace: false, shouldJoin: false})
+	if t.Failed() {
+		return
+	}
+
+	outp, err := serv.Command().Exec("user", "config")
+	if err != nil {
+		t.Fatalf("Error getting user config %s %s", string(outp), err)
+	}
+
+	ns := ""
+	for _, v := range strings.Split(string(outp), "\n") {
+		if !strings.HasPrefix(v, "namespace: ") {
+			continue
+		}
+		ns = strings.TrimPrefix(v, "namespace: ")
+	}
+	if len(ns) == 0 {
+		t.Fatalf("Unable to determine the namespace of the user %s", string(outp))
+	}
+
+	adminConfFlag := "-c=" + serv.Command().Config + ".admin"
+	envFlag := "-e=" + serv.Env()
+	outp, err = exec.Command("micro", envFlag, adminConfFlag, "customers", "read", "--email="+email).CombinedOutput()
+	if err != nil {
+		t.Fatalf("Error looking up customer ID %s %s ", string(outp), err)
+	}
+	type cs struct {
+		Id string `json:"id"`
+	}
+	type rsp struct {
+		Customer cs `json:"customer"`
+	}
+	csObj := &rsp{}
+	if err := json.Unmarshal(outp, csObj); err != nil {
+		t.Fatalf("Error unmarshalling customer %s %s ", string(outp), err)
+	}
+	outp, err = exec.Command("micro", envFlag, adminConfFlag, "subscriptions", "cancel", "--customerID="+csObj.Customer.Id).CombinedOutput()
+	if err != nil {
+		t.Fatalf("Error cancelling %+v %s %s ", csObj, string(outp), err)
+	}
+	// check stripe for sub cancelled
+	subs := getSubscriptions(t, email)
+	for _, v := range subs {
+		if v.Status != stripe.SubscriptionStatusCanceled {
+			t.Fatalf("Subscription was not cancelled %+v", v)
+		}
+	}
+	test.Try("Check customer deleted", t, func() ([]byte, error) {
+		// check customer is deleted which happens async
+		outp, err = exec.Command("micro", envFlag, adminConfFlag, "customers", "read", "--email="+email).CombinedOutput()
+		if !strings.Contains(string(outp), "not found") {
+			return outp, fmt.Errorf("Customer should not be found %s", err)
+		}
+		return nil, nil
+	}, 60*time.Second)
+	// check namespace is gone
+	outp, err = exec.Command("micro", envFlag, adminConfFlag, "namespaces", "list", "--user="+csObj.Customer.Id).CombinedOutput()
+	if strings.Contains(string(outp), "namespaces") {
+		t.Fatalf("Customer should not have any namespaces %s %s", string(outp), err)
+	}
+	// check auth is gone
+	outp, err = exec.Command("micro", envFlag, adminConfFlag, "store", "list", "--table", "auth").CombinedOutput()
+	if strings.Contains(string(outp), ns) {
+		t.Fatalf("Customer should not have any auth remnants %s %s", string(outp), err)
+	}
+
+	// try the signup again with this email. should succeed if we've deleted everything properly
+	signup(serv, t, email, password, signupOptions{isInvitedToNamespace: false, shouldJoin: false})
+	if t.Failed() {
+		return
+	}
+
+	outp, err = serv.Command().Exec("user", "config")
+	if err != nil {
+		t.Fatalf("Error getting user config %s %s", string(outp), err)
+	}
+	// check if we've correctly given a new namespace, would be bad if we gave them the same
+	newNS := ""
+	for _, v := range strings.Split(string(outp), "\n") {
+		if !strings.HasPrefix(v, "namespace: ") {
+			continue
+		}
+		newNS = strings.TrimPrefix(v, "namespace: ")
+	}
+	if len(newNS) == 0 {
+		t.Fatalf("Unable to determine the namespace of the user %s", string(outp))
+	}
+	if newNS == ns {
+		t.Fatalf("Error, we've reassigned an old namespace %s", ns)
+	}
+	// check we have a new customer ID
+	outp, err = exec.Command("micro", envFlag, adminConfFlag, "customers", "read", "--email="+email).CombinedOutput()
+	if err != nil {
+		t.Fatalf("Error looking up customer ID %s %s ", string(outp), err)
+	}
+	newCsObj := &rsp{}
+	if err := json.Unmarshal(outp, newCsObj); err != nil {
+		t.Fatalf("Error unmarshalling customer %s %s ", string(outp), err)
+	}
+	if newCsObj.Customer.Id == csObj.Customer.Id {
+		t.Fatalf("Error, we've reassigned an old customerID %s", ns)
+	}
+
+}
