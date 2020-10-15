@@ -9,11 +9,9 @@ import (
 	"strings"
 	"time"
 
-	mevents "github.com/micro/micro/v3/service/events"
-
+	"github.com/google/uuid"
 	"github.com/patrickmn/go-cache"
 
-	"github.com/google/uuid"
 	aproto "github.com/m3o/services/alert/proto/alert"
 	cproto "github.com/m3o/services/customers/proto"
 	eproto "github.com/m3o/services/emails/proto"
@@ -22,12 +20,13 @@ import (
 	pproto "github.com/m3o/services/payments/provider/proto"
 	signup "github.com/m3o/services/signup/proto/signup"
 	sproto "github.com/m3o/services/subscriptions/proto"
-	"github.com/micro/go-micro/v3/auth"
-	"github.com/micro/go-micro/v3/client"
-	merrors "github.com/micro/go-micro/v3/errors"
-	logger "github.com/micro/go-micro/v3/logger"
 	"github.com/micro/micro/v3/service"
+	"github.com/micro/micro/v3/service/auth"
+	"github.com/micro/micro/v3/service/client"
 	mconfig "github.com/micro/micro/v3/service/config"
+	merrors "github.com/micro/micro/v3/service/errors"
+	mevents "github.com/micro/micro/v3/service/events"
+	logger "github.com/micro/micro/v3/service/logger"
 	mstore "github.com/micro/micro/v3/service/store"
 )
 
@@ -78,6 +77,8 @@ type conf struct {
 	TestMode       bool         `json:"test_env"`
 	PaymentMessage string       `json:"message"`
 	Sendgrid       sendgridConf `json:"sendgrid"`
+	// using a negative "nopayment" rather than "paymentrequired" because it will default to having to pay if not set
+	NoPayment bool `json:"no_payment"`
 }
 
 func NewSignup(srv *service.Service, auth auth.Auth) *Signup {
@@ -303,7 +304,7 @@ func (e *Signup) verify(ctx context.Context, req *signup.VerifyRequest, rsp *sig
 	rsp.Message = fmt.Sprintf(e.config.PaymentMessage, req.Email)
 	// we require payment for any signup
 	// if not set the CLI will try complete signup without payment id
-	rsp.PaymentRequired = true
+	rsp.PaymentRequired = !e.config.NoPayment
 
 	if _, err := e.customerService.MarkVerified(ctx, &cproto.MarkVerifiedRequest{
 		Email: req.Email,
@@ -385,12 +386,7 @@ func (e *Signup) completeSignup(ctx context.Context, req *signup.CompleteSignupR
 			return err
 		}
 	} else {
-		pm, err := getPaymentMethod(tok.Email)
-		if err != nil || len(pm) == 0 {
-			logger.Errorf("Error getting payment method: %v", err)
-			return merrors.InternalServerError("signup.CompleteSignup", internalErrorMsg)
-		}
-		newNs, err := e.signupWithNewNamespace(ctx, tok.CustomerID, tok.Email, pm)
+		newNs, err := e.signupWithNewNamespace(ctx, tok.CustomerID, tok.Email)
 		if err != nil {
 			return err
 		}
@@ -553,12 +549,20 @@ func getPaymentMethod(email string) (string, error) {
 	return "", errors.New("Can't find payment method")
 }
 
-func (e *Signup) signupWithNewNamespace(ctx context.Context, customerID, email, paymentMethodID string) (string, error) {
-	// TODO fix type to be more than just developer
-	_, err := e.subscriptionService.Create(ctx, &sproto.CreateRequest{CustomerID: customerID, Type: "developer", PaymentMethodID: paymentMethodID, Email: email}, client.WithAuthToken())
-	if err != nil {
-		logger.Errorf("Error creating subscription for customer %v: %v", customerID, err)
-		return "", merrors.InternalServerError("signup.CompleteSignup.new_namespace", internalErrorMsg)
+func (e *Signup) signupWithNewNamespace(ctx context.Context, customerID, email string) (string, error) {
+	if !e.config.NoPayment {
+		paymentMethodID, err := getPaymentMethod(email)
+		if err != nil || len(paymentMethodID) == 0 {
+			logger.Errorf("Error getting payment method: %v", err)
+			return "", merrors.InternalServerError("signup.CompleteSignup", internalErrorMsg)
+		}
+
+		// TODO fix type to be more than just developer
+		_, err = e.subscriptionService.Create(ctx, &sproto.CreateRequest{CustomerID: customerID, Type: "developer", PaymentMethodID: paymentMethodID, Email: email}, client.WithAuthToken())
+		if err != nil {
+			logger.Errorf("Error creating subscription for customer %v: %v", customerID, err)
+			return "", merrors.InternalServerError("signup.CompleteSignup.new_namespace", internalErrorMsg)
+		}
 	}
 	nsRsp, err := e.namespaceService.Create(ctx, &nproto.CreateRequest{Owners: []string{customerID}}, client.WithAuthToken())
 	if err != nil {
@@ -576,13 +580,13 @@ func (e *Signup) joinNamespace(ctx context.Context, customerID, ns string) error
 		return merrors.InternalServerError("signup.CompleteSignup.join_namespace", internalErrorMsg)
 	}
 	ownerID := rsp.Namespace.Owners[0]
-
-	_, err = e.subscriptionService.AddUser(ctx, &sproto.AddUserRequest{OwnerID: ownerID, NewUserID: customerID}, client.WithAuthToken())
-	if err != nil {
-		logger.Errorf("Error adding user to subscription %s", err)
-		return merrors.InternalServerError("signup.CompleteSignup.join_namespace", internalErrorMsg)
+	if !e.config.NoPayment {
+		_, err = e.subscriptionService.AddUser(ctx, &sproto.AddUserRequest{OwnerID: ownerID, NewUserID: customerID}, client.WithAuthToken())
+		if err != nil {
+			logger.Errorf("Error adding user to subscription %s", err)
+			return merrors.InternalServerError("signup.CompleteSignup.join_namespace", internalErrorMsg)
+		}
 	}
-
 	_, err = e.namespaceService.AddUser(ctx, &nproto.AddUserRequest{Namespace: ns, User: customerID}, client.WithAuthToken())
 	if err != nil {
 		logger.Errorf("Error adding user %v to namespace %s", customerID, err)

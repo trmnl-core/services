@@ -6,9 +6,7 @@ import (
 	"time"
 
 	mevents "github.com/micro/micro/v3/service/events"
-
-	"github.com/micro/go-micro/v3/events"
-	"github.com/micro/go-micro/v3/logger"
+	"github.com/micro/micro/v3/service/logger"
 )
 
 type CustomerEvent struct {
@@ -37,30 +35,66 @@ type SubscriptionModel struct {
 	ParentSubscriptionID string
 }
 
+type SignupEvent struct {
+	Type   string
+	Signup SignupModel
+}
+
+type SignupModel struct {
+	Email      string
+	Namespace  string
+	CustomerID string
+}
+
 func (c *Customers) consumeEvents() {
-	var evs <-chan events.Event
-	start := time.Now()
-	for {
-		var err error
-		evs, err = mevents.Subscribe("subscriptions",
-			events.WithAutoAck(false, 30*time.Second),
-			events.WithRetryLimit(10)) // 10 retries * 30 secs ackWait gives us 5 mins of tolerance for issues
-		if err == nil {
-			c.processSubscriptionEvents(evs)
-			start = time.Now()
-			continue // if for some reason evs closes we loop and try subscribing again
+	processTopic := func(topic string, handler func(ch <-chan mevents.Event)) {
+		var evs <-chan mevents.Event
+		start := time.Now()
+		for {
+			var err error
+			evs, err = mevents.Subscribe(topic,
+				mevents.WithAutoAck(false, 30*time.Second),
+				mevents.WithRetryLimit(10)) // 10 retries * 30 secs ackWait gives us 5 mins of tolerance for issues
+			if err == nil {
+				handler(evs)
+				start = time.Now()
+				continue // if for some reason evs closes we loop and try subscribing again
+			}
+			// TODO fix me
+			if time.Since(start) > 2*time.Minute {
+				logger.Fatalf("Failed to subscribe to topic %s: %s", topic, err)
+			}
+			logger.Warnf("Unable to subscribe to topic %s. Will retry in 20 secs. %s", topic, err)
+			time.Sleep(20 * time.Second)
 		}
-		// TODO fix me
-		if time.Since(start) > 2*time.Minute {
-			logger.Fatalf("Failed to subscribe to subscriptions topic %s", err)
-		}
-		logger.Warnf("Unable to subscribe to evs %s. Will retry in 20 secs", err)
-		time.Sleep(20 * time.Second)
 	}
+	go processTopic("subscriptions", c.processSubscriptionEvents)
+	go processTopic("signup", c.processSignupEvents)
 
 }
 
-func (c *Customers) processSubscriptionEvents(ch <-chan events.Event) {
+func (c *Customers) processSignupEvents(ch <-chan mevents.Event) {
+	for ev := range ch {
+		se := &SignupEvent{}
+		if err := json.Unmarshal(ev.Payload, se); err != nil {
+			ev.Nack()
+			logger.Errorf("Error unmarshalling signup event: $s", err)
+			continue
+		}
+		switch se.Type {
+		case "signup.completed":
+			if _, err := updateCustomerStatusByID(se.Signup.CustomerID, statusActive); err != nil {
+				ev.Nack()
+				logger.Errorf("Error updating customers status for customer %s. %s", se.Signup.CustomerID, err)
+				continue
+			}
+			logger.Infof("Updated customer status to active from signup.completed event %+v", se)
+		}
+		ev.Ack()
+	}
+}
+
+func (c *Customers) processSubscriptionEvents(ch <-chan mevents.Event) {
 	for ev := range ch {
 		sub := &SubscriptionEvent{}
 		if err := json.Unmarshal(ev.Payload, sub); err != nil {
