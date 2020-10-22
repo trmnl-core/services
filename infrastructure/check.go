@@ -1,8 +1,15 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"strings"
+
+	"github.com/micro/micro/v3/service/client"
+
+	nsproto "github.com/m3o/services/namespaces/proto"
+
+	"github.com/minio/minio-go/v7"
 
 	"github.com/micro/micro/v3/service/logger"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -11,7 +18,22 @@ import (
 	"github.com/slack-go/slack"
 )
 
-func checkInfraUsage() {
+func checkInfraUsageCron() {
+	issues, err := checkInfraUsage()
+	if err != nil {
+		return
+	}
+	msg := fmt.Sprintf("*Possible infrastructure wastage detected*:")
+	for _, i := range issues {
+		msg += fmt.Sprintf("\n- %v", i)
+	}
+	slackbot.SendMessage("team-important",
+		slack.MsgOptionUsername("Infrastructure Service"),
+		slack.MsgOptionText(msg, false),
+	)
+
+}
+func checkInfraUsage() ([]string, error) {
 	// issues is a string slice containing any wastage. If there are any elements in this slice
 	// by the end of this function, it will be reported via Slack to the team to investigate
 	var issues []string
@@ -22,7 +44,7 @@ func checkInfraUsage() {
 	clRsp, err := k8sAPI.ListClusters(&k8s.ListClustersRequest{Region: scalewayRegion})
 	if err != nil {
 		logger.Errorf("Error listing clusters: %v", err)
-		return
+		return nil, err
 	}
 
 	logger.Infof("We're running %v clusters", clRsp.TotalCount)
@@ -35,7 +57,7 @@ func checkInfraUsage() {
 	lbRsp, err := lbAPI.ListLbs(&lb.ListLbsRequest{Region: scalewayRegion})
 	if err != nil {
 		logger.Errorf("Error listing load balancers: %v", err)
-		return
+		return nil, err
 	}
 
 	// check the load balancers for wastage by ensuring the cluster they belong to still exists
@@ -70,7 +92,7 @@ lbLoop:
 	svrRsp, err := inAPI.ListServers(&instance.ListServersRequest{Zone: scalewayZone})
 	if err != nil {
 		logger.Errorf("Error listing servers: %v", err)
-		return
+		return nil, err
 	}
 
 	// check the servers for wastage by ensuring the cluster they belong to still exists
@@ -108,7 +130,7 @@ svrLoop:
 	volRsp, err := inAPI.ListVolumes(&instance.ListVolumesRequest{Zone: scalewayZone})
 	if err != nil {
 		logger.Errorf("Error listing volumes: %v", err)
-		return
+		return nil, err
 	}
 
 	// check the volumes for wastage by ensuring the cluster they belong to still exists
@@ -126,22 +148,32 @@ svrLoop:
 		}
 	}
 
+	rsp, err := nsService.List(context.TODO(), &nsproto.ListRequest{}, client.WithAuthToken())
+	if err != nil {
+		logger.Errorf("Error listing namespaces: %v", err)
+		return nil, err
+	}
+	nsMap := map[string]bool{}
+	for _, ns := range rsp.Namespaces {
+		nsMap[ns.Id] = true
+	}
+
+	// check S3 buckets
+	bucketName := getConfig("s3-bucket-name")
+	for obj := range s3Client.ListObjects(context.TODO(), bucketName, minio.ListObjectsOptions{}) {
+		nm := strings.TrimSuffix(obj.Key, "/")
+		if nm == "micro" {
+			continue
+		}
+		if !nsMap[nm] {
+			issues = append(issues, fmt.Sprintf("S3 object %s/%s is not associated with a namespace", bucketName, nm))
+		}
+	}
+
 	logger.Infof("Infra Usage Check Complete. %v issues have been found.", len(issues))
 	for _, i := range issues {
 		fmt.Printf("\t - %v\n", i)
 	}
 
-	if len(issues) == 0 {
-		return
-	}
-
-	msg := fmt.Sprintf("*Possible infrastructure wastage detected*:")
-	for _, i := range issues {
-		msg += fmt.Sprintf("\n- %v", i)
-	}
-
-	slackbot.SendMessage("team-important",
-		slack.MsgOptionUsername("Infrastructure Service"),
-		slack.MsgOptionText(msg, false),
-	)
+	return issues, nil
 }
