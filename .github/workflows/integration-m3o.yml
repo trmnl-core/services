@@ -26,7 +26,6 @@ jobs:
       with:
         repository: 'micro/micro'
         path: 'micro'
-        ref: 'v3.0.0-beta.7'
 
     - name: Enable caching
       uses: actions/cache@v2
@@ -55,7 +54,7 @@ jobs:
           # Generate keys for JWT tests
           ssh-keygen -f /tmp/sshkey -m pkcs8 -q -N ""
           ssh-keygen -f /tmp/sshkey -e  -m pkcs8 > /tmp/sshkey.pub
-          go clean -testcache && GOMAXPROCS=4 go test -timeout 15m --tags=m3o -v ./...
+          go clean -testcache && go test -timeout 15m --tags=m3o -v ./...
       env:
         MICRO_STRIPE_API_KEY: ${{ secrets.MICRO_STRIPE_API_KEY }}
         MICRO_SENDGRID_API_KEY: ${{ secrets.MICRO_SENDGRID_API_KEY }}

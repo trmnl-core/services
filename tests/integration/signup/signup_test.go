@@ -28,7 +28,10 @@ const (
 	signupSuccessString = "Signup complete"
 )
 
-var letterRunes = []rune("abcdefghijklmnopqrstuvwxyz")
+var (
+	letterRunes = []rune("abcdefghijklmnopqrstuvwxyz")
+	runLock     sync.Mutex
+)
 
 func randStringRunes(n int) string {
 	rand.Seed(time.Now().Unix())
@@ -117,13 +120,17 @@ func setupM3TestsImpl(serv test.Server, t *test.T, freeTier bool) {
 		{envVar: "M3O_EMAILS_SVC", deflt: "../../../emails"},
 	}
 
+	// HACK calling micro run here is not thread safe because it does a go mod vendor
+	runLock.Lock()
 	for _, v := range services {
 		outp, err := serv.Command().Exec("run", getSrcString(v.envVar, v.deflt))
 		if err != nil {
+			runLock.Unlock()
 			t.Fatal(string(outp))
 			return
 		}
 	}
+	runLock.Unlock()
 
 	if err := test.Try("Find signup, invite and stripe in list", t, func() ([]byte, error) {
 		outp, err := serv.Command().Exec("services")
@@ -306,55 +313,11 @@ func testSignupFlow(t *test.T) {
 	t.T().Logf("Namespace joined: %v", string(outp))
 }
 
-func TestAdminInvites(t *testing.T) {
-	test.TrySuite(t, testAdminInvites, retryCount)
+func TestInviteScenarios(t *testing.T) {
+	test.TrySuite(t, testInviteScenarios, retryCount)
 }
 
-func testAdminInvites(t *test.T) {
-	t.Parallel()
-
-	serv := test.NewServer(t, test.WithLogin())
-	defer serv.Close()
-	if err := serv.Run(); err != nil {
-		return
-	}
-
-	setupM3Tests(serv, t)
-	email := testEmail(0)
-	password := "PassWord1@"
-
-	test.Try("Send invite", t, func() ([]byte, error) {
-		return serv.Command().Exec("invite", "user", "--email="+email)
-	}, 5*time.Second)
-
-	time.Sleep(2 * time.Second)
-
-	logout(serv, t)
-
-	signup(serv, t, email, password, signupOptions{isInvitedToNamespace: false, shouldJoin: false})
-
-	outp, err := serv.Command().Exec("user", "config", "get", "namespaces."+serv.Env()+".current")
-	if err != nil {
-		t.Fatalf("Error getting namespace: %v", err)
-		return
-	}
-	ns := strings.TrimSpace(string(outp))
-	if ns == "micro" {
-		t.Fatal("SECURITY FLAW: invited user ended up in micro namespace")
-	}
-	if strings.Count(ns, "-") != 2 {
-		t.Fatalf("Expected 2 dashes in namespace but namespace is: %v", ns)
-		return
-	}
-
-	t.T().Logf("Namespace joined: %v", string(outp))
-}
-
-func TestAdminInviteNoLimit(t *testing.T) {
-	test.TrySuite(t, testAdminInviteNoLimit, retryCount)
-}
-
-func testAdminInviteNoLimit(t *test.T) {
+func testInviteScenarios(t *test.T) {
 	t.Parallel()
 
 	serv := test.NewServer(t, test.WithLogin())
@@ -365,38 +328,30 @@ func testAdminInviteNoLimit(t *test.T) {
 
 	setupM3Tests(serv, t)
 
+	emails := []string{}
 	// Make sure test mod is on otherwise this will spam
 	for i := 0; i < 10; i++ {
 		test.Try("Send invite", t, func() ([]byte, error) {
-			return serv.Command().Exec("invite", "user", "--email="+testEmail(i))
+			emails = append(emails, testEmail(i))
+			return serv.Command().Exec("invite", "user", "--email="+emails[i])
 		}, 5*time.Second)
 	}
-}
-
-func TestUserInviteLimit(t *testing.T) {
-	test.TrySuite(t, testUserInviteLimit, retryCount)
-}
-
-func testUserInviteLimit(t *test.T) {
-	t.Parallel()
-
-	serv := test.NewServer(t, test.WithLogin())
-	defer serv.Close()
-	if err := serv.Run(); err != nil {
-		return
-	}
-
-	setupM3Tests(serv, t)
-	email := testEmail(0)
-	password := "PassWord1@"
-
-	test.Try("Send invite", t, func() ([]byte, error) {
-		return serv.Command().Exec("invite", "user", "--email="+email)
-	}, 5*time.Second)
+	testDuplicateInvites(t, serv)
+	testInviteEmailValidation(t, serv)
 
 	logout(serv, t)
+	testUserInviteLimit(t, serv, emails[0])
+	testUserInviteNoJoin(t, serv, emails[1])
+	testUserInviteJoinDecline(t, serv, emails[2])
+	testUserInviteToNotOwnedNamespace(t, serv, emails[3])
+
+}
+
+func testUserInviteLimit(t *test.T, serv test.Server, email string) {
+	password := "password"
 
 	signup(serv, t, email, password, signupOptions{isInvitedToNamespace: false, shouldJoin: false})
+	defer logout(serv, t)
 
 	// Make sure test mod is on otherwise this will spam
 	for i := 0; i < 5; i++ {
@@ -407,34 +362,15 @@ func testUserInviteLimit(t *test.T) {
 
 	outp, err := serv.Command().Exec("invite", "user", "--email="+testEmail(7))
 	if err == nil {
-		t.Fatalf("Sending 6th invite should fail: %v", outp)
+		t.Fatalf("Sending 6th invite should fail: %v", string(outp))
 	}
 }
 
-func TestUserInviteNoJoin(t *testing.T) {
-	test.TrySuite(t, testUserInviteNoJoin, retryCount)
-}
-
-func testUserInviteNoJoin(t *test.T) {
-	t.Parallel()
-
-	serv := test.NewServer(t, test.WithLogin())
-	defer serv.Close()
-	if err := serv.Run(); err != nil {
-		return
-	}
-
-	setupM3Tests(serv, t)
-	email := testEmail(0)
+func testUserInviteNoJoin(t *test.T, serv test.Server, email string) {
 	password := "PassWord1@"
 
-	test.Try("Send invite", t, func() ([]byte, error) {
-		return serv.Command().Exec("invite", "user", "--email="+email)
-	}, 5*time.Second)
-
-	logout(serv, t)
-
 	signup(serv, t, email, password, signupOptions{isInvitedToNamespace: false, shouldJoin: false})
+	defer logout(serv, t)
 
 	outp, err := serv.Command().Exec("user", "config", "get", "namespaces."+serv.Env()+".current")
 	if err != nil {
@@ -473,30 +409,10 @@ func testUserInviteNoJoin(t *test.T) {
 	}
 }
 
-func TestUserInviteJoinDecline(t *testing.T) {
-	test.TrySuite(t, testUserInviteJoinDecline, retryCount)
-}
-
-func testUserInviteJoinDecline(t *test.T) {
-	t.Parallel()
-
-	serv := test.NewServer(t, test.WithLogin())
-	defer serv.Close()
-	if err := serv.Run(); err != nil {
-		return
-	}
-
-	setupM3Tests(serv, t)
-	email := testEmail(0)
+func testUserInviteJoinDecline(t *test.T, serv test.Server, email string) {
 	password := "PassWord1@"
-
-	test.Try("Send invite", t, func() ([]byte, error) {
-		return serv.Command().Exec("invite", "user", "--email="+email)
-	}, 5*time.Second)
-
-	logout(serv, t)
-
 	signup(serv, t, email, password, signupOptions{isInvitedToNamespace: false, shouldJoin: false})
+	defer logout(serv, t)
 
 	outp, err := serv.Command().Exec("user", "config", "get", "namespaces."+serv.Env()+".current")
 	if err != nil {
@@ -535,30 +451,11 @@ func testUserInviteJoinDecline(t *test.T) {
 	}
 }
 
-func TestUserInviteToNotOwnedNamespace(t *testing.T) {
-	test.TrySuite(t, testUserInviteToNotOwnedNamespace, retryCount)
-}
-
-func testUserInviteToNotOwnedNamespace(t *test.T) {
-	t.Parallel()
-
-	serv := test.NewServer(t, test.WithLogin())
-	defer serv.Close()
-	if err := serv.Run(); err != nil {
-		return
-	}
-
-	setupM3Tests(serv, t)
-	email := testEmail(0)
+func testUserInviteToNotOwnedNamespace(t *test.T, serv test.Server, email string) {
 	password := "PassWord1@"
 
-	test.Try("Send invite", t, func() ([]byte, error) {
-		return serv.Command().Exec("invite", "user", "--email="+email)
-	}, 5*time.Second)
-
-	logout(serv, t)
-
 	signup(serv, t, email, password, signupOptions{isInvitedToNamespace: false, shouldJoin: false})
+	defer logout(serv, t)
 
 	outp, err := serv.Command().Exec("user", "config", "get", "namespaces."+serv.Env()+".current")
 	if err != nil {
@@ -1037,12 +934,12 @@ func signup(serv test.Server, t *test.T, email, password string, opts signupOpti
 	// Don't wait if a test is already failed, this is a quirk of the
 	// test framework @todo fix this quirk
 	if t.Failed() {
-		t.Logf("Failed signup")
+		t.Logf("Failed signup %s %s", email, serv.Env())
 		return
 	}
-	t.Logf("Waiting at end of signup")
+	t.Logf("Waiting at end of signup %s %s", email, serv.Env())
 	wg.Wait()
-	t.Logf("Signup complete for %s", email)
+	t.Logf("Signup complete for %s %s", email, serv.Env())
 
 }
 
@@ -1053,20 +950,7 @@ func getSrcString(envvar, dflt string) string {
 	return dflt
 }
 
-func TestDuplicateInvites(t *testing.T) {
-	test.TrySuite(t, testDuplicateInvites, retryCount)
-}
-
-func testDuplicateInvites(t *test.T) {
-	t.Parallel()
-
-	serv := test.NewServer(t, test.WithLogin())
-	defer serv.Close()
-	if err := serv.Run(); err != nil {
-		return
-	}
-
-	setupM3Tests(serv, t)
+func testDuplicateInvites(t *test.T, serv test.Server) {
 	email := testEmail(0)
 
 	test.Try("Send invite", t, func() ([]byte, error) {
@@ -1101,23 +985,9 @@ func testDuplicateInvites(t *test.T) {
 
 }
 
-func TestInviteEmailValidation(t *testing.T) {
-	test.TrySuite(t, testInviteEmailValidation, retryCount)
-}
-
-func testInviteEmailValidation(t *test.T) {
-	t.Parallel()
-
-	serv := test.NewServer(t, test.WithLogin())
-	defer serv.Close()
-	if err := serv.Run(); err != nil {
-		return
-	}
-
-	setupM3Tests(serv, t)
-
+func testInviteEmailValidation(t *test.T, serv test.Server) {
 	outp, _ := serv.Command().Exec("invite", "user", "--email=notanemail.com")
-	if !strings.Contains(string(outp), "400") {
+	if !strings.Contains(string(outp), "Valid email is required") {
 		t.Fatalf("Expected a 400 bad request error %s", string(outp))
 	}
 
