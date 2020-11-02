@@ -129,6 +129,7 @@ func setupM3TestsImpl(serv test.Server, t *test.T, freeTier bool) {
 			t.Fatal(string(outp))
 			return
 		}
+		time.Sleep(2 * time.Second)
 	}
 	runLock.Unlock()
 
@@ -326,7 +327,9 @@ func testInviteScenarios(t *test.T) {
 		return
 	}
 
-	setupM3Tests(serv, t)
+	if setupM3Tests(serv, t); t.Failed() {
+		return
+	}
 
 	emails := []string{}
 	// Make sure test mod is on otherwise this will spam
@@ -336,14 +339,26 @@ func testInviteScenarios(t *test.T) {
 			return serv.Command().Exec("invite", "user", "--email="+emails[i])
 		}, 5*time.Second)
 	}
-	testDuplicateInvites(t, serv)
-	testInviteEmailValidation(t, serv)
+	if testDuplicateInvites(t, serv); t.Failed() {
+		return
+	}
+	if testInviteEmailValidation(t, serv); t.Failed() {
+		return
+	}
 
 	logout(serv, t)
-	testUserInviteLimit(t, serv, emails[0])
-	testUserInviteNoJoin(t, serv, emails[1])
-	testUserInviteJoinDecline(t, serv, emails[2])
-	testUserInviteToNotOwnedNamespace(t, serv, emails[3])
+	if testUserInviteLimit(t, serv, emails[0]); t.Failed() {
+		return
+	}
+	if testUserInviteNoJoin(t, serv, emails[1]); t.Failed() {
+		return
+	}
+	if testUserInviteJoinDecline(t, serv, emails[2]); t.Failed() {
+		return
+	}
+	if testUserInviteToNotOwnedNamespace(t, serv, emails[3]); t.Failed() {
+		return
+	}
 
 }
 
