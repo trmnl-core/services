@@ -212,7 +212,7 @@ func (e *Endtoend) signup() error {
 			break
 		}
 		merr, ok := err.(*errors.Error)
-		if ok && merr.Code == 404 {
+		if ok && (merr.Code == 404 || strings.Contains(merr.Detail, "not found")) {
 			delErr = nil
 			break
 		}
@@ -233,7 +233,7 @@ func (e *Endtoend) signup() error {
 		defer close(chErr)
 		outp, err := cmd.CombinedOutput()
 		if err != nil {
-			chErr <- err
+			chErr <- fmt.Errorf("micro signup exited with failure %s, output %s", err, string(outp))
 		}
 		if !strings.Contains(string(outp), signupSuccessString) {
 			chErr <- fmt.Errorf("micro signup output does not contain success %s", string(outp))
