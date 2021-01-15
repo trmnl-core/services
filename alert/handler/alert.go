@@ -9,10 +9,10 @@ import (
 	"net/url"
 	"strings"
 
-	alert "github.com/m3o/services/alert/proto/alert"
 	"github.com/micro/micro/v3/service/config"
 	log "github.com/micro/micro/v3/service/logger"
 	mstore "github.com/micro/micro/v3/service/store"
+	alert "github.com/trmnl-core/services/alert/proto/alert"
 
 	"github.com/google/uuid"
 	"github.com/slack-go/slack"
@@ -52,7 +52,7 @@ type conf struct {
 
 func NewAlert() *Alert {
 	c := conf{}
-	val, err := config.Get("micro.alert")
+	val, err := config.Get("trmnl.alert")
 	if err != nil {
 		log.Warnf("Error getting config: %v", err)
 	}

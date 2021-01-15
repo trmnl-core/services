@@ -9,7 +9,7 @@ import (
 
 	"github.com/micro/micro/v3/service/client"
 
-	nsproto "github.com/m3o/services/namespaces/proto"
+	nsproto "github.com/trmnl-core/services/namespaces/proto"
 
 	"github.com/minio/minio-go/v7"
 

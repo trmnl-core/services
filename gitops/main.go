@@ -8,11 +8,11 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	"github.com/m3o/services/gitops/handler"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/config"
 	"github.com/micro/micro/v3/service/logger"
 	"github.com/micro/micro/v3/service/store"
+	"github.com/trmnl-core/services/gitops/handler"
 )
 
 var (
@@ -66,7 +66,7 @@ type conf struct {
 // loadConfig will load the configuration. If a required value if not provided the missing key will
 // be logged fatally.
 func loadConfig() {
-	val, err := config.Get("micro.gitops")
+	val, err := config.Get("trmnl.gitops")
 	if err != nil {
 		logger.Warnf("Error getting config: %v", err)
 	}

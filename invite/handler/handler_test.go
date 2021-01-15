@@ -6,9 +6,9 @@ import (
 	mstore "github.com/micro/micro/v3/service/store"
 	"github.com/micro/micro/v3/service/store/memory"
 
-	memail "github.com/m3o/services/emails/proto/fakes"
-	mt "github.com/m3o/services/internal/test"
-	pb "github.com/m3o/services/invite/proto"
+	memail "github.com/trmnl-core/services/emails/proto/fakes"
+	mt "github.com/trmnl-core/services/internal/test"
+	pb "github.com/trmnl-core/services/invite/proto"
 
 	. "github.com/onsi/gomega"
 )

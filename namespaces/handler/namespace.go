@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	namespace "github.com/m3o/services/namespaces/proto"
-	plproto "github.com/m3o/services/platform/proto"
+	namespace "github.com/trmnl-core/services/namespaces/proto"
+	plproto "github.com/trmnl-core/services/platform/proto"
 	aproto "github.com/micro/micro/v3/proto/auth"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/auth"

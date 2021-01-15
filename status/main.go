@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/m3o/services/status/handler"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/config"
 	log "github.com/micro/micro/v3/service/logger"
+	"github.com/trmnl-core/services/status/handler"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 	)
 
 	// grab services to monitor
-	val, err := config.Get("micro.status.services")
+	val, err := config.Get("trmnl.status.services")
 	if err != nil {
 		log.Warnf("Error loading config: %v", err)
 	}

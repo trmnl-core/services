@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/m3o/services/billing/handler"
+	"github.com/trmnl-core/services/billing/handler"
 
-	asproto "github.com/m3o/services/alert/proto/alert"
-	csproto "github.com/m3o/services/customers/proto"
-	nsproto "github.com/m3o/services/namespaces/proto"
-	pproto "github.com/m3o/services/payments/proto"
-	subproto "github.com/m3o/services/subscriptions/proto"
-	uproto "github.com/m3o/services/usage/proto"
+	asproto "github.com/trmnl-core/services/alert/proto/alert"
+	csproto "github.com/trmnl-core/services/customers/proto"
+	nsproto "github.com/trmnl-core/services/namespaces/proto"
+	pproto "github.com/trmnl-core/services/payments/proto"
+	subproto "github.com/trmnl-core/services/subscriptions/proto"
+	uproto "github.com/trmnl-core/services/usage/proto"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/logger"
 )

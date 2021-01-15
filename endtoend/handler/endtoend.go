@@ -13,14 +13,14 @@ import (
 
 	"github.com/micro/micro/v3/service"
 
-	alertpb "github.com/m3o/services/alert/proto/alert"
-	custpb "github.com/m3o/services/customers/proto"
-	endtoend "github.com/m3o/services/endtoend/proto"
 	"github.com/micro/micro/v3/service/client"
 	mconfig "github.com/micro/micro/v3/service/config"
 	"github.com/micro/micro/v3/service/errors"
 	log "github.com/micro/micro/v3/service/logger"
 	mstore "github.com/micro/micro/v3/service/store"
+	alertpb "github.com/trmnl-core/services/alert/proto/alert"
+	custpb "github.com/trmnl-core/services/customers/proto"
+	endtoend "github.com/trmnl-core/services/endtoend/proto"
 
 	"github.com/google/uuid"
 )
@@ -44,7 +44,7 @@ var (
 )
 
 func NewEndToEnd(srv *service.Service) *Endtoend {
-	val, err := mconfig.Get("micro.endtoend.email")
+	val, err := mconfig.Get("trmnl.endtoend.email")
 	if err != nil {
 		log.Fatalf("Cannot configure, error finding email: %s", err)
 	}

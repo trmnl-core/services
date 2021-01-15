@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	customers "github.com/m3o/services/customers/proto"
+	customers "github.com/trmnl-core/services/customers/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

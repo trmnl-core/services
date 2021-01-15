@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/m3o/services/endtoend/handler"
+	"github.com/trmnl-core/services/endtoend/handler"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/logger"
 	"github.com/robfig/cron/v3"

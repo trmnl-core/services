@@ -3,7 +3,7 @@ package handler
 import (
 	"context"
 
-	pb "github.com/m3o/services/tests/proto"
+	pb "github.com/trmnl-core/services/tests/proto"
 )
 
 type Tests struct{}

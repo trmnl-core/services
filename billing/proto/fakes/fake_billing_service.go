@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	billing "github.com/m3o/services/billing/proto"
+	billing "github.com/trmnl-core/services/billing/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

@@ -12,14 +12,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/patrickmn/go-cache"
 
-	aproto "github.com/m3o/services/alert/proto/alert"
-	cproto "github.com/m3o/services/customers/proto"
-	eproto "github.com/m3o/services/emails/proto"
-	inviteproto "github.com/m3o/services/invite/proto"
-	nproto "github.com/m3o/services/namespaces/proto"
-	pproto "github.com/m3o/services/payments/proto"
-	signup "github.com/m3o/services/signup/proto/signup"
-	sproto "github.com/m3o/services/subscriptions/proto"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/auth"
 	"github.com/micro/micro/v3/service/client"
@@ -28,6 +20,14 @@ import (
 	mevents "github.com/micro/micro/v3/service/events"
 	logger "github.com/micro/micro/v3/service/logger"
 	mstore "github.com/micro/micro/v3/service/store"
+	aproto "github.com/trmnl-core/services/alert/proto/alert"
+	cproto "github.com/trmnl-core/services/customers/proto"
+	eproto "github.com/trmnl-core/services/emails/proto"
+	inviteproto "github.com/trmnl-core/services/invite/proto"
+	nproto "github.com/trmnl-core/services/namespaces/proto"
+	pproto "github.com/trmnl-core/services/payments/proto"
+	signup "github.com/trmnl-core/services/signup/proto/signup"
+	sproto "github.com/trmnl-core/services/subscriptions/proto"
 )
 
 const (
@@ -84,7 +84,7 @@ type conf struct {
 
 func NewSignup(srv *service.Service, auth auth.Auth) *Signup {
 	c := conf{}
-	val, err := mconfig.Get("micro.signup")
+	val, err := mconfig.Get("trmnl.signup")
 	if err != nil {
 		logger.Warnf("Error getting config: %v", err)
 	}

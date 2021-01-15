@@ -40,13 +40,13 @@ func main() {
 	)
 
 	// load the configuration
-	if c, err := config.Get("micro.updater.repository"); err == nil {
+	if c, err := config.Get("trmnl.updater.repository"); err == nil {
 		repository = c.String(repository)
 	}
-	if c, err := config.Get("micro.updater.reference"); err == nil {
+	if c, err := config.Get("trmnl.updater.reference"); err == nil {
 		reference = c.String(reference)
 	}
-	if c, err := config.Get("micro.updater.latestCommit"); err == nil {
+	if c, err := config.Get("trmnl.updater.latestCommit"); err == nil {
 		latestCommit = c.String(latestCommit)
 	}
 	logger.Infof("Updater setup for %v:%v. Latest commit: '%v'", repository, reference, latestCommit)

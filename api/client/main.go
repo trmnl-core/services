@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/m3o/services/api/client/handler"
-	client "github.com/m3o/services/api/client/proto/client"
+	"github.com/trmnl-core/services/api/client/handler"
+	client "github.com/trmnl-core/services/api/client/proto/client"
 
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/api"

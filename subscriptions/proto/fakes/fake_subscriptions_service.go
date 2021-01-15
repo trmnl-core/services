@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	subscriptions "github.com/m3o/services/subscriptions/proto"
+	subscriptions "github.com/trmnl-core/services/subscriptions/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

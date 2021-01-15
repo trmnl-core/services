@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	platform "github.com/m3o/services/platform/proto"
+	platform "github.com/trmnl-core/services/platform/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

@@ -9,11 +9,11 @@ import (
 	"net/http"
 	"strings"
 
-	emails "github.com/m3o/services/emails/proto"
 	mauth "github.com/micro/micro/v3/service/auth"
 	"github.com/micro/micro/v3/service/config"
 	"github.com/micro/micro/v3/service/errors"
 	log "github.com/micro/micro/v3/service/logger"
+	emails "github.com/trmnl-core/services/emails/proto"
 )
 
 const (
@@ -32,7 +32,7 @@ type conf struct {
 
 func NewEmailsHandler() *Emails {
 	c := conf{}
-	val, err := config.Get("micro.emails")
+	val, err := config.Get("trmnl.emails")
 	if err != nil {
 		log.Warnf("Error getting config: %v", err)
 	}

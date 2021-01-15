@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package customers;
-option go_package = "github.com/m3o/services/customers/proto;customers";
+option go_package = "github.com/trmnl-core/services/customers/proto;customers";
 
 service Customers {
 	// Creates a new, unverified customer

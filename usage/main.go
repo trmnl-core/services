@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/m3o/services/usage/handler"
+	"github.com/trmnl-core/services/usage/handler"
 	"github.com/robfig/cron/v3"
 
-	nsproto "github.com/m3o/services/namespaces/proto"
+	nsproto "github.com/trmnl-core/services/namespaces/proto"
 	pb "github.com/micro/micro/v3/proto/auth"
 	rproto "github.com/micro/micro/v3/proto/runtime"
 	"github.com/micro/micro/v3/service"

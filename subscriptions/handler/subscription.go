@@ -7,8 +7,6 @@ import (
 
 	"github.com/google/uuid"
 
-	paymentsproto "github.com/m3o/services/payments/proto"
-	subscription "github.com/m3o/services/subscriptions/proto"
 	"github.com/micro/micro/v3/service/auth"
 	"github.com/micro/micro/v3/service/client"
 	mconfig "github.com/micro/micro/v3/service/config"
@@ -16,6 +14,8 @@ import (
 	mevents "github.com/micro/micro/v3/service/events"
 	"github.com/micro/micro/v3/service/logger"
 	mstore "github.com/micro/micro/v3/service/store"
+	paymentsproto "github.com/trmnl-core/services/payments/proto"
+	subscription "github.com/trmnl-core/services/subscriptions/proto"
 )
 
 const (
@@ -43,7 +43,7 @@ type config struct {
 
 func New(paySvc paymentsproto.ProviderService) *Subscriptions {
 	conf := config{}
-	values, err := mconfig.Get("micro.subscriptions")
+	values, err := mconfig.Get("trmnl.subscriptions")
 	if err != nil {
 		logger.Warn(err)
 	}

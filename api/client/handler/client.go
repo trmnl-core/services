@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"io"
 
-	pb "github.com/m3o/services/api/client/proto/client"
 	"github.com/micro/micro/v3/service/client"
 	"github.com/micro/micro/v3/service/context/metadata"
 	log "github.com/micro/micro/v3/service/logger"
+	pb "github.com/trmnl-core/services/api/client/proto/client"
 )
 
 type Client struct {
@@ -26,9 +26,10 @@ func (c *Client) Call(ctx context.Context, req *pb.Request, rsp *pb.Response) er
 	}
 
 	// assume json until otherwise
-	if ct != "application/json" {
-		ct = "application/json"
-	}
+	ct = "application/json"
+	// if ct != "application/json" {
+	// 	ct = "application/json"
+	// }
 
 	// forward the request
 	var payload json.RawMessage
@@ -76,9 +77,10 @@ func (c *Client) Stream(ctx context.Context, stream pb.Client_StreamStream) erro
 	}
 
 	// assume json until otherwise
-	if ct != "application/json" {
-		ct = "application/json"
-	}
+	ct = "application/json"
+	// if ct != "application/json" {
+	// 	ct = "application/json"
+	// }
 
 	// forward the request
 	var payload json.RawMessage

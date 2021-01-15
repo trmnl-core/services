@@ -23,7 +23,7 @@ type Provider struct {
 // NewProvider returns an initialised Provider, it will error if any of
 // the required enviroment variables are not set
 func New(srv *service.Service) *Provider {
-	val, err := config.Get("micro.payments.stripe.api_key")
+	val, err := config.Get("trmnl.payments.stripe.api_key")
 	if err != nil {
 		logger.Warnf("Error getting config: %v", err)
 	}

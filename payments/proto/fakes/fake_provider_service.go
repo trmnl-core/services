@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	go_micro_srv_provider "github.com/m3o/services/payments/proto"
+	go_micro_srv_provider "github.com/trmnl-core/services/payments/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

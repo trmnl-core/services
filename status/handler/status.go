@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	status "github.com/m3o/services/status/proto/status"
+	status "github.com/trmnl-core/services/status/proto/status"
 	api "github.com/micro/micro/v3/proto/api"
 	proto "github.com/micro/micro/v3/proto/debug"
 	"github.com/micro/micro/v3/service/client"

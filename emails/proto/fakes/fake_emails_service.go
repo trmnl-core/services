@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	emails "github.com/m3o/services/emails/proto"
+	emails "github.com/trmnl-core/services/emails/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

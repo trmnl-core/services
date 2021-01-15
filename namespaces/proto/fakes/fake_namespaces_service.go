@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	namespaces "github.com/m3o/services/namespaces/proto"
+	namespaces "github.com/trmnl-core/services/namespaces/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

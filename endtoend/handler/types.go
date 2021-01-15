@@ -1,8 +1,8 @@
 package handler
 
 import (
-	alertpb "github.com/m3o/services/alert/proto/alert"
-	custpb "github.com/m3o/services/customers/proto"
+	alertpb "github.com/trmnl-core/services/alert/proto/alert"
+	custpb "github.com/trmnl-core/services/customers/proto"
 )
 
 type Endtoend struct {

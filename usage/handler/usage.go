@@ -8,13 +8,13 @@ import (
 	"github.com/micro/micro/v3/service/config"
 	"github.com/slack-go/slack"
 
-	usage "github.com/m3o/services/usage/proto"
+	usage "github.com/trmnl-core/services/usage/proto"
 
-	nsproto "github.com/m3o/services/namespaces/proto"
 	pb "github.com/micro/micro/v3/proto/auth"
 	rproto "github.com/micro/micro/v3/proto/runtime"
 	"github.com/micro/micro/v3/service/client"
 	log "github.com/micro/micro/v3/service/logger"
+	nsproto "github.com/trmnl-core/services/namespaces/proto"
 )
 
 const (
@@ -29,7 +29,7 @@ type Usage struct {
 }
 
 func NewUsage(ns nsproto.NamespacesService, as pb.AccountsService, runtime rproto.RuntimeService) *Usage {
-	val, err := config.Get("micro.alert.slack_token")
+	val, err := config.Get("trmnl.alert.slack_token")
 	if err != nil {
 		log.Warnf("Error getting config: %v", err)
 	}
@@ -145,8 +145,8 @@ func (e *Usage) CheckUsageCron() {
 	}
 	msg := fmt.Sprintf("Usage summary\nNamespaces: %d\nUsers: %d\nServices: %d\nFor a more detailed breakdown run `micro usage list`", nsCount, userCount, svcCount)
 
-	valUser, _ := config.Get("micro.usage.cron.user")
-	valChan, _ := config.Get("micro.usage.cron.channel")
+	valUser, _ := config.Get("trmnl.usage.cron.user")
+	valChan, _ := config.Get("trmnl.usage.cron.channel")
 	e.slackbot.SendMessage(valChan.String("team-important"),
 		slack.MsgOptionUsername(valUser.String("Usage Service")),
 		slack.MsgOptionText(msg, false),

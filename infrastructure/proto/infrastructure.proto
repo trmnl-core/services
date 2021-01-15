@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package platform.infrastructure;
 
-option go_package="github.com/m3o/services/platform/infrastructure";
+option go_package="github.com/trmnl-core/services/platform/infrastructure";
 
 service Infrastructure {
   rpc Summary (SummaryRequest) returns (SummaryResponse) {};

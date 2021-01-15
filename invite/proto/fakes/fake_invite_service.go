@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	go_micro_service_invite "github.com/m3o/services/invite/proto"
+	go_micro_service_invite "github.com/trmnl-core/services/invite/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

@@ -3,11 +3,11 @@ package handler
 import (
 	"context"
 
-	pb "github.com/m3o/services/platform/proto"
 	rproto "github.com/micro/micro/v3/proto/runtime"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/client"
 	"github.com/micro/micro/v3/service/config"
+	pb "github.com/trmnl-core/services/platform/proto"
 )
 
 var (
@@ -27,22 +27,22 @@ type Platform struct {
 // New returns an initialised platform handler
 func New(service *service.Service) *Platform {
 
-	val, _ := config.Get("micro.platform.resource_limits.cpu")
+	val, _ := config.Get("trmnl.platform.resource_limits.cpu")
 	defaultResourceLimits.CPU = int32(val.Int(8000))
 
-	val, _ = config.Get("micro.platform.resource_limits.disk")
+	val, _ = config.Get("trmnl.platform.resource_limits.disk")
 	defaultResourceLimits.EphemeralStorage = int32(val.Int(8000))
 
-	val, _ = config.Get("micro.platform.resource_limits.memory")
+	val, _ = config.Get("trmnl.platform.resource_limits.memory")
 	defaultResourceLimits.Memory = int32(val.Int(8000))
 
-	val, _ = config.Get("micro.platform.resource_requests.cpu")
+	val, _ = config.Get("trmnl.platform.resource_requests.cpu")
 	defaultResourceRequests.CPU = int32(val.Int(8000))
 
-	val, _ = config.Get("micro.platform.resource_requests.disk")
+	val, _ = config.Get("trmnl.platform.resource_requests.disk")
 	defaultResourceRequests.EphemeralStorage = int32(val.Int(8000))
 
-	val, _ = config.Get("micro.platform.resource_requests.memory")
+	val, _ = config.Get("trmnl.platform.resource_requests.memory")
 	defaultResourceRequests.Memory = int32(val.Int(8000))
 
 	return &Platform{

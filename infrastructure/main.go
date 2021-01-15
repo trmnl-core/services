@@ -11,12 +11,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 
-	pb "github.com/m3o/services/infrastructure/proto"
-	nsproto "github.com/m3o/services/namespaces/proto"
 	storeproto "github.com/micro/micro/v3/proto/store"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/config"
 	"github.com/micro/micro/v3/service/logger"
+	pb "github.com/trmnl-core/services/infrastructure/proto"
+	nsproto "github.com/trmnl-core/services/namespaces/proto"
 )
 
 const (
@@ -48,7 +48,7 @@ func main() {
 	)
 
 	// Create a Slack client
-	val, err := config.Get("micro.alert.slack_token")
+	val, err := config.Get("trmnl.alert.slack_token")
 	if err != nil {
 		logger.Warnf("Error getting config: %v", err)
 	}
@@ -102,7 +102,7 @@ func main() {
 }
 
 func getConfig(key string) string {
-	val, err := config.Get("micro.infrastructure.scaleway." + key)
+	val, err := config.Get("trmnl.infrastructure.scaleway." + key)
 	if err != nil {
 		logger.Warnf("Error getting config: %v", err)
 	}

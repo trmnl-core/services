@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/m3o/services/build/handler"
+	"github.com/trmnl-core/services/build/handler"
 	pb "github.com/micro/micro/v3/proto/build"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/build/golang"

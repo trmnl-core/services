@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	m3o_alert "github.com/m3o/services/alert/proto/alert"
+	m3o_alert "github.com/trmnl-core/services/alert/proto/alert"
 	"github.com/micro/micro/v3/service/client"
 )
 

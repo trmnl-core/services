@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	endtoend "github.com/m3o/services/endtoend/proto"
+	endtoend "github.com/trmnl-core/services/endtoend/proto"
 	"github.com/micro/micro/v3/service/client"
 )
 

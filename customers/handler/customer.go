@@ -8,8 +8,8 @@ import (
 
 	"github.com/google/uuid"
 
-	customer "github.com/m3o/services/customers/proto"
-	nsproto "github.com/m3o/services/namespaces/proto"
+	customer "github.com/trmnl-core/services/customers/proto"
+	nsproto "github.com/trmnl-core/services/namespaces/proto"
 	aproto "github.com/micro/micro/v3/proto/auth"
 	"github.com/micro/micro/v3/service"
 	"github.com/micro/micro/v3/service/auth"

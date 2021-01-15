@@ -7,13 +7,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	asproto "github.com/m3o/services/alert/proto/alert"
-	billing "github.com/m3o/services/billing/proto"
-	csproto "github.com/m3o/services/customers/proto"
-	nsproto "github.com/m3o/services/namespaces/proto"
-	sproto "github.com/m3o/services/payments/proto"
-	subproto "github.com/m3o/services/subscriptions/proto"
-	uproto "github.com/m3o/services/usage/proto"
 	"github.com/micro/micro/v3/service/auth"
 	goclient "github.com/micro/micro/v3/service/client"
 	"github.com/micro/micro/v3/service/config"
@@ -24,6 +17,13 @@ import (
 	mstore "github.com/micro/micro/v3/service/store"
 	"github.com/stripe/stripe-go/v71"
 	"github.com/stripe/stripe-go/v71/client"
+	asproto "github.com/trmnl-core/services/alert/proto/alert"
+	billing "github.com/trmnl-core/services/billing/proto"
+	csproto "github.com/trmnl-core/services/customers/proto"
+	nsproto "github.com/trmnl-core/services/namespaces/proto"
+	sproto "github.com/trmnl-core/services/payments/proto"
+	subproto "github.com/trmnl-core/services/subscriptions/proto"
+	uproto "github.com/trmnl-core/services/usage/proto"
 )
 
 const (
@@ -82,7 +82,7 @@ func NewBilling(ns nsproto.NamespacesService,
 func getConfig() *Conf {
 	// this is only here for prototyping, should use subscriptions service properly
 	// an upside for that will be also the fact that we don't have to load values one by one but can use Scan
-	val, err := mconfig.Get("micro.subscriptions.additional_users_price_id")
+	val, err := mconfig.Get("trmnl.subscriptions.additional_users_price_id")
 	if err != nil {
 		log.Fatalf("Additional users price id can't be loaded: %v", err)
 	}
@@ -91,7 +91,7 @@ func getConfig() *Conf {
 		log.Fatal("Additional users price id is empty")
 	}
 
-	val, err = mconfig.Get("micro.subscriptions.additional_services_price_id")
+	val, err = mconfig.Get("trmnl.subscriptions.additional_services_price_id")
 	if err != nil {
 		log.Fatalf("Additional services price id can't be loaded: %v", err)
 	}
@@ -100,7 +100,7 @@ func getConfig() *Conf {
 		log.Fatal("Additional services price id is empty")
 	}
 
-	val, err = mconfig.Get("micro.subscriptions.plan_id")
+	val, err = mconfig.Get("trmnl.subscriptions.plan_id")
 	if err != nil {
 		log.Fatalf("Can't load subscription plan id: %v", err)
 	}
@@ -109,19 +109,19 @@ func getConfig() *Conf {
 		log.Fatal("Plan id is empty")
 	}
 
-	val, err = mconfig.Get("micro.billing.max_included_services")
+	val, err = mconfig.Get("trmnl.billing.max_included_services")
 	if err != nil {
 		log.Warnf("Can't load max included services: %v", err)
 	}
 	maxIncludedServices := val.Int(10)
 
-	val, err = mconfig.Get("micro.billing.report")
+	val, err = mconfig.Get("trmnl.billing.report")
 	if err != nil {
 		log.Warnf("Can't load report config: %v", err)
 	}
 	doReporting := val.Bool(false)
 
-	val, err = config.Get("micro.payments.stripe.api_key")
+	val, err = config.Get("trmnl.payments.stripe.api_key")
 	if err != nil {
 		log.Warnf("Can't load stripe api key: %v", err)
 	}

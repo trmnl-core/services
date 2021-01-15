@@ -3,11 +3,11 @@ package handler
 import (
 	"time"
 
-	pb "github.com/m3o/services/customers/proto"
-	mt "github.com/m3o/services/internal/test"
-	"github.com/m3o/services/internal/test/fakes"
-	mnspb "github.com/m3o/services/namespaces/proto"
-	mns "github.com/m3o/services/namespaces/proto/fakes"
+	pb "github.com/trmnl-core/services/customers/proto"
+	mt "github.com/trmnl-core/services/internal/test"
+	"github.com/trmnl-core/services/internal/test/fakes"
+	mnspb "github.com/trmnl-core/services/namespaces/proto"
+	mns "github.com/trmnl-core/services/namespaces/proto/fakes"
 	mevents "github.com/micro/micro/v3/service/events"
 	mstore "github.com/micro/micro/v3/service/store"
 	"github.com/micro/micro/v3/service/store/memory"

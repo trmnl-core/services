@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
 
-	customers "github.com/m3o/services/customers/proto"
+	customers "github.com/trmnl-core/services/customers/proto"
 	"github.com/micro/micro/v3/service/config"
 	"github.com/micro/micro/v3/service/config/env"
 	"github.com/micro/micro/v3/service/events"
