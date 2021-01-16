@@ -54,17 +54,17 @@ func NewAlert() *Alert {
 	c := conf{}
 	val, err := config.Get("trmnl.alert")
 	if err != nil {
-		log.Warnf("Error getting config: %v", err)
+		log.Warnf("error getting config: %v", err)
 	}
 	err = val.Scan(&c)
 	if err != nil {
-		log.Warnf("Error scanning config: %v", err)
+		log.Warnf("error scanning config: %v", err)
 	}
 	if c.Slack.Enabled && len(c.Slack.Token) == 0 {
-		log.Errorf("Slack token missing")
+		log.Errorf("slack token missing")
 	}
 	if len(c.GaPropertyID) == 0 {
-		log.Errorf("Google Analytics key (property ID) is missing")
+		log.Errorf("google analytics key (property id) is missing")
 	}
 	log.Infof("Slack enabled: %v", c.Slack.Enabled)
 	if len(c.Slack.Channel) == 0 {
@@ -94,13 +94,11 @@ func (e *Alert) ReportEvent(ctx context.Context, req *alert.ReportEventRequest, 
 		UserID:   req.Event.UserID,
 	}
 	for _, block := range e.config.BlockList {
-		// skip anything in the block list
 		if strings.Contains(ev.Label, block) {
 			return nil
 		}
 	}
-	// ignoring the error intentionally here so we still sends alerts
-	// even if persistence is failing
+
 	err := e.saveEvent(ev)
 	if err != nil {
 		log.Warnf("Error saving event: %v", err)
@@ -109,7 +107,7 @@ func (e *Alert) ReportEvent(ctx context.Context, req *alert.ReportEventRequest, 
 	if err != nil {
 		log.Warnf("Error sending event to google analytics: %v", err)
 	}
-	if e.config.Slack.Enabled && req.Event.Action != "success" { // don't care about success actions right now
+	if e.config.Slack.Enabled && req.Event.Action != "success" {
 		jsond, err := json.MarshalIndent(req.Event, "", "   ")
 		if err != nil {
 			return err
@@ -133,7 +131,6 @@ func (e *Alert) sendToGA(td *event) error {
 
 	cid := td.UserID
 	if len(cid) == 0 {
-		// GA does not seem to accept events without user id so we generate a UUID
 		cid = uuid.New().String()
 	}
 	v := url.Values{
@@ -157,8 +154,6 @@ func (e *Alert) sendToGA(td *event) error {
 	}
 
 	v.Set("ev", fmt.Sprintf("%d", td.Value))
-
-	// NOTE: Google Analytics returns a 200, even if the request is malformed.
 	_, err := http.PostForm("https://www.google-analytics.com/collect", v)
 	return err
 }

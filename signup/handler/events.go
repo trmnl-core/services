@@ -65,8 +65,6 @@ func (s *Signup) processSignupEvents(ch <-chan mevents.Event) {
 }
 
 func (s *Signup) processSignupCompleted(signup *SignupModel) error {
-	// delete all the things
-	// payment method
 	if err := mstore.Delete(prefixPaymentMethod + signup.Email); err != nil {
 		return err
 	}

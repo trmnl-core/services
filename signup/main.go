@@ -1,25 +1,23 @@
 package main
 
 import (
-	"github.com/trmnl-core/services/signup/handler"
 	"github.com/micro/micro/v3/service"
-	mauth "github.com/micro/micro/v3/service/auth/client"
+	"github.com/micro/micro/v3/service/auth/client"
 	log "github.com/micro/micro/v3/service/logger"
+	"github.com/trmnl-core/services/signup/handler"
 )
 
 func main() {
-	// New Service
 	srv := service.New(
 		service.Name("signup"),
 	)
 
-	// passing in auth because the DefaultAuth is the one used to set up the service
-	auth := mauth.NewAuth()
+	auth := client.NewAuth()
 
-	// Register Handler
-	srv.Handle(handler.NewSignup(srv, auth))
+	if err := srv.Handle(handler.NewSignup(srv, auth)); err != nil {
+		log.Fatal(err)
+	}
 
-	// Run service
 	if err := srv.Run(); err != nil {
 		log.Fatal(err)
 	}

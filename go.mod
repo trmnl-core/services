@@ -1,4 +1,4 @@
-module github.com/m3o/services
+module github.com/trmnl-core/services
 
 go 1.14
 

@@ -280,7 +280,7 @@ func authorizeCall(ctx context.Context) error {
 	if !ok {
 		return errors.Unauthorized("customers", "Unauthorized request")
 	}
-	if account.Issuer != "micro" {
+	if account.Issuer != "trmnl" {
 		return errors.Unauthorized("customers", "Unauthorized request")
 	}
 	return nil

@@ -31,7 +31,7 @@ const (
 	updatePrefix = "update/"
 	// format: `update-by-namespace/namespace/2020-09`
 	updateByNamespacePrefix = "update-by-namespace/"
-	defaultNamespace        = "micro"
+	defaultNamespace        = "trmnl"
 )
 
 type Billing struct {

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package xdns;
+
+option go_package = "github.com/trmnl-core/services/xdns/proto;xdns";
+
+service Xdns {
+	rpc EnumerateDNS(EnumerateDNSRequest) returns (EnumerateDNSResponse) {}
+	rpc Status(StatusRequest) returns (StatusResponse) {}
+}
+
+message EnumerateDNSRequest {
+	string id = 1;
+	string domain = 2;
+	Settings settings = 3;
+}
+
+message EnumerateDNSResponse {
+	string status = 1;
+}
+
+message Settings {
+	string brute = 1;
+	string passive = 2;
+	int64 timeout = 3;
+}
+
+message StatusRequest {}
+
+message StatusResponse {
+	string status = 1;
+}
